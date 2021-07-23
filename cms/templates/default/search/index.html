@@ -1,0 +1,42 @@
+{template 'search', 'header'}
+<div class="top">
+  <div id="search" class="ml10">
+    <a href="javascript:;" onclick="setmodel(0, $(this));" {if $typeid==0} class="on"{/if}>全部</a>
+    {php $j=0}
+    {loop $search_model $k=>$v}
+    {php $j++;}
+    <a href="javascript:;" onclick="setmodel({$v['typeid']}, $(this));" {if $j==1 && $typeid==$v['typeid']} class="on"{/if}>{$v['name']}</a>
+    {/loop}
+    {php unset($j);}
+  </div>
+</div>
+<div class="home">
+  <div class="search">
+    <div class="logo"><a href="javascript:;"><img src="{IMG_PATH}search/se_logo.png" width="260" height="70" /></a></div>
+    <form name="search" type="get">
+      <fieldset id="input-container">
+      <input type="hidden" name="m" value="search"/>
+      <input type="hidden" name="c" value="index"/>
+      <input type="hidden" name="a" value="init"/>
+      <input type="hidden" name="typeid" value="0" id="typeid"/>
+      <input type="hidden" name="siteid" value="{$siteid}" id="siteid"/>
+        <div class="text">
+          <input type="text" name="q" id="q" class="input" autocomplete="off">
+        </div>
+        <input type="submit" class="submit" value="搜 索">
+      </fieldset>
+    </form>
+  </div>
+</div>
+{if $setting['suggestenable']}
+<script type="text/javascript" src="{JS_PATH}jquery.suggest.js"></script>
+<script type="text/javascript" src="{JS_PATH}search_suggest.js"></script>
+{/if}
+<script language="JavaScript">
+<!--
+$(document).ready(function(){
+	$("#q").focus();
+}); 
+//-->
+</script>
+{template 'search', 'footer'}

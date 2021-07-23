@@ -1,0 +1,25 @@
+<div class="clearfix"></div>
+<div class="container-box footer">
+	<div>
+		<p>京ICP备0000000号 <a href="{sitemobileurl($siteid)}">手机版</a></p>
+		<p>{pc:content  action="category" siteid="$siteid" catid="6" num="15"}
+{loop $data $r}
+<a href="{$r['url']}" target="_blank">{$r['catname']}</a> |  
+{/loop}
+{/pc}
+<a href="{APP_PATH}index.php?m=link" target="_blank">友情链接</a></p>
+		<p>Powered by <strong><a href="http://www.kaixin100.cn" target="_blank">Kaixin100</a></strong> <em>{get_pc_version(1)}</em> &copy; 2006-{date('Y', SYS_TIME)} <img src="{IMG_PATH}copyright.gif"/>{tjcode()}{php echo runhook('glogal_footer')}</p>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$(".picbig").each(function(i){
+		var cur = $(this).find('.img-wrap').eq(0);
+		var w = cur.width();
+		var h = cur.height();
+	   $(this).find('.img-wrap img').LoadImage(true, w, h,'{IMG_PATH}msg_img/loading.gif');
+	});
+})
+</script>
+</body>
+</html>

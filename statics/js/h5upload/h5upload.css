@@ -1,0 +1,257 @@
+body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+.attachment_show {float:left;color:#000;text-align:center;width:99px;}
+.attachment_show li {line-height:180%;word-wrap:break-word;word-break:break-all;}
+.attachment_show img {padding:3px;margin-bottom:3px;width:60px;height:60px;background:#fff;border:1px solid #dfdfdf;}
+.progressWrapper {
+	overflow: hidden;
+}
+.filename {width:550px;}
+
+.progressContainer {
+	margin: 5px;
+	padding: 4px;
+	border: solid 1px #E8E8E8;
+	background-color: #F7F7F7;
+	overflow: hidden;
+}
+/* Message */
+.message {
+	margin: 1em 0;
+	padding: 10px 20px;
+	border: solid 1px #FFDD99;
+	background-color: #FFFFCC;
+	overflow: hidden;
+}
+/* Error */
+.red {
+	border: solid 1px #B50000;
+	background-color: #FFEBEB;
+}
+
+/* Current */
+.green {
+	border: solid 1px #DDF0DD;
+	background-color: #EBFFEB;
+}
+
+/* Complete */
+.blue {
+	border: solid 1px #CEE2F2;
+}
+
+.progressName {
+	font-size: 8pt;
+	font-weight: 700;
+	color: #555;
+	width: 200px;
+	height: 14px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+	height:26px; line-height:26px; float:left;
+}
+.progresshidden {
+	display:none;
+}
+.progressBarComplete,
+.progressBarInProgress,
+.progressBarComplete,
+.progressBarError {
+	font-size: 0;
+	width: 0%;
+	height: 2px;
+	background-color: blue;
+	margin-top: 2px;
+}
+
+.progressBarComplete {
+	width: 100%;
+	background-color: green;
+	visibility: hidden;
+}
+
+.progressBarError {
+	width: 100%;
+	background-color: red;
+	visibility: hidden;
+}
+
+.progressBarStatus {
+	width: 200px;
+	font-size: 12px;;
+	font-family: Arial;
+	text-align: left;
+	white-space: nowrap; float:left; height:24px; line-height:24px
+}
+
+a.progressCancel {
+	font-size: 0;
+	display: block;
+	height: 16px;
+	width: 16px;
+	background-image: url(images/cross.png);
+	background-repeat: no-repeat;
+	background-position:0 4px ;
+	float: right;
+}
+
+a.progressCancel:hover {
+	background-position:0 bottom ;
+}
+
+/*附件列表样式*/
+.img-wrap{border:1px solid #eee;text-align:center;overflow:hidden;background:#fff}
+.img-wrap a{display:table-cell;vertical-align:middle;text-align:center;*display:block;}
+
+.attachment-list{overflow:hidden}
+.attachment-list li{width:25%;*width:24.99%; overflow:hidden; padding:10px 0; float:left}
+.attachment-list .img-wrap{width:104px;height:94px;overflow:hidden; margin:auto;}
+.attachment-list .img-wrap {text-align:center;overflow:hidden; background:#fff; border:none; position:relative}
+.attachment-list .img-wrap a{display:table-cell;vertical-align:middle;text-align:center;*display:block;border:1px solid #eee;width:101px; height:91px;*font-size:67px;}
+.attachment-list .img-wrap a:hover,.attachment-list .img-wrap a.on{border-color:#d0def1; background:#f3f6fa}
+.attachment-list .img-wrap a.off .icon{background: url(images/off.png) no-repeat; height:17px;bottom:5px;*bottom:3px; right:3px; z-index:100; position: absolute; overflow:hidden; width:98px;}
+.attachment-list .img-wrap a.on .icon{background: url(../../images/msg_bg.png) no-repeat left -249px;width:16px; height:18px;bottom:4px;*bottom:2px; right:3px; z-index:100; position: absolute; overflow:hidden}
+
+.video-list{}
+.video-list li{width:25%;*width:24.99%; padding:10px 0; float:left}
+.video-list .img-wrap{width:104px;height:110px; margin:auto;}
+.video-list .img-wrap {text-align:center; background:#fff; border:none; position:relative}
+.video-list .img-wrap a{display:table-cell;vertical-align:middle;text-align:center;*display:block;border:1px solid #eee;width:101px; height:91px;*font-size:67px;}
+.video-list .img-wrap a:hover,.video-list .img-wrap a.on{border-color:#d0def1; background:#f3f6fa}
+.video-list .img-wrap a.off .icon{background: url(images/off.png) no-repeat; height:17px;bottom:5px;*bottom:3px; right:3px; z-index:100; position: absolute; overflow:hidden; width:98px;}
+.video-list .img-wrap a.on .icon{background: url(../../images/msg_bg.png) no-repeat left -249px;width:16px; height:18px;bottom:4px;*bottom:2px; right:3px; z-index:100; position: absolute; overflow:hidden}
+
+.btn.red:not(.btn-outline).active, .btn.red:not(.btn-outline):active, .btn.red:not(.btn-outline):hover, .open>.btn.red:not(.btn-outline).dropdown-toggle {color: #fff;background-color: #e12330 !important;border-color: #dc1e2b !important;}
+.btn.green:not(.btn-outline).active, .btn.green:not(.btn-outline):active, .btn.green:not(.btn-outline):hover, .open>.btn.green:not(.btn-outline).dropdown-toggle {color: #fff;background-color: #26a1ab !important;border-color: #2499a3 !important;}
+.btn.blue:not(.btn-outline).active, .btn.blue:not(.btn-outline):active, .btn.blue:not(.btn-outline):hover, .open>.btn.blue:not(.btn-outline).dropdown-toggle {color: #fff;background-color: #217ebd !important;border-color: #1f78b5 !important;}
+.btn.yellow:not(.btn-outline).active, .btn.yellow:not(.btn-outline):active, .btn.yellow:not(.btn-outline):hover, .open>.btn.yellow:not(.btn-outline).dropdown-toggle {color: #fff;background-color: #a48334 !important;border-color: #9c7c32 !important;}
+
+.page-body{user-select:none;}
+.files{clear:both}
+.files_row{position:relative;width:9%; float:left; margin-bottom:40px; overflow: hidden; text-align: center;margin:10px 20px; height:150px; background-color:#ddd;border-radius: 5px; border:solid 1px #ddd;}
+.files_row i.name,.files_row i.size{ color: #fff; height: 20px; line-height: 20px;  position:absolute;  left:0;  font-style: normal; width: 100%!important; font-size: 12px;}
+.files_row i.name{ background: #36c6d3; bottom:0px;}
+.files_row i.size{ background: #666;bottom:20px;}
+
+.files_row .checkboxes{visibility:hidden; position:absolute; top:5px; left:5px;}
+.files_row .checkbox {
+  width:25px; height:25px!important; min-height: 25px!important;
+  position:absolute; top:5px; right:5px;
+  background: url(../assets/images/icon_item_hover.png);
+
+}
+.files_row span{display: none;}
+.files_row img{max-width: 100%; }
+.files_row:hover i,.files_row:hover img { opacity: 0.6 }
+.files_row:hover .mar{ background: #333; }
+.files_row:hover .checkbox{ display:block; }
+
+.files_row.on .checkbox {background: url(../assets/images/icon_item_cur.png); display:block; }
+.files_row.on span{display:block; }
+.files_row.on { background: #333; }
+.files_row.on i,.files_row.on img{ opacity: 0.3 }
+.btn-file {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-size: 23px;
+    cursor: pointer;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    direction: ltr;
+}
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+.badge,.input-group-addon,.label,.pager,.progress-bar {
+    text-align: center
+}
+.progress-bar-striped,.progress-striped .progress-bar,.progress-striped .progress-bar-info,.progress-striped .progress-bar-success,.progress-striped .progress-bar-warning {
+    background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-image: -o-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent)
+}
+.progress-bar-striped,.progress-striped .progress-bar,.progress-striped .progress-bar-success {
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent)
+}
+@-webkit-keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0
+    }
+
+    to {
+        background-position: 0 0
+    }
+}
+@keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0
+    }
+
+    to {
+        background-position: 0 0
+    }
+}
+.progress {
+    height: 20px;
+    background-color: #fff;
+    border-radius: 4px
+}
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    background-color: #337ab7;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease
+}
+.progress-bar-striped,.progress-striped .progress-bar {
+    background-size: 40px 40px
+}
+.progress-bar.active,.progress.active .progress-bar {
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    -o-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite
+}
+.progress-bar-success {
+    background-color: #3ea9e2
+}
+.progress-striped .progress-bar-info,.progress-striped .progress-bar-warning {
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent)
+}
+.progress-bar-info {
+    background-color: #659be0
+}
+.progress-bar-warning {
+    background-color: #F1C40F
+}
+.progress-bar-danger {
+    background-color: #ed6b75
+}
+.progress-striped .progress-bar-danger {
+    background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-image: -o-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent)
+}
+.embed-responsive, .modal, .modal-open, .progress {
+    overflow: hidden;
+}
+@media (max-width: 600px) {
+    .files_row {
+        width:32%;
+    }
+    .filename {
+        width:240px;
+    }
+}

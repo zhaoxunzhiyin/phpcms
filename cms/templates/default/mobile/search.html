@@ -1,0 +1,38 @@
+{template "mobile","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+<!--主要内容-->
+<div class="main">
+    {if $total}<div class="search-title">
+        <h2>共<span>{$total}</span>条搜索结果</h2>
+    </div>{/if}
+    <div class="news-list">
+		 	    	<form name="myform" method="get" action="">
+							{loop $forminfos $field $info}
+							{if $info['formtype']=='box'}<!--<li class="bk"></li>-->{/if}
+							<li><label class="control-label">{$info['name']}</label><span class="col-md-9">{$info['form']}</span>{if $info['formtype']=='datetime'}之后{/if}</li>
+							{if $info['formtype']=='box'}<!--<li class="bk"></li>-->{/if}
+							{/loop}
+							<li><label class="control-label">排序方式</label><span class="col-md-9"><select name="orderby" id="orderby" size="1">
+							<option value="a.id DESC" >发布时间 降序</option>
+							<option value="a.id ASC" >发布时间 升序</option>
+							</select></span></li>
+							<li><div class="btn"><input type="submit" value="搜索" class="submit" /></div></li>
+							<input type="hidden" name="m" value="content"> 
+							<input type="hidden" name="c" value="search"> 
+							<input type="hidden" name="a" value="init"> 
+							<input type="hidden" name="catid" value="{$catid}"> 
+							<input type="hidden" name="dosubmit" value="1">
+					</form>
+        <ul>
+            {loop $datas $r}
+            <li>
+                <span class="date">[{date('m-d',$r['inputtime'])}]</span>
+                <a href="{show_url($r['url'], $r['catid'], $r['id'])}">
+                <span class="title_color"{title_style($r['style'])}>{$r['title']}</span></a>
+            </li>
+            {/loop}
+        </ul>
+    </div>
+    <div id="page">{$mobilepages}</div>
+</div>
+{template "mobile","footer"}

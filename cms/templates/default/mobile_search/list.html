@@ -1,0 +1,27 @@
+{template "mobile","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+<!--主要内容-->
+<div class="main">
+    {if $totalnums}<div class="search-title">
+        <h2>共<span>{$totalnums}</span>条搜索结果</h2>
+    </div>{/if}
+    <div class="news-list">
+        <ul>
+            {loop $datas $i $r}
+            <li>
+                <span class="date">[{date('m-d',$r['inputtime'])}]</span>
+                <a href="{show_url($r['url'], $r['catid'], $r['id'])}">
+                <span class="title_color"{title_style($r['style'])}>{$r['title']}</span></a>
+            </li>
+            {/loop}
+			{if empty($datas)}没有找到你搜索的内容哦，请换个词试试！{/if}
+        </ul>
+    </div>
+    <div id="page">{$mobilepages}</div>
+</div>
+<script type="text/javascript" src="{JS_PATH}search_history.js"></script>
+{if $setting['suggestenable']}
+<script type="text/javascript" src="{JS_PATH}jquery.suggest.js"></script>
+<script type="text/javascript" src="{JS_PATH}search_suggest.js"></script>
+{/if}
+{template "mobile","footer"}

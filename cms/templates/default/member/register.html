@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{L('member').L('register')}</title>
+<meta name="description" content="{L('member').L('register')}" />
+<link href="{CSS_PATH}member-login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{JS_PATH}jquery.min.js"></script>
+<script type="text/javascript" src="{CSS_PATH}default/plugin/layer/layer.js"></script>
+<script type="text/javascript" src="{JS_PATH}register.js"></script>
+</head>
+<body>
+<div class="member-container register">
+    <div class="title">{L('member').L('register')}</div>
+    <div class="form">
+        <form method="post" action="" id="myform" onsubmit="return checkall()">
+            <ul>
+                <li><input type="text" class="input" name="username" id="username" placeholder="请输入{L('username')}" value=""></li>
+                <li><input type="password" class="input" name="password" id="password" placeholder="请输入{L('password')}" value=""></li>
+                <li><input type="password" class="input" name="pwdconfirm" id="pwdconfirm" placeholder="请输入{L('cofirmpwd')}" value=""></li>
+                <li><input type="text" class="input" name="email" id="email" placeholder="请输入{L('email')}" value=""></li>
+                <li><input type="text" class="input" name="nickname" id="nickname" placeholder="请输入{L('nickname')}" value=""></li>
+                {if $member_setting['enablcodecheck']=='1' && $sms_setting['sms_enable']!='1'}
+                <li><input type="text" class="input code" name="code" id="code" placeholder="请输入{L('checkcode')}">{form::checkcode('code_img', '5', '20', 126, 40)}</li>
+                {/if}
+                <li><input type="submit" class="submit" name="dosubmit" id="dosubmit" value="{L('agree_protocol_post')}"></li>
+                <li class="last_li"><input type="checkbox" checked="checked" value="1" id="agree" name="agree"/> <a onclick="show_protocol()" href="javascript:void(0);">{L('click_read_protocol')}</a></li>
+            </ul>
+            <div class="bottom">{L('already_have_account')}<a href="{APP_PATH}index.php?m=member&c=index&a=login">{L('login')}</a>&nbsp;&nbsp;&nbsp; <a href="index.php?m=member&c=index&a=public_get_password_type&siteid={$siteid}" target="_blank" style="color:#959595;float: right">{L('forgetpassword')}</a></div>
+        </form>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="footer">
+    <div class="container">
+        <p>Powered by <strong><a href="http://www.kaixin100.cn" target="_blank">Kaixin100</a></strong> <em>v9</em> &copy; 2006-{date('Y', SYS_TIME)} <img src="{IMG_PATH}copyright.gif"/></p>
+    </div>
+</div>
+<script type="text/javascript">
+function checkname(){
+    var res = false;
+    if($("#username").val() != ''){
+        $.ajax({   
+            type: "get",   
+            url: "?m=member&c=index&a=public_checkname_ajax",   
+            dataType: "html",
+            async: false,
+            data: "username="+$('#username').val(), 
+            beforeSend: function(){
+                $("#dosubmit").attr({ disabled: "disabled" });
+            },
+            success: function(msg){  
+            if(msg == '1'){
+                $("#dosubmit").removeAttr("disabled");
+                res = true;
+            }else if(msg == '-1'){
+                layer.msg('{L('username')}已存在', {icon:2,time: 1000});
+            }else if(msg == '0'){
+                layer.msg('{L('username')}格式不正确', {icon:2,time: 1000});
+            }
+            }
+        });
+        return res;
+    }else{
+        layer.msg('{L('username')}不能为空', {icon:2,time: 1000});
+        return res;
+    }           
+}
+function checknickname(){
+    var res = false;
+    if($("#nickname").val() != ''){
+        $.ajax({   
+            type: "get",   
+            url: "?m=member&c=index&a=public_checknickname_ajax",   
+            dataType: "html",
+            async: false,
+            data: "nickname="+$('#nickname').val(), 
+            beforeSend: function(){
+                $("#dosubmit").attr({ disabled: "disabled" });
+            },
+            success: function(msg){  
+            if(msg == '1'){
+                $("#dosubmit").removeAttr("disabled");
+                res = true;
+            }else if(msg == '-1'){
+                layer.msg('{L('nickname')}已存在', {icon:2,time: 1000});
+            }else if(msg == '0'){
+                layer.msg('{L('nickname')}格式不正确', {icon:2,time: 1000});
+            }
+            }
+        });
+        return res;
+    }else{
+        layer.msg('{L('nickname')}不能为空', {icon:2,time: 1000});
+        return res;
+    }           
+}
+function checkemail(){
+     var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/; 
+     var res = false;
+     if(reg.test($("#email").val())){
+      $.ajax({   
+        type: "get",   
+        url: "?m=member&c=index&a=public_checkemail_ajax",   
+        dataType: "html",
+        async: false,    
+        data: "email="+$('#email').val(), 
+        beforeSend: function(){
+             $("#dosubmit").attr({ disabled: "disabled" });
+        },
+        success: function(msg){  
+         if(msg == '1'){
+              $("#dosubmit").removeAttr("disabled");
+              res = true;
+         }else if(msg == '-1'){
+              layer.msg('{L('email')}已存在', {icon:2,time: 1000});
+         }else if(msg == '0'){
+              layer.msg('{L('email')}格式不正确', {icon:2,time: 1000});  
+         }
+        } 
+      });
+       return res;
+     }else{
+          layer.msg('{L('email')}格式不正确', {icon:2,time: 1000});
+          return res;
+     }           
+}
+{if !isset($_GET['modelid']) && !isset($_GET['t']) && !empty($member_setting['showregprotocol'])}
+show_protocol();
+{/if}
+function show_protocol(){
+   layer.open({
+      type: 2,
+      title: '会员注册协议',
+      skin: 'layui-layer-rim', 
+      area: ['550px', '320px'], 
+      content: '?m=member&c=index&a=register&protocol=1'
+    });
+}
+</script>
+</body>
+</html>
