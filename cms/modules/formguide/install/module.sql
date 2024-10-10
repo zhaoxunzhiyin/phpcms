@@ -1,0 +1,2 @@
+INSERT INTO `cms_module` (`module`, `name`, `url`, `iscore`, `version`, `description`, `setting`, `listorder`, `disabled`, `installdate`, `updatedate`) VALUES
+('formguide', '表单向导', 'formguide/', 0, '2.0', 'formguide', '{"allowmultisubmit":"1","interval":"30","allowunreg":"0","mailmessage":"用户向我们提交了表单数据，赶快去看看吧。"}', 0, 0, CURDATE(), CURDATE());
