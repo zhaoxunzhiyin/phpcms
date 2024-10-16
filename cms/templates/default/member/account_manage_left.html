@@ -1,0 +1,12 @@
+<div class="main_left">
+	<dl>
+		<dt> <span class="fa fa-user"></span> {L('account_manage')}</dt>
+		<dd><a href="index.php?m=member&c=index&a=account_manage_info&t=1"{if ROUTE_A=="account_manage_info"} class="left_cur" {/if}>{L('modify').L('memberinfo')}</a></dd>
+		<dd><a href="index.php?m=member&c=index&a=account_manage_avatar&t=1"{if ROUTE_A=="account_manage_avatar"} class="left_cur" {/if}>{L('modify').L('avatar')}</a></dd>
+		{if !empty($memberinfo['encrypt'])}
+		<dd><a href="index.php?m=member&c=index&a=account_manage_password&t=1"{if ROUTE_A=="account_manage_password"} class="left_cur" {/if}>{L('modify').L('email')}/{L('password')}</a></dd>
+		{/if}
+		<dd><a href="index.php?m=member&c=index&a=account_manage_upgrade&t=1"{if ROUTE_A=="account_manage_upgrade"} class="left_cur" {/if}>{L('member').L('allowupgrade')}</a></dd>
+		<dd><a href="index.php?m=member&c=index&a=account_change_mobile&t=1"{if ROUTE_A=="account_change_mobile"} class="left_cur" {/if}>{L('change_mobile')}</a></dd>
+	</dl>
+</div>

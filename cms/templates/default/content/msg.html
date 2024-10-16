@@ -1,0 +1,49 @@
+{template "content","header"}
+<!--网站容器-->
+<div class="container"> 
+    <ul class="page-breadcrumb breadcrumb">
+        <li>
+            <a href="{SITE_URL}">网站首页</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>提示</span>
+        </li>
+    </ul>
+    <div class="portlet light">
+        <div class="portlet-title">
+            <div class="caption">
+                <span class="caption-subject font-green"> 提示信息 </span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row msg-body">
+                <div class="col-md-12 text-center">
+                    {if $mark == 1}
+                    <i class="fa fa-check msg-icon font-green"></i>
+                    {elseif $mark == 2}
+                    <i class="fa fa-info msg-icon"></i>
+                    {else}
+                    <i class="fa fa-close msg-icon"></i>
+                    {/if}
+                    <label class="msg-info">
+                        <label class="msg-title">{$msg}</label>
+                        <p class="msg-url">
+                            {if $url=="close"}
+                            <a href="javascript:void(0);" onClick="window.close();">关闭</a>
+                            {elseif $url}
+                            <a href="{$url}">如果您的浏览器没有自动跳转，请点击这里</a>
+                            <meta http-equiv="refresh" content="{$time}; url={$url}">
+                            {else}
+                            <a href="{$backurl}">[点击返回上一页]</a>
+                            {/if}
+                        </p>
+                    </label>
+                </div>
+                <div class="col-md-6 text-right">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{template "content","footer"}
