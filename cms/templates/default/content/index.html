@@ -1,0 +1,159 @@
+{template "content","header"}
+<!--网站容器-->
+<div class="container"> 
+	<div class="box">
+		<!-- 轮播图 开始 -->
+		<div class="swiper-container banner">
+			<div class="swiper-wrapper">
+			{pc:content action="lists" modelid="1" thumb="1" num="4" order="listorder DESC"}
+        	{loop $data $r}
+				<div class="swiper-slide">
+					<a href="{$r['url']}" target="_blank">
+						<img src="{thumb($r['thumb'],760,395)}" alt="{$r['title']}" title="{$r['title']}" />
+					</a>
+				</div>
+			{/loop}  
+            {/pc}
+			 </div>
+			 <div class="swiper-pagination"></div>
+			 <div class="button-next"></div>
+			 <div class="button-prev"></div>
+		</div>	
+		<!-- 轮播图 结束 -->
+		<div class="content-box top-right">
+			<div class="title">
+				<h2>推荐文章</h2>
+			</div>
+			<ul class="ranking">
+				{pc:content action="hits" modelid="1" num="10" order="views DESC"}
+				{loop $data $r}
+				<li><em>{$n}</em><span class="text-date">{date('m-d',$r['inputtime'])}</span><a href="{$r['url']}" title="{$r['title']}" target="_blank"><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'],36,'')}</span></a></li>
+			   {/loop}
+			   {/pc}
+					
+			</ul>
+		</div>
+		<div class="line"></div>
+		<div class="content-box text-thumbs">
+			<div class="title">
+				<h2>最近更新</h2> 
+			</div>
+			{pc:content action="lists" modelid="1" num="4" order="updatetime DESC"}
+			{loop $data $r}
+					<div class="text-thumb">
+					<a href="{$r['url']}" class="text-thumbl">
+						<img src="{thumb($r['thumb'],250,150)}" alt="{$r['title']}" title="{$r['title']}" />
+					</a>
+					<div class="text-thumbr">
+						<a href="{$r['url']}"><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'],50)}</span></a>
+						<p>{str_cut($r['description'],80)}...</p>
+					</div>
+				</div>
+			{/loop}
+            {/pc}
+				
+		</div>
+
+		<div class="line"></div>
+		<div class="content-box text-list index-50">
+			<div class="title">
+				<h2>新闻中心</h2>
+			</div>
+			<ul>
+			{pc:content action="lists" modelid="1" num="10" order="listorder DESC"}
+			{loop $data $r}
+				<li>
+				<span class="text-date">{date('Y-m-d',$r['inputtime'])}</span>
+				<a href="{$r['url']}" title="{$r['title']}" target="_blank"><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'],160)}</span></a>
+			   </li>
+			{/loop}
+            {/pc}
+			</ul>
+		</div>	
+		<div class="content-box text-list index-50">
+			<div class="title">
+				<h2>软件下载</h2>
+			</div>
+			<ul>
+			{pc:content action="lists" modelid="2" num="10" order="listorder DESC"}
+			{loop $data $r}
+				<li>
+				<span class="text-date">{date('Y-m-d',$r['inputtime'])}</span>
+				<a href="{$r['url']}" title="{$r['title']}" target="_blank"><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'],160)}</span></a>
+			   </li>
+			{/loop}
+            {/pc}
+			</ul>
+		</div>	
+		<div class="line"></div>
+		<div class="advertise">
+			<h1>免费又好用的CMS建站系统!</h1>
+		</div>
+		<div class="line"></div>
+		<div class="content-box img-list">
+			<div class="title">
+				<h2>图文资讯</h2>
+			</div>
+			<ul>
+			{pc:content action="lists" modelid="1" thumb="1" num="8" order="listorder DESC"}
+			{loop $data $r}
+				<li>
+				<a href="{$r['url']}">
+					<i><img src="{thumb($r['thumb'],266,150)}" alt="{$r['title']}" title="{$r['title']}"></i>
+					<p>{str_cut($r['title'],20)}</p>
+				</a>
+			   </li>
+			{/loop}
+            {/pc}	
+			</ul>
+		</div>	
+
+		<div class="line"></div>
+		<div class="content-box tag">
+			<div class="title">
+				<h2>热门标签</h2>
+			</div>
+			<ul>
+			{pc:content action="tag" field="id,siteid,keyword,videonum,searchnums" num="30"}
+			{loop $data $r}
+				<li><a href="{tag_url($r['keyword'],$r['siteid'])}" target="_blank">{$r['keyword']}({$r['videonum']})</a></li>	
+			{/loop}
+			{/pc}
+			</ul>
+		</div>			  		  
+		<div class="line"></div>
+		<div class="content-box link">
+			<div class="title">
+				<h2>友情链接</h2>
+				<span class="title-right"><a href="{APP_PATH}index.php?m=link&c=index&a=register">>>申请友链</a></span>
+			</div>
+			<ul>
+			{pc:link action="lists" typeid="0" siteid="$siteid" linktype="0" order="desc" num="6"}
+			{loop $data $r}
+				<li><a href="{$r['url']}" target="_blank">{$r['name']}</a></li>
+			{/loop}
+			{/pc}
+			</ul>
+		</div>			  
+	</div>
+
+	<script type="text/javascript">
+		var swiper = new Swiper('.swiper-container', {
+			loop : true,
+			centeredSlides: true,
+			autoplay: {
+				delay: 3500,
+				disableOnInteraction: false
+			},
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true
+			},
+			navigation: {
+				nextEl: '.button-next',
+				prevEl: '.button-prev',
+			},
+		});
+	</script>
+</div>
+{template "content","footer"}

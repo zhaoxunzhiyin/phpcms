@@ -1,0 +1,37 @@
+{template "mobile","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+	<!--主要内容-->
+	<div class="main-article">
+		<h1>{$title}</h1>
+		<div class="info">
+		{$inputtime}&nbsp;&nbsp;浏览：<span id="hits"></span>{if $copyfrom}&nbsp;&nbsp;来源：{$copyfrom}{/if}
+		</div>
+		<div class="content">
+			{$content}
+			{if !$remains}<div><a href='{dr_now_url()}&remains=true'>剩余全文</a></div>{/if}
+			<div class="search-pagination">{$pages}</div>
+		</div>
+		<div class="next">
+			<p>上一篇：{if $previous_page}<a href="{show_url($previous_page['url'], $previous_page['catid'], $previous_page['id'])}">{$previous_page['title']}</a>{else}没有了{/if}</p>
+			<p>下一篇：{if $next_page}<a href="{show_url($next_page['url'], $next_page['catid'], $previous_page['id'])}">{$next_page['title']}</a>{else}没有了{/if}</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="article-img">
+		<h3 class="title">【随机内容】</h3>
+		<ul>
+			{pc:content action="hits" catid="$catid" num="10" order="views DESC"}
+			{loop $data $r}
+			<li>
+				{if $r['thumb']}<a href="{show_url($r['url'], $r['catid'], $r['id'])}">
+					<img src="{dr_get_file($r['thumb'])}" alt="{$r['title']}">
+				</a>{/if}
+				<p><a href="{show_url($r['url'], $r['catid'], $r['id'])}">{$r['title']}</a></p>
+				<span>{dr_date($r['updatetime'], 'Y-m-d')}</span>
+			</li>
+			{/loop}
+			{/pc}
+		</ul>
+	</div>
+<script language="JavaScript" src="{APP_PATH}api.php?op=count&id={$id}&modelid={$modelid}"></script>
+{template "mobile","footer"}
