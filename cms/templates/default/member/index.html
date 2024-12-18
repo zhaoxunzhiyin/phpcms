@@ -1,0 +1,64 @@
+{template 'member', 'header'}
+<div class="member_container main">
+    {template 'member', 'left'}
+    <div class="main_right">
+        <div class="tit">
+            <h3>基本资料</h3>
+        </div>
+        <div class="main_cont">
+			<div class="member-center">
+				<div class="member-left">
+					<a href="index.php?m=member&c=index&a=account_manage_avatar&t=1" title="{L('modify').L('avatar')}"><img src="{$avatar}"></a>
+				</div>
+				<div class="member-right">
+					<div class="row">
+						<label>用户名：</label> <font color="{$grouplist[$memberinfo['groupid']]['usernamecolor']}">
+					{if $memberinfo['nickname']} {$memberinfo['nickname']} {else} {$memberinfo['username']}{/if}
+					</font> {if $memberinfo['vip']}<img src="{CSS_PATH}default/images/vip.gif" title="vip用户">{if $memberinfo['overduedate']} {if $memberinfo['overduedate']<SYS_TIME}{L('overdue')}，{/if}{L('overduedate')}：{format::date($memberinfo['overduedate'],1)}{/if}{else}<img src="{CSS_PATH}default/images/vip_expired.gif" title="vip未点亮">{/if}
+						<a href="index.php?m=member&c=index&a=account_manage_info&t=1" class="member-edit"><span class="fa fa-edit"></span>修改资料</a>
+					</div>
+					<div class="row">
+						<label>注册时间：</label> {dr_date($memberinfo['regdate'], null, 'red')}
+					</div>
+					<div class="row">
+						<label>绑定邮箱：</label> {$memberinfo['email']} {if $memberinfo['email_status']}<span class="green">[已验证]</span>{/if}
+					</div>
+					<div class="row">
+						<label>登录次数：</label> {$memberinfo['loginnum']} 次
+					</div>
+					<div class="row">
+						<label>上次登录：</label> {if $memberinfo['lastdate']}{dr_date($memberinfo['lastdate'], 'Y年m月d日 H:i:s', 'red')}{else}无{/if} [ IP地址：{if $memberinfo['lastip']}{$memberinfo['lastip']}{else}无{/if} ] 
+					</div>
+				</div>
+			</div>
+			<div class="member-center">
+				<div class="item">
+					<div class="item-console balance"><span class="fa fa-dollar"></span></div>
+					<cite>{L('account_remain')}</cite>
+					<p>{$memberinfo['amount']}{L('unit_yuan')}</p>
+				</div>
+				<div class="item">
+					<div class="item-console point"><span class="fa fa-database"></span></div>
+					<cite>{L('point')}</cite>
+					<p>{$memberinfo['point']}{L('unit_point')}</p>
+				</div>
+				<div class="item">
+					<div class="item-console grade"><span class="fa fa-sitemap"></span></div>
+					<cite>会员等级</cite>
+					<p>{$memberinfo['groupname']}</p>
+				</div>
+				<div class="item">
+					<div class="item-console experience"><span class="fa fa-diamond"></span></div>
+					<cite>我的经验</cite>
+					<p>{intval($memberinfo['experience'])}点</p>
+				</div>
+				<div class="item">
+					<div class="item-console fans"><span class="fa fa-heart"></span></div>
+					<cite>我的粉丝</cite>
+					<p>{$memberinfo['areaid']}个</p>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+{template 'member', 'footer'}
