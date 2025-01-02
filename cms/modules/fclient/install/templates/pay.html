@@ -1,0 +1,65 @@
+{template 'member', 'header'}
+<link href="{CSS_PATH}dialog.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="{JS_PATH}dialog.js"></script>
+<div class="member_container main">
+    {template 'member', 'left'}
+    <div class="main_right">
+        <div class="tit">
+            <h3>{L('website_pay')}</h3>
+        </div>
+        <div class="main_cont">
+            <form method="post" action="" id="myform" name="myform">
+                {dr_form_hidden()}
+                <table>
+					<tr>
+                        <td width="100">{L('name')}：</td>
+                        <td>{$name}</td>
+                    </tr>
+					<tr>
+                        <td width="100">{L('domain')}：</td>
+                        <td><a href="{$domain}" target="_blank">{$domain}</a></td>
+                    </tr>
+					<tr>
+                        <td width="100">{L('status')}：</td>
+                        <td>{if $status==1}{L('no_check')}{elseif $status==2}{L('check_2')}{elseif $status==3}{L('check_3')}{elseif $status==4}{L('check_4')}{/if} {if $status != 2} <p> {$setting[note]} </p> {/if}</td>
+                    </tr>
+					<tr>
+                        <td width="100">{L('period_time')}：</td>
+                        <td>{if $inputtime}{date('Y-m-d',$inputtime)}{/if} ~ {if $endtime}{date('Y-m-d',$endtime)}{/if}</td>
+                    </tr>
+					<tr>
+                        <td width="100">{L('money')}：</td>
+                        <td>¥{$money}/{L('year')}</td>
+                    </tr>
+					<tr>
+                        <td width="100">{L('website_pay_money')}：</td>
+                        <td>¥{$money}{L('unit_money')}</td>
+                    </tr>
+					<tr>
+                        <td width="100">{L('user_pay_money')}：</td>
+                        <td>¥{$memberinfo['amount']}{L('unit_yuan')}</td>
+                    </tr>
+					<tr>
+                        <td width="100">{L('pay_type')}：</td>
+                        <td>{L('pay_money')}</td>
+                    </tr>
+                    {if $status==4}
+					<tr>
+						<td></td>
+                        <td>{L('not_money')}</td>
+                    </tr>
+					{else}
+                    <tr>
+						<td></td>
+						<td>
+						<input name="forward" type="hidden" value="{HTTP_REFERER}">
+						<input name="id" type="hidden" value="{$id}">
+						<input name="dosubmit" type="submit" id="dosubmit" value="{L('ok_money')}" class="submit"></td>
+					</tr>
+                    {/if}
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+{template 'member', 'footer'}
