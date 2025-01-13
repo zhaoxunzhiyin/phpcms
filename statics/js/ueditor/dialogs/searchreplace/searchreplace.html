@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <script type="text/javascript" src="../internal.js"></script>
+    <style type="text/css">
+        .warpper{ position:relative;width: 380px; height: 100%; margin: 10px auto;}
+        .tabbody{height: 160px;}
+        .tabbody table{width:100%;border-collapse: separate;border-spacing: 3px;}
+        .tabbody .panel{width:373px;height:100%;padding-left: 5px;position: absolute;background-color: #fff;}
+        .tabbody input.int{width: 260px;height: 28px;border: 1px solid #ccc;line-height: 28px;border-radius: 5px;}
+        .tabbody input.btn{padding: 0 10px;text-align: center;line-height: 28px;text-decoration: none;height: 28px;background-color: #fff;border: 1px solid #ccc;border-radius: 5px;margin-right: 10px;}
+        @media (max-width: 340px) {
+            .warpper {
+                width: 320px;
+            }
+            .tabbody .panel {
+                width: 313px;
+            }
+            .tabbody input.int {
+                width: 200px;
+            }
+        }
+        .mt-checkbox,.mt-radio {display: inline-block;position: relative;height: 19px;padding-left: 30px;margin: 0px;cursor: pointer;font-size: 14px;webkit-transition: all .3s;-moz-transition: all .3s;-ms-transition: all .3s;-o-transition: all .3s;transition: all .3s}
+        .mt-checkbox.mt-checkbox-disabled,.mt-checkbox.mt-radio-disabled,.mt-radio.mt-checkbox-disabled,.mt-radio.mt-radio-disabled {opacity: .6;filter: alpha(opacity=60)}.mt-checkbox>input,.mt-radio>input {position: absolute;z-index: -1;opacity: 0;filter: alpha(opacity=0)}.mt-checkbox>span,.mt-radio>span {border: 1px solid transparent;position: absolute;top: 0;left: 0;height: 19px;width: 19px;background: #E6E6E6}
+        .mt-checkbox>span:after,.mt-radio>span:after {content: '';position: absolute;display: none}
+        .input-icon>i,.mt-checkbox-list .mt-checkbox,.mt-checkbox-list .mt-radio,.mt-checkbox>input:checked~span:after,.mt-radio-list .mt-checkbox,.mt-radio-list .mt-radio,.mt-radio>input:checked~span:after {display: block}.mt-checkbox:hover>input:not([disabled])~span,.mt-checkbox>input:focus~span,.mt-radio:hover>input:not([disabled])~span,.mt-radio>input:focus~span {background: #d9d9d9;webkit-transition: all .3s;-moz-transition: all .3s;-ms-transition: all .3s;-o-transition: all .3s;transition: all .3s}.mt-checkbox:hover>input:not([disabled]):checked~span,.mt-checkbox>input:checked~span,.mt-radio:hover>input:not([disabled]):checked~span,.mt-radio>input:checked~span {webkit-transition: all .3s;-moz-transition: all .3s;-ms-transition: all .3s;-o-transition: all .3s;transition: all .3s;background: #d9d9d9}.icon-btn,.icon-btn:hover {-webkit-transition: all .3s ease;-moz-transition: all .3s ease;-ms-transition: all .3s ease;-o-transition: all .3s ease}.mt-checkbox>input:disabled~span,.mt-radio>input:disabled~span {opacity: .6;filter: alpha(opacity=60);pointer-events: none}.icon-btn,.ie8 .icon-btn:hover {filter: none}.mt-checkbox.mt-checkbox-outline:hover>input:not([disabled]):checked~span,.mt-checkbox.mt-checkbox-outline:hover>input:not([disabled])~span,.mt-checkbox.mt-checkbox-outline>input:checked~span,.mt-checkbox.mt-checkbox-outline>input:focus~span,.mt-checkbox.mt-checkbox-outline>span,.mt-checkbox.mt-radio-outline:hover>input:not([disabled]):checked~span,.mt-checkbox.mt-radio-outline:hover>input:not([disabled])~span,.mt-checkbox.mt-radio-outline>input:checked~span,.mt-checkbox.mt-radio-outline>input:focus~span,.mt-checkbox.mt-radio-outline>span,.mt-radio.mt-checkbox-outline:hover>input:not([disabled]):checked~span,.mt-radio.mt-checkbox-outline:hover>input:not([disabled])~span,.mt-radio.mt-checkbox-outline>input:checked~span,.mt-radio.mt-checkbox-outline>input:focus~span,.mt-radio.mt-checkbox-outline>span,.mt-radio.mt-radio-outline:hover>input:not([disabled]):checked~span,.mt-radio.mt-radio-outline:hover>input:not([disabled])~span,.mt-radio.mt-radio-outline>input:checked~span,.mt-radio.mt-radio-outline>input:focus~span,.mt-radio.mt-radio-outline>span {border: 1px solid #d9d9d9;background: 0 0}
+        .mt-radio>span,.timeline .timeline-badge-userpic img {-webkit-border-radius: 50%!important;-moz-border-radius: 50%!important}
+        .mt-radio>span {-ms-border-radius: 50%!important;-o-border-radius: 50%!important;border-radius: 50%!important}
+        .mt-radio>span:after {left: 6px;top: 6px;height: 6px;width: 6px;border-radius: 50%;background: #666}
+        .mt-radio>input:disabled~span:after {background: #666}
+        .mt-checkbox>span:after {left: 6px;top: 3px;width: 5px;height: 10px;border: solid #666;border-width: 0 2px 2px 0;transform: rotate(45deg)}
+        .mt-checkbox>input:disabled~span:after {border-color: #666}
+        .form-inline .mt-checkbox {margin-left: 15px;margin-right: 15px}
+        .mt-checkbox-list,.mt-radio-list {padding: 10px 0}
+        .form-horizontal .form-group .mt-checkbox-list,.form-horizontal .form-group .mt-radio-list {padding-top: 0}
+        .mt-checkbox-inline,.mt-radio-inline {padding: 10px 0}
+        .form-horizontal .form-group .mt-checkbox-inline,.form-horizontal .form-group .mt-radio-inline {padding-top: 8px}
+        .mt-checkbox-inline .mt-checkbox,.mt-checkbox-inline .mt-radio,.mt-radio-inline .mt-checkbox,.mt-radio-inline .mt-radio {display: inline-block;margin-right: 15px}
+        .mt-checkbox-inline .mt-checkbox:last-child,.mt-checkbox-inline .mt-radio:last-child,.mt-radio-inline .mt-checkbox:last-child,.mt-radio-inline .mt-radio:last-child {margin-right: 0}
+    </style>
+</head>
+<body>
+<div class="warpper" id="searchtab">
+    <div id="head" class="tabhead">
+        <span  tabsrc="find" class="focus"><var id="lang_tab_search"></var></span>
+        <span  tabsrc="replace" ><var id="lang_tab_replace"></var></span>
+    </div>
+    <div class="tabbody">
+        <div class="panel" id="find">
+            <table>
+                <tr>
+                    <td width="80"><var id="lang_search1"></var>: </td>
+                    <td><input id="findtxt" type="text" class="int" /></td>
+                </tr>
+                <!--<tr>-->
+
+                    <!--<td colspan="2"><span style="color:red"><var id="lang_searchReg"></var></span></td>-->
+                <!--</tr>-->
+                <tr>
+                    <td><var id="lang_case_sensitive1"></var></td>
+                    <td>
+                        <div class="mt-checkbox-inline"><label class="mt-checkbox mt-checkbox-outline"><input id="matchCase" type="checkbox" /><span></span></label></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input id="nextFindBtn" type="button" class="btn" />
+                        <input id="preFindBtn" type="button" class="btn" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span id="search-msg" style="color:red"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="panel" id="replace">
+            <table>
+                <tr>
+                    <td width="80"><var id="lang_search2"></var>: </td>
+                    <td><input id="findtxt1" type="text" class="int"  /></td>
+                </tr>
+                <!--<tr>-->
+
+                    <!--<td colspan="2"><span style="color:red"><var id="lang_searchReg1"></var></span></td>-->
+                <!--</tr>-->
+                <tr>
+                    <td><var id="lang_replace"></var>: </td>
+                    <td><input id="replacetxt" type="text" class="int" /></td>
+                </tr>
+                <tr>
+                    <td><var id="lang_case_sensitive2"></var></td>
+                    <td>
+                        <div class="mt-checkbox-inline"><label class="mt-checkbox mt-checkbox-outline"><input id="matchCase1" type="checkbox" /><span></span></label></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input id="nextReplaceBtn" type="button" class="btn" />
+                        <input id="preReplaceBtn" type="button" class="btn" />
+                        <input id="repalceBtn" type="button" class="btn" />
+                        <input id="repalceAllBtn" type="button" class="btn" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span id="replace-msg" style="color:red"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="searchreplace.js"></script>
+</body>
+</html>
