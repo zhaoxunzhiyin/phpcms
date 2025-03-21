@@ -1,0 +1,66 @@
+{template 'member', 'header'}
+<script type="text/javascript" src="{JS_PATH}formvalidator.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{JS_PATH}formvalidatorregex.js" charset="UTF-8"></script>
+<script language="JavaScript">
+<!--
+$(function(){
+	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+	$("#nickname").formValidator({onshow:"{L('input').L('nickname')}",onfocus:"{L('nickname').L('between_2_to_20')}"}).inputValidator({min:2,max:20,onerror:"{L('nickname').L('between_2_to_20')}"}).regexValidator({regexp:"ps_username",datatype:"enum",onerror:"{L('nickname').L('format_incorrect')}"}).ajaxValidator({
+	    type : "get",
+		url : "",
+		data :"m=member&c=index&a=public_checknickname_ajax&userid={$memberinfo['userid']}",
+		datatype : "html",
+		async:'false',
+		success : function(data){
+            if( data == "1" ) {
+                return true;
+			} else {
+                return false;
+			}
+		},
+		buttons: $("#dosubmit"),
+		onerror : "{L('already_exist')}",
+		onwait : "{L('connecting_please_wait')}"
+	}).defaultPassed();
+
+	{$formValidator}
+});
+
+//-->
+</script>
+<div class="member_container main">
+{template 'member', 'account_manage_left'}
+  <div class="main_right">
+	<div class="tit"><h3>{L('notice')}</h3></div>
+	<div class="main_cont">
+		<!--<div class="point" id='announcement'>
+			<a href="javascript:hide_element('announcement');" hidefocus="true" class="close"><span>{L('close')}</span></a>
+			<div class="content">
+				<strong class="title">{L('notice')}：</strong>
+				<p>{L('with_star_must_input')}</p>
+			</div>
+		</div>-->
+		<form method="post" action="" id="myform" name="myform">
+		{dr_form_hidden()}
+				<table width="100%" cellspacing="0" class="table_form">
+					<tr>
+						<th width="100">{L('nickname')}</th> 
+						<td><input id="nickname" name="nickname" value="{$memberinfo['nickname']}" type="text" class="input-text" size="30"></td>
+					</tr>
+
+					{loop $forminfos $k $v}
+					<tr>
+						<th width="100">{if $v['isbase']}<font color=red>*</font>{/if} {$v['name']}：{if $v['tips']}<br />({$v['tips']}){/if}</th> 
+						<td>{$v['form']}</td>
+					</tr>
+					{/loop}
+					<tr>
+						<th></th>
+						<td><input name="dosubmit" type="submit" id="dosubmit" value="{L('submit')}" class="submit"></td>
+					</tr>
+				</table>
+			</form>
+	</div>
+  </div>		  
+</div>
+{template 'member', 'footer'}

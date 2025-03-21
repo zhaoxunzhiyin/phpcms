@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>对不起！您所访问的页面不存在或者已删除</title>
+<style type="text/css">
+html,body{width:100%;height:100%;background#fff}
+html{overflow-y:scroll}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,form,fieldset,p,button,input{margin:0;padding:0}
+body,h1,h2,h3,h4,input,button{color:#515151;font-family:'宋体', Arial;font-size:12px}
+body{height:auto;padding-bottom:23px;background:#fff;*word-break:break-all;-ms-word-break:break-all}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,select,p,blockquote,th,td{margin:0;padding:0;}
+body{font-size:12px;}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;}
+fieldset,img{border:0;}
+abbr,acronym{border:0;font-variant: normal;}
+:focus{outline:0;}
+address,button,caption,cite,code,dfn,input,optgroup,option,select,textarea,th,var{font:inherit;}
+del,ins{text-decoration:none;}
+ol,ul,dl{list-style:none;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+a,a:visited{color:#575757;text-decoration:none;}
+a:hover{color:#575757;text-decoration:underline;}
+.errorWp{background: url({IMG_PATH}error.jpg) no-repeat;padding: 55px 50px 76px 405px;width:400px;height:230px;position:relative;margin:90px auto 160px auto;color:#666;line-height:22px;z-index: 0;}
+.err_logo{ position:absolute;bottom:76px;right:50px;text-align:right;}
+.err_tit{font-size:18px;font-family:"微软雅黑";color:#E84E39;line-height:32px;margin-bottom:20px;}
+.err_p1{margin-bottom:4px;}
+.err_p2{margin-bottom:20px;}
+.errorWp a{color:#3F95D5;}
+.err_fg{color:#ccc}
+#ft .ft_logo a{ display:inline-block; vertical-align:middle;}
+</style>
+<script src="{JS_PATH}jquery.min.js"></script>
+</head>
+<body>
+<div class="errorWp">
+  <div class="err_tit">对不起！您所访问的页面不存在或者已删除。</div>
+  <div class="err_p1">页面会在 <span id="closeTime" style="font-family:Arial;font-size:13px;color:#093;font-weight:bold;" href="{siteurl($siteid)}">10</span> 秒后自动跳转，您还可以 <a href="{siteurl($siteid)}">返回首页</a><br />
+    兄弟，做网站一定要经常备份...<br />
+    很抱歉，由于网站空间出现了不可挽回的错误，致使部分数据丢失。<br />
+    {$sitelist[$siteid]['name']}正在紧急恢复中。<br />
+    1、请检查您输入的地址是否正确。<br />
+    2、通过<a href="{siteurl($siteid)}" title="{$sitelist[$siteid]['name']}">{$sitelist[$siteid]['name']}</a>进行浏览。</div>
+  <div class="err_logo"> {$sitelist[$siteid]['name']}<br />
+    <a href="{siteurl($siteid)}" style="color:#333;">{parse_url(siteurl($siteid), PHP_URL_HOST)}</a> </div>
+</div>
+<script type="text/javascript">
+var closeTime = $("#closeTime"), mtime = parseInt(closeTime.text());
+function ok(){
+	window.location.href=closeTime.attr("href");
+}
+window.setTimeout("ok();",mtime+"000");
+$(function(){
+	var closeTime = $("#closeTime"), mtime = parseInt(closeTime.text());
+	setInterval(function(){
+		mtime--;
+		if (mtime < 0) {
+			//window.location.href = closeTime.attr("href");
+		} else {
+			closeTime.text(mtime);
+		}
+	},1000);
+});
+</script>
+</body>
+</html>
