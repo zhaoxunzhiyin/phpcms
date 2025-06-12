@@ -1,0 +1,101 @@
+{template "content","header"}
+<!--网站容器-->
+<div class="container"> 
+		 <div class="main-left box-left">
+		 	<div class="content-box">
+		 		<div class="title">
+		 			<h2>{$CATEGORYS[$catid]['catname']}</h2>
+		 			<span class="title-right">
+		 				当前位置：<a href="{siteurl($siteid)}">首页</a> &gt; {catpos($catid)}搜索</span>
+		 		</div>
+		 	    <div class="content-container">
+		 	    	<form name="myform" method="get" action="">
+						<ul class="search-form">
+							{loop $forminfos $field $info}
+							{if $info['formtype']=='box'}<!--<li class="bk"></li>-->{/if}
+							<li><label class="control-label">{$info['name']}</label><span class="col-md-9">{$info['form']}</span>{if $info['formtype']=='datetime'}之后{/if}</li>
+							{if $info['formtype']=='box'}<!--<li class="bk"></li>-->{/if}
+							{/loop}
+							<li><label class="control-label">排序方式</label><span class="col-md-9"><select name="order" id="order" size="1">
+							<option value="id DESC"{if $params.order=='id DESC'} selected{/if}>ID 降序</option>
+							<option value="id ASC"{if $params.order=='id ASC'} selected{/if}>ID 升序</option>
+							<option value="listorder DESC"{if $params.order=='listorder DESC'} selected{/if}>排序 降序</option>
+							<option value="listorder ASC"{if $params.order=='listorder ASC'} selected{/if}>排序 升序</option>
+							<option value="inputtime DESC"{if $params.order=='inputtime DESC'} selected{/if}>发布时间 降序</option>
+							<option value="inputtime ASC"{if $params.order=='inputtime ASC'} selected{/if}>发布时间 升序</option>
+							<option value="updatetime DESC"{if $params.order=='updatetime DESC'} selected{/if}>更新时间 降序</option>
+							<option value="updatetime ASC"{if $params.order=='updatetime ASC'} selected{/if}>更新时间 升序</option>
+							</select></span></li>
+							<li><div class="btn"><input type="submit" value="搜索" class="submit" /></div></li>
+							<input type="hidden" name="m" value="content"> 
+							<input type="hidden" name="c" value="search"> 
+							<input type="hidden" name="a" value="init"> 
+							<input type="hidden" name="catid" value="{$catid}"> 
+							<input type="hidden" name="dosubmit" value="1">
+						</ul>
+					</form>
+					{if $total}<div class="search-point">共找到符合条件的结果 <strong class="red">{$total}</strong> 条</div>{/if}
+					<ul class="search-list">
+					{loop $datas $r}
+						<div class="news">
+							{if $r['thumb']}<a href="{$r['url']}" class="news-img">
+								<img src="{thumb($r['thumb'],230,150)}" alt="{$r['title']}" title="{$r['title']}" />
+							</a>{/if}
+							<div class="news-right">
+								{if $n<4}<em>顶</em>{/if}
+								<a href="{$r['url']}"><span class="title_color"{title_style($r['style'])}>{$r['title']}</span></a>
+								<p>{str_cut($r['description'],80)}...</p>
+								<p class="green f12 fn">发布时间：{date('Y-m-d H:i',$r['updatetime'])}</p>
+								<div class="news-tags">
+									<a href="{if strpos($CATEGORYS[$r['catid']]['url'],'http://')===false}{$siteurl}{$CATEGORYS[$r['catid']]['url']}{else}{$CATEGORYS[$r['catid']]['url']}{/if}" class="blue f12 fn">{$CATEGORYS[$r['catid']]['catname']}</a>
+								</div>
+							</div>
+						</div>
+					{/loop}
+					</ul>
+					<div id="pages" class="text-c">{$pages}</div>
+		 	    </div>
+		 	</div>
+		  </div>
+		 <div class="main-right">	
+		 	<div class="content-box">
+				<div class="title">
+		 			<h2>频道总排行</h2>
+		 		</div>
+		 	    <ul class="ranking">
+				{pc:content action="hits" catid="$catid" num="10" order="views DESC"}
+				{loop $data $r}
+		 			<li><em>{$n}</em><span class="date">{date('m-d',$r['inputtime'])}</span><a href="{$r['url']}" title="{$r['title']}"><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'], 60, '')}</span></a></li>
+				{/loop}
+				{/pc}
+		 		</ul>		 		
+		 	</div>
+ 		 	<div class="line"></div>
+ 	 	 	<div class="content-box">
+ 	 			<div class="title">
+ 	 	 			<h2>频道本月排行</h2>
+ 	 	 		</div>
+ 				<ul class="comment-list">		
+				{pc:content action="hits" catid="$catid" num="10" order="monthviews DESC"}
+				{loop $data $r}
+ 					<li><a href="{$r['url']}" title="{$r['title']}">{str_cut($r['title'], 60, '')}</a></li>
+				{/loop}
+				{/pc}
+ 				</ul>		 		
+ 	 	 	</div>
+		 	<div class="line"></div>
+	 	 	<div class="content-box">
+	 			<div class="title">
+	 	 			<h2>热门标签</h2>
+	 	 		</div>
+			    <ul class="tag-list">
+				{pc:content action="tag" field="id,siteid,keyword,videonum,searchnums" num="30"}
+				{loop $data $r}
+					<li><a href="{tag_url($r['keyword'],$r['siteid'])}">{$r['keyword']}({$r['videonum']})</a></li>	
+				{/loop}
+				{/pc}
+				</ul>
+	 	 	</div>
+		 </div>
+</div>
+{template "content","footer"}
