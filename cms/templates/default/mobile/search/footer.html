@@ -1,0 +1,43 @@
+<div class="back">
+	<a id="back-top"><img src="{MOBILE_CSS_PATH}default/images/back-top.png" alt="返回顶部" title="返回顶部"></a>
+</div>
+<!--底部导航-->
+<div class="footer-nav">
+	<ul>
+	{pc:content action="category" catid="0" num="10" siteid="$siteid" order="listorder ASC"}
+	{loop $data $r}
+		<li><a href="{list_url($r['url'],$r['catid'])}">{$r['catname']}</a></li>
+	{/loop}
+	{/pc}
+	</ul>	 
+</div>
+<!--网站底部-->
+<footer class="footer">
+   {if sitemobileurl($siteid)}<a href="{sitemobileurl($siteid)}">手机版</a> | {/if}<a href="{siteurl($siteid)}">电脑版</a>
+   <p>Powered by <strong><a href="http://www.kaixin100.cn" target="_blank">Kaixin100</a></strong> <em>{get_pc_version(1)}</em> &copy; 2006-{date('Y', SYS_TIME)} Kaixin100网络工作室</p>
+</footer>
+</div>
+<script>
+$(function() {
+	//先将#back-top隐藏
+	$('#back-top').hide();
+	//当滚动条的垂直位置距顶部100像素一下时，跳转链接出现，否则消失
+	$(window).scroll(function() {
+		if ($(window).scrollTop() > 100) {
+			$('#back-top').fadeIn(1000);
+		} else {
+			$("#back-top").fadeOut(1000);
+		}
+	});
+	//点击跳转链接，滚动条跳到0的位置，页面移动速度是1000
+	$("#back-top").click(function(a) {
+		a.preventDefault();
+		$("html, body").animate({
+			scrollTop: 0
+		}, 1000);
+		return false;
+	})
+})
+</script>
+</body>
+</html>

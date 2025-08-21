@@ -1,0 +1,71 @@
+{template 'search', 'header'}
+<div id="header">
+  <div class="top">
+    <div class="logo fl ml20"><a href="/index.php?m=search"><img src="{IMG_PATH}search/se_logo.png" width="100" height="26" /></a></div>
+    <div id="search" class="fl">
+      <a href="javascript:;" onclick="setmodel(0, $(this),{$siteid}, '{$keyword}');"{if !$typeid} class="on"{/if}>全部</a>
+      {loop $search_model $k=>$v}
+      <a href="javascript:;" onclick="setmodel({$v['typeid']}, $(this),{$siteid}, '{$keyword}');"{if $v['typeid']==$typeid} class="on"{/if}>{$v['name']}</a>
+      {/loop}
+    </div>
+  </div>
+  <div class="head">
+    <form id="myform" name="myform" method="get" action="">
+    <div class="search">
+      <input type="hidden" name="m" value="search"/>
+      <input type="hidden" name="c" value="index"/>
+      <input type="hidden" name="a" value="init"/>
+      <input type="hidden" name="typeid" value="{$typeid}" id="typeid"/>
+      <input type="hidden" name="siteid" value="{$siteid}" id="siteid"/>
+      <div class="text">
+        <input type="text" name="keyword" class="input" id="keyword" value="{$keyword}" autocomplete="off">
+      </div>
+      <input type="submit" class="submit" value="搜 索">
+    </div>
+    </form>
+  </div>
+</div>
+{if $typeid==3}
+<style>
+.photo-channel  { padding:5px 10px 10px}
+.photo-channel .photo-list{ padding:0; overflow:auto; padding-top:10px}
+.photo-channel .photo-list li{ float:left; width:260px; padding:0}
+.photo-channel  .photo-list li .img-wrap{width:260px;height:190px;margin:0 auto;background: url(../images/feitian/pic_bg.png) no-repeat; border:none; margin-bottom:6px}
+.photo-channel  .photo-list li .img-wrap a{*font-size:59px;width:104px; height:86px; padding:1px 5px 5px 1px }
+.photo-channel .photo-list li .img-wrap a:hover{ background:none}
+</style>
+<div class="main">
+<div class="mains photo-channel">
+<div class="bk10"></div>
+    <ul class="photo-list picbig">
+{loop $datas $i $r}
+<li style="width:360px;height:255px;"><a target="_blank" href="{$r['url']}"><img src="{dr_get_file($r['thumb'])}" style="width:350px;height:225px;margin-left:-11px;"></a><div class="img_info"><a class="img_link" href="{$r['url']}" target="_blank" title="{$r['title']}">{dr_keyword_highlight($r['title'], $keyword)}</a></div></li>
+{/loop}
+{if empty($datas)}没有找到你搜索的内容哦，请换个词试试！{/if}
+    </ul>
+  </div>
+  <div id="pages"> {$pages}  <span class="nums" style="margin-left:20px;">找到相关结果约 {$totalnums} 条,（用时{sprintf("%01.2f", $execute_time)} 秒）</span>
+  </div>
+</div>
+{else}
+<div class="main">
+  <div class="list">
+    <ul>
+      {loop $datas $i $r}
+      <li class="res-list">
+<h3 class="res-title ">
+<a href="{$r['url']}" target="_blank">{dr_keyword_highlight($r['title'], $keyword)}</a></h3>
+{if $r['thumb']}<div class="res-rich so-rich-news clearfix"><div class="res-comm-img"><a href="{$r['url']}" target="_blank" data-type="img"><img src="{dr_get_file($r['thumb'])}" width="120" height="75"></a></div>
+<div class="res-comm-con">{$r['description']}<p class="res-linkinfo"><cite>{$r['url']}</cite>{wordtime($r['inputtime'])} ({date('Y-m-d',$r['inputtime'])})</p></div></div>{else}
+<p class="res-desc">　　{$r['description']}</p>
+<p class="res-linkinfo"><cite>{$r['url']}</cite>{wordtime($r['inputtime'])} ({date('Y-m-d',$r['inputtime'])})</p>
+{/if}</li>
+{/loop}
+    {if empty($datas)}没有找到你搜索的内容哦，请换个词试试！{/if}
+    </ul>
+  </div>
+  <div id="pages"> {$pages}  <span class="nums" style="margin-left:20px;">找到相关结果约 {$totalnums} 条,（用时{sprintf("%01.2f", $execute_time)} 秒）</span>
+  </div>
+</div>
+{/if}
+{template 'search', 'footer'}
