@@ -1,0 +1,119 @@
+{template "content","header"}
+<link href="{CSS_PATH}download.css" rel="stylesheet" type="text/css" />
+<!--网站容器-->
+<div class="container"> 
+		 <div class="main-left box-left">
+		 	<div class="content-box">
+		 		<div class="title">
+		 			<h2>{$CATEGORYS[$catid]['catname']}</h2>
+		 			<span class="title-right">
+		 				当前位置：<a href="{siteurl($siteid)}">首页</a> &gt; {catpos($catid)} 正文</span>
+		 		</div>
+		 	    <div class="content-container">
+		 	    	<h1>{$title}</h1>
+		 	    	<div class="content-info">
+		 	    	 <span>更新时间：{$inputtime}</span>
+		 	    	 {if $copyfrom}<span>来源：{$copyfrom}</span>{/if}
+		 	    	 <span>浏览：<span id="hits"></span></span>
+		 	    	</div>
+    	            <div class="down-msg">
+    				  {if $thumb}<img src="{dr_get_file($thumb)}" title="{$title}" alt="{$title}" class="pro_img">{/if}
+    				  <ul>
+    					<li><strong>更新日期:</strong> {$updatetime} </li>
+    					<li><strong>软件大小:</strong> {$filesize} </li>
+    					<li><strong>运行环境:</strong> {$systems} </li>
+    					<li><strong>软件授权:</strong> {$copytype} </li>
+    					<li><strong>软件类型:</strong> {$classtype} </li>
+    					<li><strong>软件语言:</strong> {$language} </li>
+    					<li><strong>评分等级:</strong> {$stars} </li>
+    				  </ul>
+    				 </div>
+    				 <div class="clearfix"></div>
+		 	    	<div class="content">
+		 	    		<h2>软件介绍</h2>
+		 	    		<h2>{$title}</h2>{$content}</div>
+		 	    	<div class="content-tag">
+                    {loop $kws $name $url2}
+                        <a href="{$url2}">{$name}</a>
+                    {/loop}
+			 	    </div>
+		 	    </div>		 		
+		 	</div>
+
+	 	 	<div class="line"></div>
+	 		<div class="content-box down-url">
+	 			<div class="title">
+	 				<h2>下载地址</h2>
+	 			</div>
+	 			<ul>
+				{loop $downfile $r}
+	 			   <li>{$r}</li>
+	 			{/loop}
+	 			{loop $downfiles $r}
+	 			   <li>{$r}</li>
+	 			{/loop}
+	 			</ul>
+	 		</div>
+		 	{pc:content action="relation" relation="$relation" id="$id" catid="$catid" num="5" keywords="$rs['keywords']"}
+            {if $data}
+		 	<div class="line"></div>
+			<div class="content-box text-list">
+				<div class="title">
+					<h2>相关软件</h2>
+				</div>
+				<ul>
+				{loop $data $r}
+					<li>
+				   	<span class="date">{date('Y-m-d',$r['inputtime'])}</span>
+				   	<a href="{$r['url']}" title="{$r['title']}"><span class="title_color"{title_style($r['style'])}>{$r['title']}</span></a>
+				   </li>
+				{/loop}
+				</ul>
+			</div>
+			{/if}
+          {/pc}
+		  </div>
+		  
+		 <div class="main-right">	
+		 	<div class="content-box">
+				<div class="title">
+		 			<h2>频道总排行</h2>
+		 		</div>
+		 	    <ul class="ranking">
+				{pc:content action="hits" catid="$catid" num="10" order="views DESC"}
+				{loop $data $r}
+		 			<li><em>{$n}</em><span class="date">{date('m-d',$r['inputtime'])}</span><a href="{$r['url']}" title="{$r['title']}"><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'], 60, '')}</span></a></li>
+				{/loop}
+				{/pc}
+		 		</ul>		 		
+		 	</div>
+ 		 	<div class="line"></div>
+ 	 	 	<div class="content-box">
+ 	 			<div class="title">
+ 	 	 			<h2>频道本月排行</h2>
+ 	 	 		</div>
+ 				<ul class="comment-list">		
+				{pc:content action="hits" catid="$catid" num="10" order="monthviews DESC"}
+				{loop $data $r}
+ 					<li><a href="{$r['url']}" title="{$r['title']}">{str_cut($r['title'], 60, '')}</a></li>
+				{/loop}
+				{/pc}
+ 				</ul>		 		
+ 	 	 	</div>
+		 	<div class="line"></div>
+	 	 	<div class="content-box">
+	 			<div class="title">
+	 	 			<h2>热门标签</h2>
+	 	 		</div>
+			    <ul class="tag-list">
+				{pc:content action="tag" field="id,siteid,keyword,videonum,searchnums" num="30"}
+				{loop $data $r}
+					<li><a href="{tag_url($r['keyword'],$r['siteid'])}">{$r['keyword']}({$r['videonum']})</a></li>	
+				{/loop}
+				{/pc}
+				</ul>
+	 	 	</div>
+		 </div>
+</div>
+<script language="JavaScript" src="{APP_PATH}api.php?op=count&id={$id}&modelid={$modelid}"></script>
+{template "content","footer"}

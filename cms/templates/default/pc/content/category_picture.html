@@ -1,0 +1,29 @@
+{template "content","header"}
+<!--网站容器-->
+<div class="container"> 
+	<div class="line"></div>
+	{loop $array_child $cid}
+	{php $chlidids = explode(',', $CATEGORYS[$cid]['arrchildid'])}
+	{php unset($chlidids[array_search($cid, $chlidids)]);$n=1;}
+			<div class="content-box img-list">
+		<div class="title">
+			<h2>{$CATEGORYS[$cid]['catname']}</h2>
+			<span class="title-right"><a href="{$CATEGORYS[$cid]['url']}">>>更多</a></span>
+		</div>
+		<ul>
+		{pc:content action="lists" catid="$cid" num="10" order="id DESC"}
+		{loop $data $r}
+			<li>
+				<a href="{$r['url']}">
+					<i><img src="{thumb($r['thumb'],266,150)}" alt="{$r['title']}" title="{$r['title']}"></i>
+					<p><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'], 28, '')}</span></p>
+				</a>
+			</li>
+		{/loop}
+		{/pc}
+		</ul>
+	</div>
+	<div class="line"></div>
+	{/loop}
+</div>
+{template "content","footer"}
