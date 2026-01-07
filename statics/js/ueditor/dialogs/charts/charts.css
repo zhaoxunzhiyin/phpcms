@@ -1,0 +1,232 @@
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    -webkit-border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+    -webkit-border-radius: 4px;
+    -webkit-box-shadow: inset 0px 0px 8px rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.05);
+    width: 3px;
+    height: 3px;
+    border:1px solid rgba(255,255,255,0.05);
+}
+::-webkit-scrollbar-track-piece {
+    -webkit-border-radius: 4px;
+    background-color: rgba(234, 234, 234, 1);
+    -webkit-box-shadow: inset 0px 0px 6px rgba(0,0,0,0.15);
+    width: 3px;
+    height: 3px;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 4px;
+    background-color: rgba(244, 244, 244, 1);
+    -webkit-box-shadow: inset 1px 1px 15px rgba(255,255,255,0.8),
+    inset 1px 1px 0px rgba(255,255,255,0.8);
+    border:1px solid rgba(0,0,0,0.1);
+}
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+    background-color: rgba(204, 204, 204, 1);
+    -webkit-box-shadow: none;
+    border:1px solid rgba(0,0,0,0.1);
+}
+::-webkit-scrollbar-track:window-inactive,
+::-webkit-scrollbar-track-piece:window-inactive,
+::-webkit-scrollbar-thumb:window-inactive {
+    -webkit-box-shadow:none;
+}
+::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+}
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+::-webkit-resizer{
+    background-color: transparent;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.main {
+    width: 100%;
+    overflow: hidden;
+}
+
+.table-view {
+    height: 100%;
+    float: left;
+    margin: 20px;
+    width: 40%;
+}
+
+.table-view .table-container {
+    width: 100%;
+    margin-bottom: 50px;
+    overflow: scroll;
+}
+
+.table-view th {
+    padding: 5px 10px;
+    background-color: #F7F7F7;
+}
+
+.table-view td {
+    width: 50px;
+    text-align: center;
+    padding:0;
+}
+
+.table-container input {
+    width: 40px;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+.table-view caption {
+    font-size: 18px;
+    text-align: left;
+}
+
+.charts-view {
+    /*margin-left: 49%!important;*/
+    width: 50%;
+    margin-left: 49%;
+    height: 400px;
+}
+
+.charts-container {
+    border-left: 1px solid #c3c3c3;
+}
+
+.charts-format fieldset {
+    padding-left: 20px;
+    margin-bottom: 50px;
+}
+
+.charts-format legend {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.format-item-container {
+    padding: 20px;
+}
+
+.format-item-container label {
+    display: block;
+    margin: 10px 0;
+}
+
+.charts-format .data-item {
+    border: 1px solid black;
+    outline: none;
+    padding: 2px 3px;
+}
+
+/* 图表类型 */
+
+.charts-type {
+    margin-top: 50px;
+    height: 300px;
+}
+
+.scroll-view {
+    border: 1px solid #c3c3c3;
+    border-left: none;
+    border-right: none;
+    overflow: hidden;
+}
+
+.scroll-container {
+    margin: 20px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.scroll-bed {
+    width: 10000px;
+    _margin-top: 20px;
+    -webkit-transition: margin-left .5s ease;
+    -moz-transition: margin-left .5s ease;
+    transition: margin-left .5s ease;
+}
+
+.view-box {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    margin-right: 20px;
+    border: 2px solid white;
+    line-height: 0;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.view-box img {
+    border: 1px solid #cecece;
+}
+
+.view-box.selected {
+    border-color: #7274A7;
+}
+
+.button-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.button-container a {
+    display: inline-block;
+    width: 100px;
+    height: 25px;
+    line-height: 25px;
+    border: 1px solid #c2ccd1;
+    margin-right: 30px;
+    text-decoration: none;
+    color: black;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.button-container a:HOVER {
+    background: #fcfcfc;
+}
+
+.button-container a:ACTIVE {
+    border-top-color: #c2ccd1;
+    box-shadow:inset 0 5px 4px -4px rgba(49, 49, 64, 0.1);
+}
+
+.edui-charts-not-data {
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+
+.mt-checkbox,.mt-radio {display: inline-block;position: relative;height: 19px;padding-left: 30px;margin: 0px;cursor: pointer;font-size: 14px;webkit-transition: all .3s;-moz-transition: all .3s;-ms-transition: all .3s;-o-transition: all .3s;transition: all .3s}
+.mt-checkbox.mt-checkbox-disabled,.mt-checkbox.mt-radio-disabled,.mt-radio.mt-checkbox-disabled,.mt-radio.mt-radio-disabled {opacity: .6;filter: alpha(opacity=60)}.mt-checkbox>input,.mt-radio>input {position: absolute;z-index: -1;opacity: 0;filter: alpha(opacity=0)}.mt-checkbox>span,.mt-radio>span {border: 1px solid transparent;position: absolute;top: 0;left: 0;height: 19px;width: 19px;background: #E6E6E6}
+.mt-checkbox>span:after,.mt-radio>span:after {content: '';position: absolute;display: none}
+.input-icon>i,.mt-checkbox-list .mt-checkbox,.mt-checkbox-list .mt-radio,.mt-checkbox>input:checked~span:after,.mt-radio-list .mt-checkbox,.mt-radio-list .mt-radio,.mt-radio>input:checked~span:after {display: block}.mt-checkbox:hover>input:not([disabled])~span,.mt-checkbox>input:focus~span,.mt-radio:hover>input:not([disabled])~span,.mt-radio>input:focus~span {background: #d9d9d9;webkit-transition: all .3s;-moz-transition: all .3s;-ms-transition: all .3s;-o-transition: all .3s;transition: all .3s}.mt-checkbox:hover>input:not([disabled]):checked~span,.mt-checkbox>input:checked~span,.mt-radio:hover>input:not([disabled]):checked~span,.mt-radio>input:checked~span {webkit-transition: all .3s;-moz-transition: all .3s;-ms-transition: all .3s;-o-transition: all .3s;transition: all .3s;background: #d9d9d9}.icon-btn,.icon-btn:hover {-webkit-transition: all .3s ease;-moz-transition: all .3s ease;-ms-transition: all .3s ease;-o-transition: all .3s ease}.mt-checkbox>input:disabled~span,.mt-radio>input:disabled~span {opacity: .6;filter: alpha(opacity=60);pointer-events: none}.icon-btn,.ie8 .icon-btn:hover {filter: none}.mt-checkbox.mt-checkbox-outline:hover>input:not([disabled]):checked~span,.mt-checkbox.mt-checkbox-outline:hover>input:not([disabled])~span,.mt-checkbox.mt-checkbox-outline>input:checked~span,.mt-checkbox.mt-checkbox-outline>input:focus~span,.mt-checkbox.mt-checkbox-outline>span,.mt-checkbox.mt-radio-outline:hover>input:not([disabled]):checked~span,.mt-checkbox.mt-radio-outline:hover>input:not([disabled])~span,.mt-checkbox.mt-radio-outline>input:checked~span,.mt-checkbox.mt-radio-outline>input:focus~span,.mt-checkbox.mt-radio-outline>span,.mt-radio.mt-checkbox-outline:hover>input:not([disabled]):checked~span,.mt-radio.mt-checkbox-outline:hover>input:not([disabled])~span,.mt-radio.mt-checkbox-outline>input:checked~span,.mt-radio.mt-checkbox-outline>input:focus~span,.mt-radio.mt-checkbox-outline>span,.mt-radio.mt-radio-outline:hover>input:not([disabled]):checked~span,.mt-radio.mt-radio-outline:hover>input:not([disabled])~span,.mt-radio.mt-radio-outline>input:checked~span,.mt-radio.mt-radio-outline>input:focus~span,.mt-radio.mt-radio-outline>span {border: 1px solid #d9d9d9;background: 0 0}
+.mt-radio>span,.timeline .timeline-badge-userpic img {-webkit-border-radius: 50%!important;-moz-border-radius: 50%!important}
+.mt-radio>span {-ms-border-radius: 50%!important;-o-border-radius: 50%!important;border-radius: 50%!important}
+.mt-radio>span:after {left: 6px;top: 6px;height: 6px;width: 6px;border-radius: 50%;background: #666}
+.mt-radio>input:disabled~span:after {background: #666}
+.mt-checkbox>span:after {left: 6px;top: 3px;width: 5px;height: 10px;border: solid #666;border-width: 0 2px 2px 0;transform: rotate(45deg)}
+.mt-checkbox>input:disabled~span:after {border-color: #666}
+.form-inline .mt-checkbox {margin-left: 15px;margin-right: 15px}
+.mt-checkbox-list,.mt-radio-list {padding: 10px 0}
+.form-horizontal .form-group .mt-checkbox-list,.form-horizontal .form-group .mt-radio-list {padding-top: 0}
+.mt-checkbox-inline,.mt-radio-inline {padding: 10px 0}
+.form-horizontal .form-group .mt-checkbox-inline,.form-horizontal .form-group .mt-radio-inline {padding-top: 8px}
+.mt-checkbox-inline .mt-checkbox,.mt-checkbox-inline .mt-radio,.mt-radio-inline .mt-checkbox,.mt-radio-inline .mt-radio {display: inline-block;margin-right: 15px}
+.mt-checkbox-inline .mt-checkbox:last-child,.mt-checkbox-inline .mt-radio:last-child,.mt-radio-inline .mt-checkbox:last-child,.mt-radio-inline .mt-radio:last-child {margin-right: 0}
