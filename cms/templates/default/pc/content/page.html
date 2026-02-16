@@ -1,0 +1,40 @@
+{template "content","header"}
+<!--网站容器-->
+<div class="container"> 
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <a href="{SITE_URL}">首页</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    {dr_catpos($catid, '', true, '<li> <a href="[url]">[name]</a> '.PHP_EOL.'<i class="fa fa-circle"></i> </li>'.PHP_EOL.'')}
+                    <li>
+                        <span>详情</span>
+                    </li>
+                </ul>
+	<div class="page">
+		<div class="content-box page-left">
+            <div class="title">
+                <h2>{$parent['catname']}</h2>
+            </div>
+			<ul>
+                <!--{loop $arrchild_arr $cid}
+                    <li><a href="{$CATEGORYS[$cid]['url']}"{if $catid==$cid} class="page-current"{/if}>{$CATEGORYS[$cid]['catname']}</a></li>
+                {/loop}-->
+                <!--循环同级栏目或者子栏目-->
+                {loop $related $c}
+                <li><a href="{$c['url']}" {if $c['catid']==$catid} class="page-current"{/if}>{$c['catname']}</a></li>
+                {/loop}
+			</ul>
+		</div>
+		<div class="content-box page-right"> 
+			<div class="title">
+				<h2>{$title}</h2>
+			</div>
+		   <div class="page-content">
+		        <h1>{$title}</h1>
+	 	    	<div class="content">{$content}</div>
+		   </div>
+		</div>
+	</div>
+</div>
+{template "content","footer"}

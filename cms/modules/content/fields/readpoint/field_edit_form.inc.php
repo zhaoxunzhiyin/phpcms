@@ -1,0 +1,1 @@
+<?php defined('IN_CMS') or exit('No permission resources.');?> 

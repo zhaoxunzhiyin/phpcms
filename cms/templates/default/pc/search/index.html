@@ -1,0 +1,35 @@
+{template 'search', 'header'}
+<div class="top">
+  <div id="search" class="ml10">
+    <a href="javascript:;" onclick="setmodel(0, $(this));" {if !$params['typeid']} class="on"{/if}>全部</a>
+    {loop $search_model $k=>$v}
+    <a href="javascript:;" onclick="setmodel({$v['typeid']}, $(this));" {if $v['typeid']==$params['typeid']} class="on"{/if}>{$v['name']}</a>
+    {/loop}
+  </div>
+</div>
+<div class="home">
+  <div class="search">
+    <div class="logo"><a href="javascript:;"><img src="{IMG_PATH}search/se_logo.png" width="260" height="70" /></a></div>
+    <form id="myform" name="myform" method="get" action="">
+      <fieldset id="input-container">
+      <input type="hidden" name="m" value="search"/>
+      <input type="hidden" name="c" value="index"/>
+      <input type="hidden" name="a" value="init"/>
+      <input type="hidden" name="typeid" value="{intval($params['typeid'])}" id="typeid"/>
+      <input type="hidden" name="siteid" value="{$siteid}" id="siteid"/>
+        <div class="text">
+          <input type="text" name="keyword" id="keyword" class="input" autocomplete="off">
+        </div>
+        <input type="submit" class="submit" value="搜 索">
+      </fieldset>
+    </form>
+  </div>
+</div>
+<script language="JavaScript">
+<!--
+$(document).ready(function(){
+	$("#keyword").focus();
+}); 
+//-->
+</script>
+{template 'search', 'footer'}

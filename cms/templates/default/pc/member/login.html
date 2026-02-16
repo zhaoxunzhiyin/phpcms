@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{L('member').L('login')}</title>
+<meta name="description" content="{L('member').L('login')}" />
+<link href="{CSS_PATH}member-login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{JS_PATH}Dialog/main.js"></script>
+<script type="text/javascript" src="{JS_PATH}jquery.min.js"></script>
+<script type="text/javascript" src="{JS_PATH}member_common.js"></script>
+</head>
+<body>
+<div class="member-container login">
+    <div class="title">{L('member').L('login')}</div>
+    <div class="form">
+        <form action="" method="post">
+        {dr_form_hidden()}
+        <input type="hidden" name="forward" id="forward" value="{$forward}">
+            <ul>
+                <li><input type="text" class="input" name="username" id="username" placeholder="请输入{L('username')}" required value=""></li>                 
+                <li><input type="password" class="input"  name="password" id="password" placeholder="请输入{L('password')}" required  value=""></li>
+                {if $member_setting['login']['code'] && $sms_setting['sms_enable']!='1'}
+                <li><input type="text" class="input code" required name="code" placeholder="请输入{L('checkcode')}">{form::checkcode('code_img', '5', '20', 126, 40)}</li>
+                {/if}
+                <li class="last_li"><input type="submit" class="submit" name="dosubmit" value="{L('login')}"></li>
+            </ul>
+            <div class="other_login">
+            {if $setting['qq_appkey'] || $setting['qq_appid']}
+                <a href="javascript:;" onclick="show_login('qq');return false;" class="qq" title="QQ登录"><img src="{IMG_PATH}member/qq_login.png" ></a>
+            {/if}
+            {if $setting['sina_akey'] || $setting['sina_skey']}
+                <a href="javascript:;" onclick="show_login('sina');return false;" class="weibo" title="微博登录"><img src="{IMG_PATH}member/weibo_login.png" ></a>
+            {/if}
+            </div>
+            <div class="bottom">{L('no_account')}<a href="{APP_PATH}index.php?m=member&c=index&a=register&siteid={$siteid}">{L('immediately').L('register')}</a>&nbsp;&nbsp;&nbsp; <a href="index.php?m=member&c=index&a=public_get_password_type&siteid={$siteid}" style="color:#959595;float: right">{L('forgetpassword')}</a></div>
+         </form>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="footer">
+    <div class="container">
+        <p>Powered by <strong><a href="http://www.kaixin100.cn" target="_blank">Kaixin100</a></strong> <em>{get_pc_version(1)}</em> &copy; 2006-{date('Y', SYS_TIME)} <img src="{IMG_PATH}copyright.gif"/></p>
+    </div>
+</div>
+<script language="JavaScript">
+<!--
+    function show_login(site) {
+        if(site == 'sina') {
+            var diag = new Dialog({
+                id:'protocoliframe',
+                title:'{L('sina_login')}',
+                url:'index.php?m=member&c=index&a=public_sina_login',
+                width:500,
+                height:310,
+                modal:true
+            });
+            diag.cancelText = '{L('close')}';
+            diag.onCancel=function() {
+                $DW.close();
+            };
+            diag.show();
+        } else if(site == 'qq') {
+            redirect('index.php?m=member&c=index&a=public_qq_login');
+        }
+    }
+//-->
+</script>
+</body>
+</html>

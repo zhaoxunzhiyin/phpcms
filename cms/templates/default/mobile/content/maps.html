@@ -1,0 +1,16 @@
+{template "content","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+<div class="wrap">
+   <div class="adds" id="hd">{$SEO['site_title']} - 导航</div>
+   <div class="cts">
+	{pc:content action="category" catid="0" num="25" siteid="$siteid" order="listorder ASC"}
+  {php $i=1}
+  {loop $data $r}
+  <a href="{list_url($r['url'], $r['catid'])}">{$r['catname']}</a>
+  {if $i%4==0}<br />{/if}
+  {php $i++}
+  {/loop}
+  {/pc}
+   </div>
+</div>
+{template "content","footer"}

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>{L('member','','member').L('manage_center')}</title>
+<link rel="stylesheet" href="{JS_PATH}layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="{CSS_PATH}bootstrap/css/bootstrap.min.css" media="all" />
+<link href="{CSS_PATH}font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="{CSS_PATH}default/css/member-index.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="{JS_PATH}Dialog/main.js"></script>
+<script src="{CSS_PATH}bootstrap/js/bootstrap.min.js"></script>
+<script src="{JS_PATH}cms.js" type="text/javascript"></script>
+<link href='<?php echo CSS_PATH?>bootstrap-tagsinput.css' rel='stylesheet' type='text/css' />
+<script src='<?php echo JS_PATH?>bootstrap-tagsinput.min.js' type='text/javascript'></script>
+<script language="javascript" type="text/javascript" src="{JS_PATH}layer/layer.js"></script>
+<script type="text/javascript" src="{JS_PATH}member_common.js"></script>
+{if isset($show_validator)}
+<script type="text/javascript" src="{JS_PATH}formvalidator.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{JS_PATH}formvalidatorregex.js" charset="UTF-8"></script>
+{/if}
+</head>
+<body>
+<div class="container_box">
+			<div class="member_container head">
+			  <div class="right"><a href="{$siteinfo['domain']}"><span class="fa fa-home"></span> {L('index')}</a></div>
+			  {L('hellow')} {get_nickname()}，<a href="{APP_PATH}index.php?m=member&c=index&a=logout">{L('logout')}</a>
+			</div>
+		</div>
+		<div class="nav">
+		   <div class="member_container">
+		   {loop $menu $k $v}
+					{if $v['isurl']}
+						<a href="{$v['url']}" target="_blank"><span>{L($v['name'], '', 'member_menu')}</span></a>
+					{else}
+						<a href="index.php?m={$v['m']}&c={$v['c']}&a={$v['a']}&{$v['data']}" {if $k==$_GET['t']}class="current"{/if}><span>{L($v['name'], '', 'member_menu')}</span></a>
+					{/if}
+				{/loop}
+		   </div>
+		</div>

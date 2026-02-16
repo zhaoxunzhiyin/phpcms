@@ -1,0 +1,168 @@
+{template "content","header"}
+<!--网站容器-->
+<div class="container"> 
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <a href="{SITE_URL}">网站首页</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    {dr_catpos($catid, '', true, '<li> <a href="[url]">[name]</a> <i class="fa fa-circle"></i> </li>')}
+                    <li>
+                        <span>{$title}</span>
+                    </li>
+                </ul>
+		 <div class="main-left box-left">
+		 	<div class="content-box">
+		 		<div class="title">
+		 			<h2>{$CATEGORYS[$catid]['catname']}</h2>
+		 			<!--<span class="title-right">
+		 				当前位置：<a href="{siteurl($siteid)}">首页</a> &gt; {catpos($catid)} 正文</span>-->
+		 		</div>
+		 	    <div class="content-container">
+		 	    	<h1>{$title}</h1>
+		 	    	<div class="content-info">
+		 	    	 <span>更新时间：{$inputtime}</span>
+		 	    	 {if $copyfrom}<span>来源：{$copyfrom}</span>{/if}
+		 	    	 <span>浏览：<span id="hits"></span></span>
+		 	    	</div>
+		 	    	<div class="content">{rndstring(dr_url_jump($content))}</div>
+		 	    	<div class="search-pagination">{$pages}</div>
+		 	    	<div class="content-tag">
+                        {loop $kws $name $url2}
+                            <a href="{$url2}">{$name}</a>
+                        {/loop}
+		 	    	</div>
+ 	    			<div class="operate">
+	 	    			<a href="javascript:;" onclick="add_favorite('{addslashes($title)}');" id="favorite">收藏</a>
+	 	    			<a href="javascript:;" onClick="window.print();" class="print">打印</a>
+ 	    			</div>
+ 	    			
+ 	    	        <div class="pre-next">		
+ 	    			  <p>上一篇：{if $previous_page}<a href="{$previous_page['url']}">{$previous_page['title']}</a>{else}没有了{/if}</p>
+ 	    			  <p>下一篇：{if $next_page}<a href="{$next_page['url']}">{$next_page['title']}</a>{else}没有了{/if}</p>
+ 	    			</div>
+		 	    </div>
+		 	</div>
+			{pc:content action="relation" relation="$relation" id="$id" catid="$catid" num="5" keywords="$rs['keywords']"}
+              {if $data}
+		 	<div class="line"></div>
+			<div class="content-box text-list">
+				<div class="title">
+					<h2>相关内容</h2>
+				</div>
+				<ul>
+				{loop $data $r}
+					<li>
+				   	<span class="date">{date('Y-m-d',$r['inputtime'])}</span>
+				   	<a href="{$r['url']}" title="{$r['title']}" target="_blank"><span class="title_color"{title_style($r['style'])}>{$r['title']}</span></a>
+				   </li>
+				{/loop}
+				</ul>
+			</div>
+			{/if}
+          {/pc}
+		 	<div class="line"></div>
+      {if $allow_comment && module_exists('comment')}
+      <iframe src="{APP_PATH}index.php?m=comment&c=index&a=init&commentid={id_encode("content_$catid",$id,$siteid)}&iframe=1" width="100%" height="100%" id="comment_iframe" frameborder="0" scrolling="no"></iframe>
+		 	<div class="line"></div>
+		 	<div class="content-box text-list">
+				<div class="title">
+					<h2>评论排行</h2>
+				</div>
+				 {pc:comment action="bang" siteid="$siteid"}
+            	<ul>
+				{loop $data $r}
+                	<li><a href="{$r['url']}" target="_blank">{str_cut($r['title'], 40)}</a><span>({$r['total']})</span></li>
+					{/loop}
+                </ul>
+				{/pc}
+		 	</div>
+        {/if}
+		  </div>
+		 <div class="main-right">	
+		 	<div class="content-box">
+				<div class="title">
+		 			<h2>频道总排行</h2>
+		 		</div>
+		 	    <ul class="ranking">
+				{pc:content action="hits" catid="$catid" num="10" order="views DESC"}
+				{loop $data $r}
+		 			<li><em>{$n}</em><span class="date">{date('m-d',$r['inputtime'])}</span><a href="{$r['url']}" title="{$r['title']}"><span class="title_color"{title_style($r['style'], 1)}>{str_cut($r['title'], 60, '')}</span></a></li>
+				{/loop}
+				{/pc}
+		 		</ul>		 		
+		 	</div>
+ 		 	<div class="line"></div>
+ 	 	 	<div class="content-box">
+ 	 			<div class="title">
+ 	 	 			<h2>频道本月排行</h2>
+ 	 	 		</div>
+ 				<ul class="comment-list">		
+				{pc:content action="hits" catid="$catid" num="10" order="monthviews DESC"}
+				{loop $data $r}
+ 					<li><a href="{$r['url']}" title="{$r['title']}"><span class="title_color"{title_style($r['style'], 1)}>{str_cut($r['title'], 60, '')}</span></a></li>
+				{/loop}
+				{/pc}
+ 				</ul>		 		
+ 	 	 	</div>
+		 	<div class="line"></div>
+	 	 	<div class="content-box">
+	 			<div class="title">
+	 	 			<h2>热门标签</h2>
+	 	 		</div>
+			    <ul class="tag-list">
+				{pc:content action="tag" field="id,siteid,keyword,videonum,searchnums" num="30"}
+				{loop $data $r}
+					<li><a href="{tag_url($r['keyword'],$r['siteid'])}">{$r['keyword']}({$r['videonum']})</a></li>	
+				{/loop}
+				{/pc}
+				</ul>
+	 	 	</div>
+		 </div>
+</div>
+<script type="text/javascript">
+<!--
+	function show_ajax(obj) {
+		var keywords = $(obj).text();
+		var offset = $(obj).offset();
+		var jsonitem = '';
+		$.getJSON("{APP_PATH}index.php?m=content&c=index&a=json_list&type=keyword&modelid={$modelid}&id={$id}&keywords="+encodeURIComponent(keywords),
+				function(data){
+				var j = 1;
+				var string = "<div class='point key-float'><div style='position:relative'><div class='arro'></div>";
+				string += "<a href='JavaScript:;' onclick='$(this).parent().parent().remove();' hidefocus='true' class='close'><span>关闭</span></a><div class='contents f12'>";
+				if(data!=0) {
+				  $.each(data, function(i,item){
+					j = i+1;
+					jsonitem += "<a href='"+item.url+"' target='_blank'>"+j+"、"+item.title+"</a><BR>";
+					
+				  });
+					string += jsonitem;
+				} else {
+					string += '没有找到相关的信息！';
+				}
+					string += "</div><span class='o1'></span><span class='o2'></span><span class='o3'></span><span class='o4'></span></div></div>";		
+					$(obj).after(string);
+					$('.key-float').mouseover(
+						function (){
+							$(this).siblings().css({"z-index":0})
+							$(this).css({"z-index":1001});
+						}
+					)
+					$(obj).next().css({ "left": +offset.left-100, "top": +offset.top+$(obj).height()+12});
+				});
+	}
+
+	function add_favorite(title) {
+		$.getJSON('{APP_PATH}api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+			if(data.status==1)	{
+				$("#favorite").html('收藏成功');
+			} else {
+				alert('请登录');
+			}
+		});
+	}
+//-->
+</script>
+<script language="JavaScript" src="{APP_PATH}api.php?op=count&id={$id}&modelid={$modelid}"></script>
+{template "content","footer"}

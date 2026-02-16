@@ -1,0 +1,67 @@
+{template "content","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+	<!--主要内容-->
+	<div class="main-article">
+		<h1>{$title}</h1>
+		<div class="info">
+		{$inputtime}&nbsp;&nbsp;浏览：<span id="hits"></span>{if $copyfrom}&nbsp;&nbsp;来源：{$copyfrom}{/if}
+		</div>
+		<div class="content">
+			{$content}
+			<div class="search-pagination">{$pages}</div>
+		</div>
+		<div class="next">
+			<p>上一篇：{if $previous_page}<a href="{show_url($previous_page['url'], $previous_page['catid'], $previous_page['id'])}">{$previous_page['title']}</a>{else}没有了{/if}</p>
+			<p>下一篇：{if $next_page}<a href="{show_url($next_page['url'], $next_page['catid'], $previous_page['id'])}">{$next_page['title']}</a>{else}没有了{/if}</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="article-img">
+		<h3 class="title">【随机内容】</h3>
+		<ul>
+			{pc:content action="hits" catid="$catid" num="10" order="views DESC"}
+			{loop $data $r}
+			<li>
+				{if $r['thumb']}<a href="{show_url($r['url'], $r['catid'], $r['id'])}">
+					<img src="{dr_get_file($r['thumb'])}" alt="{$r['title']}">
+				</a>{/if}
+				<p><a href="{show_url($r['url'], $r['catid'], $r['id'])}">{$r['title']}</a></p>
+				<span>{dr_date($r['updatetime'], 'Y-m-d')}</span>
+			</li>
+			{/loop}
+			{/pc}
+		</ul>
+	</div>
+<script type="text/javascript">
+function show_ajax(obj) {
+    var keywords = $(obj).text();
+    var offset = $(obj).offset();
+    var jsonitem = '';
+    $.getJSON("{APP_PATH}index.php?m=content&c=index&a=json_list&type=keyword&modelid={$modelid}&id={$id}&keywords="+encodeURIComponent(keywords), function(data){
+        var j = 1;
+        var string = "<div style='background-color: #f4f6fa;border-radius: 0.475rem;position: absolute; z-index:1000; width:auto;'>";
+        string += "<a href='JavaScript:;' onclick='$(this).parent().remove();' hidefocus='true' class='close' style='width:16px;height:16px;position:absolute;right:0px;top:-5px;color:#a1a5b7;'><i class='fa fa-close'></i></a><div style='padding:8px 10px; text-indent:0;margin-right:10px;font-weight:normal;'>";
+        if(data!=0) {
+          $.each(data, function(i,item){
+            j = i+1;
+            jsonitem += "<a href='"+item.url+"' target='_blank'>"+j+"、"+item.title+"</a><BR>";
+            
+          });
+            string += jsonitem;
+        } else {
+            string += '没有找到相关的信息！';
+        }
+        string += "</div></div>";        
+        $(obj).after(string);
+        $('.key-float').mouseover(
+            function (){
+                $(this).siblings().css({"z-index":0})
+                $(this).css({"z-index":1001});
+            }
+        )
+        $(obj).next().css({ "left": +offset.left-100});
+    });
+}
+</script>
+<script language="JavaScript" src="{APP_PATH}api.php?op=count&id={$id}&modelid={$modelid}"></script>
+{template "content","footer"}

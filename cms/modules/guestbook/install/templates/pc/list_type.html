@@ -1,0 +1,53 @@
+{template "content","header"}
+{pc:guestbook action="get_type" typeid="$type_id" siteid="$siteid" }
+{php $type_arr = $data;}
+{/pc}
+<!--网站容器-->
+<div class="container"> 
+	 <!--留言列表 开始-->
+	 <div class="content-box main-left book">
+	 		<div class="title">
+				<h2>{$type_arr[name]}</h2>
+				<span class="title-right">
+					当前位置：<a href="{siteurl($siteid)}">首页</a>&gt; <a href="{APP_PATH}index.php?m={ROUTE_M}&siteid={$siteid}">留言板&gt; {$type_arr[name]}</a>
+				</span>
+			</div>
+			{pc:guestbook action="lists" typeid="$type_id" siteid="$siteid" page="$_GET['page']" order="desc" num="10" return="dat"}
+			{loop $dat $v}
+			   <div class="book-list">
+				  <p class="book-head">
+				  	<strong>作者</strong>：{$v['name']}，性别：{$v['sex']}
+				  	<span>[{date('Y-m-d H:i:s',$v['addtime'])}]</span>
+				  </p>
+				  <p class="book-content">
+				  	<strong>内容</strong>：{$v['introduce']}</p>
+					<!-- 管理员回复 start -->
+					{if $v['reply']}
+					<p class="book-content"><strong style="color:#de4c1c">管理员回复</strong>：{$v['reply']}</p>
+					{/if}
+					<!-- 管理员回复 end -->
+			   </div>
+			{/loop} 	
+			{if empty($dat)}<div class="book-list"><p>暂无留言!</p></div>{/if}
+			<div id="page">{$pages}</div>	  
+	 </div>
+	  <!--留言列表 结束-->
+		  
+		 <div class="main-right">	
+		 	<div class="content-box">
+				<div class="title">
+		 			<h2>留言板分类</h2>
+		 		</div>
+		 	    <ul class="ranking">
+		 			<li><a href="{APP_PATH}index.php?m=guestbook&c=index&a=list_type&type_id=0&siteid={$siteid}" title="默认分类">默认分类</a></li>
+				{pc:guestbook action="type_lists" listorder="desc" siteid="$siteid"}
+				{loop $data $type_v}
+		 			<li><a href="{APP_PATH}index.php?m=guestbook&c=index&a=list_type&type_id={$type_v['typeid']}&siteid={$siteid}" title="{$type_v['name']}">{$type_v['name']}</a></li>
+				{/loop}
+				{/pc}
+		 			<li><a href="{APP_PATH}index.php?m=guestbook&c=index&a=register&siteid={$siteid}" target="_blank">我要留言</a></li>
+		 		</ul>		 		
+		 	</div>
+		 </div>
+</div>
+{template "content","footer"} 

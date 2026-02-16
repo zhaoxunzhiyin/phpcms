@@ -1,0 +1,1 @@
+INSERT INTO `cms_module` VALUES ('guestbook', '留言板', '', '0', '2.5', '', '{"1":{"is_post":"0","enablecheckcode":"0"}}', '0', '0', CURDATE(), CURDATE());

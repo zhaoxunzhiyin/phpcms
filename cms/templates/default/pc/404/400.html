@@ -1,0 +1,29 @@
+{template "content","header"}
+<!--网站容器-->
+<div class="container"> 
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <a href="{SITE_URL}">网站首页</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <span>404</span>
+                    </li>
+                </ul>
+		 		<div class="portlet light">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <span class="caption-subject font-green"> 404错误 </span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="row msg-body">
+                                    <div class="col-md-12 text-center">
+                                        <i class="fa fa-ban search-null-icon"></i>
+                                        <label class="s404-title">{$msg}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+</div>
+{template "content","footer"}

@@ -1,0 +1,36 @@
+{template "content","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+<!--主要内容-->
+<div id="main">
+	<div class="news-list">
+		<ul>
+			{pc:content action="lists" catid="$catid" num="20" order="id DESC" page="$page"}
+			{loop $data $r}
+			<li>
+				<span class="date">[{date('m-d',$r['inputtime'])}]</span>
+				<a href="{show_url($r['url'], $r['catid'], $r['id'])}">
+					{if $n<4}<em class="flag">顶</em>{/if}
+					<span class="title_color"{title_style($r['style'])}>{$r['title']}</span>
+				</a>
+			</li>
+			{/loop}
+			{/pc}
+		</ul>
+	</div>
+	<div class="search-pagination">{$pages}</div>
+	<div class="clearfix"></div>
+	<div class="news-list">
+		<h3 class="title">【点击排行】</h3>
+		<ul>
+			{pc:content action="hits" catid="$catid" num="10" order="views DESC"}
+			{loop $data $r}
+			<li>
+				<span class="date">[{date('m-d',$r['inputtime'])}]</span>
+				<a href="{show_url($r['url'], $r['catid'], $r['id'])}"><span class="title_color"{title_style($r['style'])}>{$r['title']}</span></a>
+			</li>
+			{/loop}
+			{/pc}
+		</ul>
+	</div>
+</div>
+{template "content","footer"}

@@ -1,0 +1,90 @@
+{template "content","header"}
+<!--网站容器-->
+<div class="container"> 
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <a href="{SITE_URL}">网站首页</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    {dr_catpos($catid, '', true, '<li> <a href="[url]">[name]</a> '.PHP_EOL.'<i class="fa fa-circle"></i> </li>'.PHP_EOL)}
+                    <li>
+                        <span>类别</span>
+                    </li>
+                    <li>
+                        <span>{$TYPE[$typeid]['name']}</span>
+                    </li>
+                    <li>
+                        <span>列表</span>
+                    </li>
+                </ul>
+		 <div class="content-box main-left news-list">
+		 		<div class="title">
+		 			<h2>{$CATEGORYS[$catid]['catname']}</h2>
+		 		</div>
+				{loop $datas $r}
+		 		<div class="news">
+		 			<a href="{$r['url']}" class="news-img">
+		 				<img src="{thumb($r['thumb'],230,150)}" alt="{$r['title']}" title="{$r['title']}" />
+		 			</a>
+		 			<div class="news-right">
+		 				{if $key_r+1<4}<em>顶</em>{/if}
+		 				<a href="{$r['url']}"><span class="title_color"{title_style($r['style'])}>{$r['title']}</span></a>
+		 				<p>{str_cut($r['description'],80)}...</p>
+		 				<div class="news-tags">
+                        {php $kws=dr_get_content_kws($r['keywords'], $siteid, $catid);}
+                        {if $kws}
+                        {php $kws=dr_arraycut($kws, 5);}
+                        {loop $kws $name $url}
+                            <a href="{$url}">{$name}</a>
+                        {/loop}
+                        {/if}
+						</div>
+		 			</div>
+		 		</div>
+                {php $i++}
+				{/loop}
+				<div class="search-pagination">{$pages}</div>
+		  </div>
+		  
+		 <div class="main-right">	
+		 	<div class="content-box">
+				<div class="title">
+		 			<h2>频道总排行</h2>
+		 		</div>
+		 	    <ul class="ranking">
+				{pc:content action="hits" catid="$catid" num="10" order="views DESC"}
+				{loop $data $r}
+		 			<li><em>{$n}</em><span class="date">{date('m-d',$r['inputtime'])}</span><a href="{$r['url']}" title="{$r['title']}"><span class="title_color"{title_style($r['style'], 1)}>{str_cut($r['title'], 60, '')}</span></a></li>
+				{/loop}
+				{/pc}
+		 		</ul>		 		
+		 	</div>
+ 		 	<div class="line"></div>
+ 	 	 	<div class="content-box">
+ 	 			<div class="title">
+ 	 	 			<h2>频道本月排行</h2>
+ 	 	 		</div>
+ 				<ul class="comment-list">		
+				{pc:content action="hits" catid="$catid" num="10" order="monthviews DESC"}
+				{loop $data $r}
+ 					<li><a href="{$r['url']}" title="{$r['title']}"><span class="title_color"{title_style($r['style'], 1)}>{str_cut($r['title'], 60, '')}</span></a></li>
+				{/loop}
+				{/pc}
+ 				</ul>		 		
+ 	 	 	</div>
+		 	<div class="line"></div>
+	 	 	<div class="content-box">
+	 			<div class="title">
+	 	 			<h2>热门标签</h2>
+	 	 		</div>
+			    <ul class="tag-list">
+				{pc:content action="tag" field="id,siteid,keyword,videonum,searchnums" num="30"}
+				{loop $data $r}
+					<li><a href="{tag_url($r['keyword'],$r['siteid'])}">{$r['keyword']}({$r['videonum']})</a></li>	
+				{/loop}
+				{/pc}
+				</ul>
+	 	 	</div>
+		 </div>
+</div>
+{template "content","footer"}

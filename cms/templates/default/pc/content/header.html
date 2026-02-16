@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}</title>
+<meta name="keywords" content="{$SEO['keyword']}">
+<meta name="description" content="{$SEO['description']}">
+<script type="text/javascript" src="{JS_PATH}jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="{JS_PATH}layer/layer.js"></script>
+<script src="{JS_PATH}cms.js" type="text/javascript"></script>
+<link href="{CSS_PATH}font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}default/plugin/swiper/css/swiper.min.css" />
+<link href="{CSS_PATH}default/css/common.css" rel="stylesheet" type="text/css" />
+<link href="{CSS_PATH}default/css/form.css" rel="stylesheet" type="text/css" />
+<link href="{CSS_PATH}default/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{CSS_PATH}default/js/front.js"></script>
+<script type="text/javascript" src="{CSS_PATH}default/plugin/swiper/js/swiper.min.js"></script>
+<script type="text/javascript" src="{CSS_PATH}default/js/product-img.js"></script>
+<script type="text/javascript" src="{JS_PATH}jquery.sgallery.js"></script>
+{if $siteid}
+<script type="text/javascript">
+if (is_mobile()) {
+	$(function () {
+		layer.confirm('当前界面是电脑端界面，需要访问移动端网站吗？', {
+			btn: ['访问移动端','关闭'] //按钮
+		}, function(){
+			pc_or_mobile('{APP_PATH}api.php?op=client', '{$my_web_url}', {$siteid}, 0)
+		}, function(){
+			return true;
+		});
+	});
+}
+</script>
+{/if}
+</head>
+<body>
+<!--网站头部-->
+<div class="header-box">
+	<div class="header-top">
+		<div class="member-status">
+			<script type="text/javascript">document.write('<iframe src="{APP_PATH}index.php?m=member&c=index&a=mini&forward='+encodeURIComponent(location.href)+'&siteid={get_siteid()}" allowTransparency="true"  width="500" height="36" frameborder="0" scrolling="no"></iframe>')</script>
+		</div>
+		<div class="topleft">
+			{pc:content  action="position" posid="6" order="id" num="10"}
+    		<div id="announ">
+                 <ul>
+                 {loop $data $k $v}
+                      <li><a href="{$v['url']}">{$v['title']}</a></li>
+                      {/loop}
+                 </ul>
+            </div>
+     {/pc}
+<script type="text/javascript">
+$(function(){
+	startmarquee('announ',22,1,500,3000);
+})
+</script>
+		</div>
+	</div>
+</div>
+<div class="container-box">
+	<div class="header">
+		<div class="logo">
+		 <a href="{siteurl($siteid)}/"><img src="{IMG_PATH}logo.png" /></a>
+		</div>
+		<div class="search">
+		<form method="get" action="{APP_PATH}index.php" target="_blank">
+			<div id="searchtxt" class="searchtxt">
+				<div class="searchmenu">	
+					<div class="searchselected" id="searchselected">全部</div>
+					<div class="searchtab" id="searchtab">
+						<ul>
+							<li data="0">全部</li>
+						{php $j=0}
+						{php $search_model = getcache('search_model_'.$siteid, 'search');}
+						{loop $search_model $k=>$v}
+						{php $j++;}
+							<li data="{$v['typeid']}">{$v['name']}</li>
+						{/loop}
+						{php unset($j);}
+						</ul>
+					</div>
+				</div>
+				<input type="hidden" name="m" value="search"/>
+				<input type="hidden" name="c" value="index"/>
+				<input type="hidden" name="a" value="init"/>
+				<input type="hidden" name="typeid" value="0" id="typeid"/>
+				<input type="hidden" name="siteid" value="{$siteid}" id="siteid"/>
+				<input name="keyword" type="text" placeholder="输入关键字"/>
+			</div>
+			<div class="searchbtn">
+				<button id="searchbtn" type="submit">搜索</button>
+			</div>
+		</form>
+	    </div>
+	</div>
+	<!--网站导航-->
+	<div class="menu">
+	  <ul class="nav">
+			{pc:content action="category" catid="0" num="10" siteid="$siteid" order="listorder ASC"}
+			<li><a {if !$catid}class="current"{/if} href="{siteurl($siteid)}">首页</a></li>
+			{loop $data $r}
+			<li>
+				<a href="{$r['url']}"{if $r['catid'] == $catid || $CATEGORYS[$CAT['parentid']]['catid']==$r['catid']} class="current"{/if}>{$r['catname']}</a>
+				{if $r['child']}
+				<ul class="sub_nav">
+				{pc:content action="category" catid="$r['catid']" num="15" siteid="$siteid" order="listorder ASC"}
+					{loop $data $r}
+					<li><a href="{$r['url']}">{$r['catname']}</a></li>
+					{/loop}
+				{/pc}
+				</ul>
+				{/if}
+			</li>
+			{/loop}
+			{/pc}
+	  </ul>
+	</div>
+</div>

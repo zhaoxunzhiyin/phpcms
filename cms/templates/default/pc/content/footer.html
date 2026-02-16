@@ -1,0 +1,15 @@
+<div class="clearfix"></div>
+<div class="container-box footer">
+	<div>
+		<p>京ICP备0000000号 {if sitemobileurl($siteid)}<a href="{sitemobileurl($siteid)}">手机版</a></p>{/if}
+		<p>{pc:content  action="category" siteid="$siteid" catid="6" num="15"}
+{loop $data $r}
+<a href="{$r['url']}" target="_blank">{$r['catname']}</a> |  
+{/loop}
+{/pc}
+<a href="{APP_PATH}index.php?m=link" target="_blank">友情链接</a></p>
+		<p>Powered by <strong><a href="http://www.kaixin100.cn" target="_blank">Kaixin100</a></strong> <em>{get_pc_version(1)}</em> &copy; 2006-{date('Y', SYS_TIME)}</p>
+	</div>
+</div>
+</body>
+</html>

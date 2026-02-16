@@ -1,0 +1,78 @@
+{template "content","header"}
+<!--焦点图-->
+<div class="toppic">
+	<div class="imgslidemain">
+		<div id="imgSlide" class="imgslide">
+			<ul>
+				{pc:content action="position" posid="2" order="listorder DESC" num="3"}
+				{loop $data $r}
+				<li>
+					<a href="{show_url($r['url'], $r['catid'], $r['id'])}"><img src="{thumb($r['thumb'],640,250)}" alt="{$r['title']}" title="{$r['title']}"></a>
+					<p>{str_cut($r['title'],26,'')}</p>
+				</li>
+				{/loop}
+				{/pc}
+			</ul>
+		</div>
+		<ul class="navslide">
+			{pc:content action="position" posid="2" order="listorder DESC" num="3"}
+			{loop $data $r}
+			<li class="i_point{if $n=1} active{/if}">
+			{/loop}
+			{/pc}
+		</ul>
+	</div>
+</div>
+<!--主要内容-->
+<div id="main">
+	<div class="news-list">
+		<h3 class="title">【最近更新】</h3>
+		<ul>
+			{pc:content action="position" posid="1" order="listorder DESC" num="20"}
+			{loop $data $r}
+			<li><a href="{show_url($r['url'], $r['catid'], $r['id'])}"><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'],80)}</span></a></li>
+			{/loop}
+            {/pc}
+		</ul>
+	</div>
+	<div class="news-list">
+		<h3 class="title">【新闻中心】</h3>
+		<ul>
+			{pc:content action="lists" catid="6" num="10" order="listorder DESC"}
+			{loop $data $r}
+			<li><a href="{show_url($r['url'], $r['catid'], $r['id'])}"><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'],80)}</span></a></li>
+			{/loop}
+            {/pc}
+		</ul>
+	</div>
+	<div class="news-img">
+		<h3 class="title">【图文资讯】</h3>
+		<ul>
+			{pc:content action="lists" catid="7" thumb="1" order="listorder DESC" num="8"}
+			{loop $data $r}
+			<li>
+				<a href="{show_url($r['url'], $r['catid'], $r['id'])}">
+					<i><img src="{thumb($r['thumb'],300,90)}" alt="{$r['title']}" title="{$r['title']}"></i>
+					<p>{str_cut($r['title'],80)}</p>
+				</a>
+			</li>
+			{/loop}
+            {/pc}
+		</ul>
+	</div>
+{loop subcat(0,0,0,$siteid) $r}
+{php $num++}
+	<div class="news-list">
+		<h3 class="title">【{$r['catname']}】</h3>
+		<ul>
+			{pc:content action="lists" catid="$r['catid']" num="10" order="listorder DESC"}
+			{loop $data $r}
+			<li><a href="{show_url($r['url'], $r['catid'], $r['id'])}"><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'],80)}</span></a></li>
+			{/loop}
+            {/pc}
+		</ul>
+	</div>
+	{if $num%2==0}<div class="bk10"></div>{/if}
+{/loop}
+</div>
+{template "content","footer"}

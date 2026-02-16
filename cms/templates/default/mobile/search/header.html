@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>{if isset($SEO['title']) && !empty($SEO['title'])}{$SEO['title']}{/if}{$SEO['site_title']}{if isset($keyword) && !empty($keyword)}-{$keyword}{/if}</title>
+<meta name="keywords" content="{$SEO['keyword']}">
+<meta name="description" content="{$SEO['description']}">
+<link href="{MOBILE_CSS_PATH}default/css/mobile-index.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{MOBILE_CSS_PATH}default/js/jquery-1.8.2.min.js"></script>
+<script language="javascript" type="text/javascript" src="{JS_PATH}layer/layer.js"></script>
+<script src="{JS_PATH}cms.js" type="text/javascript"></script>
+<script type="text/javascript" src="{MOBILE_CSS_PATH}default/js/mobile_simpler-sidebar.min.js"></script>
+<script type="text/javascript" src="{MOBILE_CSS_PATH}default/js/mobile_scroll.js"></script>
+<script type="text/javascript" src="{MOBILE_CSS_PATH}default/js/mobile_scrollload.js"></script>
+{if $siteid}
+<script type="text/javascript">
+if (!is_mobile()) {
+	$(function () {
+		layer.confirm('当前界面是移动端界面，需要访问电脑端网站吗？', {
+			btn: ['访问PC端','关闭'] //按钮
+		}, function(){
+			pc_or_mobile('{APP_PATH}api.php?op=client', '{$my_web_url}', {$siteid}, 1)
+		}, function(){
+			return true;
+		});
+	});
+}
+</script>
+{/if}
+</head>
+<body>
+<!--网站容器-->
+<div class="container">
+<header class="header" name="top">
+	<img src="{MOBILE_CSS_PATH}default/images/menu.png" class="menu">
+	<img src="{MOBILE_CSS_PATH}default/images/search.png" class="search">
+	<h2>{$SEO['site_title']}</h2>	
+	<div class="search-form">
+		<form method="get" action="{sitemobileurl($siteid)}/index.php">
+			<input type="hidden" name="m" value="search"/>
+			<input type="hidden" name="c" value="index"/>
+			<input type="hidden" name="a" value="init"/>
+			<input type="hidden" name="typeid" value="{intval($params['typeid'])}" id="typeid"/>
+			<input type="hidden" name="siteid" value="{$siteid}" id="siteid"/>
+			<input name="keyword" type="text" placeholder="输入关键字" required class="input">
+			<input type="submit" class="submit" value="搜索">
+		</form>
+	</div>	 
+</header>
+<nav class="nav">
+	<ul>
+	{pc:content action="category" catid="0" num="10" siteid="$siteid" order="listorder ASC"}
+		<li><a {if !$catid}class="current"{/if} href="{sitemobileurl($siteid)}">首页</a></li>
+	{loop $data $r}
+		<li><a href="{list_url($r['url'],$r['catid'])}"{if $r['catid'] == $catid || $CATEGORYS[$CAT['parentid']]['catid']==$r['catid']} class="current"{/if}>{$r['catname']}</a></li>
+	{/loop}
+	{/pc}
+	</ul>
+</nav>
+<script type="text/javascript">
+	$(function() {
+		$(".nav").simplerSidebar({
+			opener: '.menu',
+			sidebar: {
+				align: 'left',
+				width: 250
+			}
+		});
+
+		$(".search").click(function(){
+			$(".search-form").slideToggle(100);
+		});
+	});
+</script>
+<div class="clearfix"></div>

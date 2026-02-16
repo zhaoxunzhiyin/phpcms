@@ -1,0 +1,29 @@
+<?php
+$LANG['bdts_name'] = '百度推送';
+$LANG['bdts_bdts'] = '百度主动推送';
+$LANG['bdts_config'] = '百度推送设置';
+$LANG['log_index'] = '推送日志';
+$LANG['log_log'] = '主动推送的记录日志';
+$LANG['bdts_config_url'] = '请先配置接口调用地址';
+$LANG['batch_delivery'] = '批量推送';
+$LANG['bdts_all'] = '全部';
+$LANG['not_bdts'] = '未推送';
+$LANG['have_to_bdts'] = '已推送';
+$LANG['bdts'] = '推送';
+$LANG['bdts_title'] = '标题';
+$LANG['bdts_url'] = '网址';
+$LANG['bdts_status'] = '状态';
+$LANG['bdts_operation'] = '操作';
+$LANG['invoke_the_address'] = '接口调用地址';
+$LANG['visit_the_webmaster'] = '请至站长工具平台“链接提交”栏目下获取';
+$LANG['data_type'] = '数据类型';
+$LANG['data_default'] = '默认';
+$LANG['data_original'] = '原创';
+$LANG['least_content'] = '至少选择1条内容';
+$LANG['the_save'] = '保存';
+$LANG['the_back'] = '返回';
+$LANG['save_success'] = '保存成功';
+$LANG['bdts_success'] = '推送成功';
+$LANG['bdts_error'] = '推送失败，错误原因：';
+$LANG['parameter_error'] = '参数错误';
+?>

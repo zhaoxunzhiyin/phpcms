@@ -1,0 +1,48 @@
+{template 'member', 'header'}
+<link href="{CSS_PATH}dialog.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="{JS_PATH}dialog.js"></script>
+<div class="member_container main">
+    {template 'member', 'left'}
+    <div class="main_right">
+        <div class="tit">
+            <h3>{L('eidt_site')}</h3>
+        </div>
+        <div class="main_cont">
+            <form method="post" action="" id="myform" name="myform">
+                {dr_form_hidden()}
+                <table>
+					<tr>
+                        <td width="100">{L('name')}：</td>
+                        <td><input type="text" class="input-text" id="fclient_name" name="fclient[name]" value="{$name}"></label><span class="help-block"> {L('website_domain')} <span class="red">*</span></td>
+                    </tr>
+					<tr>
+                        <td width="100">{L('domain')}：</td>
+                        <td><input type="text" class="input-text" id="fclient_domain" name="fclient[domain]" value="{$domain}"></label><span class="help-block"> {L('website_domain')} <span class="red">*</span></td>
+                    </tr>
+					<tr>
+                        <td width="100">{L('money')}：</td>
+                        <td>¥{$money}/{L('year')}</td>
+                    </tr>
+                    {if $setting['mark']}
+					<tr>
+                        <td width="100">{L('其他信息')}：</td>
+                        <td>{$setting['mark']}</td>
+                    </tr>
+                    {/if}
+					<tr>
+                        <td width="100">{L('status')}：</td>
+                        <td>{if $status==1}{L('no_check')}{elseif $status==2}{L('check_2')}{elseif $status==3}{L('check_3')}{elseif $status==4}{L('check_4')}{/if} {if $status != 2} <p> {$setting['note']} </p> {/if}</td>
+                    </tr>
+                    <tr>
+						<td></td>
+						<td>
+						<input name="forward" type="hidden" value="{HTTP_REFERER}">
+						<input name="id" type="hidden" value="{$id}">
+						<input name="dosubmit" type="submit" id="dosubmit" value="{L('save_setting')}" class="submit"></td>
+					</tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+{template 'member', 'footer'}
