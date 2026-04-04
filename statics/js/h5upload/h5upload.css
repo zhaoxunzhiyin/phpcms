@@ -1,0 +1,28 @@
+body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+/*附件列表样式*/
+.page-body{user-select:none;}
+@media (min-width: 992px) {
+    .files .col-md-2 {
+        width: 11% !important;
+   }
+}
+.files_row{position:relative;margin-bottom:40px; overflow: hidden; text-align: center;margin: 0px 0px 20px;cursor: pointer; height:150px; background-color:#ddd;border-radius: 5px; border:solid 1px #ddd;}
+.files_row i.name,.files_row i.size{color: #fff; height: 20px; line-height: 20px; position:absolute; left:0; font-style: normal; width: 100%!important; font-size: 12px;}
+.files_row i.name{background: #36c6d3; bottom:0px;}
+.files_row i.size{background: #666;bottom:20px;}
+
+.files_row .checkboxes{visibility:hidden; position:absolute; left:5px; top:5px;}
+.files_row .checkbox {width:25px; height:25px!important; min-height: 25px!important;position:absolute; left:5px; top:5px; background: url(images/icon_item_hover.png);}
+.files_row span{display: none;}
+.files_row a{padding: 10px;display: inline-block;}
+.files_row img{max-width: 100%;}
+.files_row:hover i,.files_row:hover img {opacity: 0.6}
+.files_row:hover .mar{background: #333;}
+.files_row:hover .checkbox{display:block;}
+.files_row.on .checkbox {background: url(images/icon_item_cur.png); display:block;}
+.files_row.on span{display:block;}
+.files_row.on {background: #333;}
+.files_row.on i,.files_row.on img{opacity: 0.3}
+.files_row .upload-del {position: absolute; right: 4px; top: 4px; z-index: 10;padding: 0px;width: 24px; height: 24px; line-height: 24px; text-align: center;background: rgba(0,0,0,.5); color: #fff; border-radius: 4px;opacity: 0; transition: opacity .2s;display: block; text-decoration: none;}
+.files .upload-item:hover .upload-del {opacity: 1;}
+.files_row .upload-del:hover {background: #d9534f; color: #fff;}

@@ -1,0 +1,45 @@
+<!--用于首页瀑布列调用的写法-->
+{pc:content action="lists" modelid="1" order="updatetime DESC" page="$page" num="10" maxlimit="100"}
+{loop $data $t}
+{php $modelid = dr_cat_value($t['catid'], 'modelid')}
+{if module_exists('comment')}
+{php $comment_tag = pc_base::load_app_class("comment_tag", "comment"); $comment_total = $comment_tag->count(array('commentid'=>'content_'.$t['catid'].'-'.$t['id'].'-'.$modelid));}
+{/if}
+{php $db = pc_base::load_model('hits_model');$_r = $db->get_one(array('hitsid'=>'c-'.$modelid.'-'.$t['id'])); $views = $_r['views'];}
+<div class="card mb-5">
+    <div class="card-body d-flex align-items-center p-5 p-lg-8">
+        <!--begin::Icon-->
+        <div class="mobile-hidden d-flex h-120px w-120px h-lg-120px w-lg-120px flex-shrink-0 flex-center position-relative align-self-start align-self-lg-center mt-3 mt-lg-0">
+            <div class="symbol symbol-90px symbol-2by3 me-4">
+                <div class="symbol-label" style="background-image: url('{thumb($t.thumb)}')"></div>
+            </div>
+        </div>
+        <!--end::Icon-->
+
+        <!--begin::Description-->
+        <div class="ms-6">
+            <h5 class="article-title">
+                <a href="{$t.url}" class="text-dark">{$t.title}</a>
+            </h5>
+            <p class="list-unstyled text-gray-600 fw-semibold fs-6 p-0 m-0">
+                {str_cut($t.description, 80)}
+            </p>
+            <div class="article-tag">
+                {php $kws=dr_get_content_kws($t.keywords, $siteid, 0, 1);}
+                {if $kws}
+                {php $kws=dr_arraycut($kws, 5);}
+                {loop $kws $name $url}
+                <a href="{$url}" class="badge badge-light-primary fw-bold my-2">{$name}</a>
+                {/loop}
+                {/if}
+
+                <span class="text-muted mx-2 fs-7"><i class="fa fa-calendar"></i> {dr_date($t.updatetime)}</span>
+                <span class="text-muted  mx-2  fs-7" itemprop="comments"><i class="fa fa-comments"></i> {intval($comment_total)} 评论</span>
+                <span class="text-muted  mx-2  fs-7" itemprop="views" title="浏览次数"><i class="fa fa-eye"></i> <span id="hits{$t['id']}">{intval($views)}</span> 浏览</span>
+            </div>
+        </div>
+        <!--end::Description-->
+    </div>
+</div>
+{/loop}
+{/pc}
