@@ -1,0 +1,99 @@
+{template "content","header"}
+<script type="text/javascript" src="{JS_PATH}formvalidator.js" charset="UTF-8"></script> 
+<script type="text/javascript" src="{JS_PATH}formvalidatorregex.js" charset="UTF-8"></script>
+<link href="{CSS_PATH}link.css" rel="stylesheet" type="text/css" />
+<!--网站容器-->
+<div class="container"> 
+		 <div class="content-box form-box">
+	 		<div class="title">
+	 			<h2>申请友情链接</h2>
+	 			<span class="title-right">
+	 				当前位置：<a href="{siteurl($siteid)}">首页</a>&gt;友情链接{if $type_arr['name']}&gt;{$type_arr['name']}{/if}
+	 			</span>
+	 		</div>
+		  <form action="{APP_PATH}index.php?m=link&c=index&a=register&siteid={$siteid}" name="myform" id="myform" method="post">
+		    <table class='table'>
+		        <tr>
+		            <td class="table-title" width="180">链接类型<span class="red">*</span></td>
+		            <td>
+		                <input type="radio" onclick="$('#logolink').hide()" checked="checked" value="0" name="linktype" class="radio_style"> 文字链接
+		                <input type="radio" onclick="$('#logolink').show()" value="1" name="linktype" class="radio_style"> Logo链接
+		            </td>
+		        </tr>
+		        <tr>
+		            <td class="table-title">所属分类<span class="red">*</span></td>
+		            <td>
+		                <select style="width: 36%;height: 32px; line-height: 32px;" id="typeid" name="typeid">
+		                    <option value="0">默认分类</option>
+		                    {loop $types $type_arr}
+		                    <option value="{$type_arr['typeid']}">{$type_arr['name']}</option>
+		                    {/loop}
+		                </select>
+		            </td>
+		        </tr>
+		        <tr>
+		            <td class="table-title">网站名称<span class="red">*</span></td>
+		            <td>
+		                <input type="text" value="" id="name" name="name" class="input-text" style="width: 100%;">
+		            </td>
+		        </tr>
+		        <tr>
+		            <td class="table-title">网站地址<span class="red">*</span></td>
+		            <td>
+		                <input type="text" size="40" value="" name="url" id="url" class="input-text" style="width: 100%;">
+		            </td>
+		        </tr>
+		        <tr style="display: none;" id="logolink">
+		            <td class="table-title">Logo地址</td>
+		            <td>
+		                <input type="text" value="" name="logo" id="logo" class="input-text" style="width: 100%;">
+		            </td>
+		        </tr>
+		        {if $setting['enablecheckcode']=='1'}
+		        <tr>
+		            <td class="table-title">验证码<span class="red">*</span></td>
+		            <td>
+		            	<input name="code" id="code" type="text" class="input-text" style="width:100px;">
+		            	{form::checkcode('code_img','4','14',110,30)}
+		            </td>
+		        </tr>
+		        {/if}
+		        <tr>
+		            <td></td>
+		            <td><input type="submit" name="dosubmit" value="确认提交" class="submit"></td>
+		        </tr>
+		    </table>
+			</form> 
+		 </div>
+</div>
+<script type="text/javascript">
+<!--
+	$(function(){
+	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+	$("#name").formValidator({onshow:"请输入网站名称",onfocus:"请输入网站名称"}).inputValidator({min:1,max:999,onerror:"网站名称不能为空"});
+ 	$("#url").formValidator({onshow:"请输入网站网址",onfocus:"请输入网站网址"}).inputValidator({min:1,onerror:"请输入网站网址"}).regexValidator({regexp:"^http(s?):\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&]*([^<>])*$",onerror:"格式应该为http://www.kaixin100.cn/"})
+	{if $setting['enablecheckcode']=='1'}
+ 	$("#code").formValidator({onshow:"请输入验证码",onfocus:"验证码不能为空"}).inputValidator({min:1,max:999,onerror:"验证码不能为空"}).ajaxValidator({
+	    type : "get",
+		url : "?m=pay&c=deposit&a=public_checkcode&code="+$("#code").val(),
+		datatype : "html",
+		async:'false',
+		success : function(data){	
+			if(data == 1)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		},
+		buttons: $("#dosubmit"),
+		onerror : "验证码错误",
+		onwait : "验证中"
+	});
+	{/if}
+ 	})
+//-->
+</script>
+{template "content","footer"}

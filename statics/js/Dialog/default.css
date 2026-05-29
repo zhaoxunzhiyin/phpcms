@@ -1,0 +1,7 @@
+/** 
+约定
+普通布局相关css类可不用前缀
+与组件有关的css类前面要加z-前缀
+用于为js查找元素而附加的css类前面要加js-前缀
+**/
+body .z-hidden,body div.z-hidden,body span.z-hidden,body td.z-hidden,body a.z-hidden{display:none;}

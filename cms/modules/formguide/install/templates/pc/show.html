@@ -1,0 +1,44 @@
+{template "content","header"}
+<script language="javascript" type="text/javascript" src="<?php echo JS_PATH?>Dialog/main.js"></script>
+<script language="javascript" type="text/javascript" src="<?php echo JS_PATH?>jquery.min.js"></script>
+<link href="{CSS_PATH}table_form.css" rel="stylesheet" type="text/css" />
+<!--网站容器-->
+<div class="container">	 <div class="content-box form-box">
+ 		<div class="title">
+ 			<h2>表单向导</h2>
+ 			<span class="title-right">
+ 				当前位置：<a href="{siteurl($siteid)}">首页</a>&gt; <a href="{APP_PATH}index.php?m=formguide&c=index&a=index">表单向导</a>{if $name}&gt; {$name}{/if}
+ 			</span>
+ 		</div>
+	  <form method="post" action="{APP_PATH}index.php?m=formguide&c=index&a=show&formid={$formid}" name="myform" id="myform">
+	    <table class='table'>
+	        {loop $forminfos_data $field $info}
+	        {if $info['formtype']=='omnipotent'}
+	        {loop $forminfos_data $_fm $_fm_value}
+			{if $_fm_value['iscomnipotent']}
+	        {php $info['form'] = str_replace('{'.$_fm.'}',$_fm_value['form'],$info['form']);}
+			{/if}
+	        {/loop}
+	        {/if}
+	        <tr>
+	            <td class="table-title">{$info['name']}{if $info['star']}<span class="red">*</span>{/if}</td>
+	            <td>
+	                {$info['form']}  {$info['tips']}
+	            </td>
+	        </tr>
+	        {/loop}
+	        {if $setting['code']}
+	        <tr>
+	            <td class="table-title">{L('验证码')}<span class="red">*</span></td>
+	            <td><input type="text" class="input-text" required name="code">{form::checkcode('code_img', $setting['codelen'], '20', 126, 40)}</td>
+	        </tr>
+	        {/if}
+	        <tr>
+	            <td></td>
+	            <td><input type="submit" id="dosubmit" name="dosubmit" value="确认提交" class="submit"></td>
+	        </tr>
+	    </table>
+		</form> 
+	 </div>
+</div>
+{template "content","footer"}

@@ -1,0 +1,26 @@
+{template "content","header"}
+<!--网站容器-->
+<div class="container"> 
+	<div class="line"></div>
+			<div class="content-box img-list">
+		<div class="title">
+			<h2>{$CATEGORYS[$catid]['catname']}</h2>
+			<span class="title-right"><a href="{$CATEGORYS[$catid]['url']}">>>更多</a></span>
+		</div>
+		<ul>
+		{pc:content action="lists" catid="$catid" num="20" order="id DESC" page="$page"}
+		{loop $data $r}
+			<li>
+				<a href="{$r['url']}">
+					<i><img src="{thumb($r['thumb'],266,150)}" alt="{$r['title']}" title="{$r['title']}"></i>
+					<p><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'], 28, '')}</span></p>
+				</a>
+			</li>
+		{/loop}
+		<div class="search-pagination">{$pages}</div>
+		{/pc}
+		</ul>
+	</div>
+	<div class="line"></div>
+</div>
+{template "content","footer"}

@@ -1,0 +1,73 @@
+{template "content","header"}
+<!--网站容器-->
+<div class="container"> 
+		 <div class="content-box main-left news-list">
+		 		<div class="title">
+		 			<h2>“{$tag}” 的搜索结果，共<span>{$total}</span>条</h2>
+		 		</div>
+		 		{loop $datas $r}
+		 		<div class="news">
+		 			<a href="{$r['url']}" class="news-img">
+		 				<img src="{thumb($r['thumb'],230,150)}" alt="{$r['title']}" title="{$r['title']}" />
+		 			</a>
+		 			<div class="news-right">
+		 				{if $n<4}<em>顶</em>{/if} <!-- 内容属性 -->
+		 				<a href="{$r['url']}"{title_style($r['style'])}>{dr_keyword_highlight($r['title'], $tag)}</a>
+		 				<p>{str_cut($r['description'],80)}...</p>
+		 				<div class="news-tags">
+                            {php $kws=dr_get_content_kws($r['keywords'], $siteid);}
+                            {if $kws}
+                            {php $kws=dr_arraycut($kws, 5);}
+                            {loop $kws $name $url}
+                                <a href="{$url}">{$name}</a>
+                            {/loop}
+                            {/if}
+		 				</div>
+		 			</div>
+		 		</div>		
+		 		{/loop}						
+				<div class="search-pagination">{$pages}</div>
+		  </div>
+		  
+		 <div class="main-right">	
+		 	<div class="content-box">
+				<div class="title">
+		 			<h2>频道总排行</h2>
+		 		</div>
+		 	    <ul class="ranking">
+				{pc:content action="hits" catid="$catid" num="10" order="views DESC"}
+				{loop $data $r}
+		 			<li><em>{$n}</em><span class="date">{date('m-d',$r['inputtime'])}</span><a href="{$r['url']}" title="{$r['title']}"><span class="title_color"{title_style($r['style'])}>{str_cut($r['title'], 60, '')}</span></a></li>
+				{/loop}
+				{/pc}
+		 		</ul>		 		
+		 	</div>
+ 		 	<div class="line"></div>
+ 	 	 	<div class="content-box">
+ 	 			<div class="title">
+ 	 	 			<h2>频道本月排行</h2>
+ 	 	 		</div>
+ 				<ul class="comment-list">		
+				{pc:content action="hits" catid="$catid" num="10" order="monthviews DESC"}
+				{loop $data $r}
+ 					<li><a href="{$r['url']}" title="{$r['title']}">{str_cut($r['title'], 60, '')}</a></li>
+				{/loop}
+				{/pc}
+ 				</ul>		 		
+ 	 	 	</div>
+		 	<div class="line"></div>
+	 	 	<div class="content-box">
+	 			<div class="title">
+	 	 			<h2>热门标签</h2>
+	 	 		</div>
+			    <ul class="tag-list">
+				{pc:content action="tag" field="id,siteid,keyword,videonum,searchnums" num="30"}
+				{loop $data $r}
+					<li><a href="{tag_url($r['keyword'],$r['siteid'])}">{$r['keyword']}({$r['videonum']})</a></li>	
+				{/loop}
+				{/pc}
+				</ul>
+	 	 	</div>
+		 </div>
+</div>
+{template "content","footer"}

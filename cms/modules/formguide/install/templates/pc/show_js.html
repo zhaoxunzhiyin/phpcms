@@ -1,0 +1,39 @@
+<script language="javascript" type="text/javascript" src="<?php echo JS_PATH?>Dialog/main.js"></script>
+<script language="javascript" type="text/javascript" src="<?php echo JS_PATH?>jquery.min.js"></script>
+<link href="{CSS_PATH}table_form.css" rel="stylesheet" type="text/css" />
+<div class="box">
+    <h5>表单向导</h5>
+    <div class="content">
+				<form method="post" action="{APP_PATH}index.php?m=formguide&c=index&a=show&formid={$formid}"{if $no_allowed} target="member_login"{/if} name="myform" id="myform">
+<table class="table_form" width="100%" cellspacing="0">
+<tbody>
+ {loop $forminfos_data $field $info}
+	{if $info['formtype']=='omnipotent'}
+		{loop $forminfos_data $_fm $_fm_value}
+			{if $_fm_value['iscomnipotent']}
+				{php $info['form'] = str_replace('{'.$_fm.'}',$_fm_value['form'],$info['form']);}
+			{/if}
+		{/loop}
+	{/if}
+	<tr>
+      <th width="80">{if $info['star']} <font color="red">*</font>{/if} {$info['name']}
+	  </th>
+      <td>{$info['form']}  {$info['tips']}</td>
+    </tr>
+{/loop}
+    {if $setting['code']}
+	<tr>
+      <th><font color="red">*</font>{L('验证码')}</th>
+      <td><input type="text" class="input-text" required name="code">{form::checkcode('code_img', $setting['codelen'], '20', 126, 40)}</td>
+    </tr>
+    {/if}
+<tr>
+<td></td>
+<td><div class="submit ib"><input type="submit"{if $no_allowed} disabled=""{/if} name="dosubmit" id="dosubmit" value=" 提交 "></div> {if $no_allowed}您还没有<a href="{APP_PATH}index.php?m=member&c=index&alogin&forward={urlencode(HTTP_REFERER)}" style="color:red">登录</a>或<a href="" style="color:red">注册</a>网站，请登录后提交表单{/if}</td>
+</tr>
+	</tbody>
+</table>
+
+</form>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+{template 'member', 'header'}
+<div class="member_container main">
+{template 'member', 'account_manage_left'}
+  <div class="main_right">
+	<div class="tit"><h3>{L('memberinfo')}</h3></div>
+	<div class="main_cont">
+			<div class="member-center">
+				<div class="member-left">
+					<a href="index.php?m=member&c=index&a=account_manage_avatar&t=1" title="{L('modify').L('avatar')}"><img src="{$avatar}"></a>
+				</div>
+				<div class="member-right">
+					<div class="row">
+						<label>用户名：</label> <font color="{$grouplist[$memberinfo['groupid']]['usernamecolor']}">
+					{if $memberinfo['nickname']} {$memberinfo['nickname']} {else} {$memberinfo['username']}{/if}
+					</font> {if $memberinfo['vip']}<img src="{CSS_PATH}default/images/vip.gif" title="vip用户">{if $memberinfo['overduedate']} {L('overdue')}，{L('overduedate')}：{format::date($memberinfo['overduedate'],1)}{/if}{else}<img src="{CSS_PATH}default/images/vip_expired.gif" title="vip未点亮">{/if}
+						<a href="index.php?m=member&c=index&a=account_manage_info&t=1" class="member-edit"><span class="fa fa-edit"></span>修改资料</a>
+					</div>
+					<div class="row">
+						<label>注册时间：</label> {date('Y-m-d H:i:s',$memberinfo['regdate'])}
+					</div>
+					<div class="row">
+						<label>绑定邮箱：</label> {$memberinfo['email']} {if $memberinfo['email_status']}<span class="green">[已验证]</span>{/if}
+					</div>
+					<div class="row">
+						<label>登录次数：</label> {$memberinfo['loginnum']} 次
+					</div>
+					<div class="row">
+						<label>上次登录：</label> {if $memberinfo['lastdate']}{dr_date($memberinfo['lastdate'], 'Y年m月d日 H:i:s', 'red')}{else}无{/if} [ IP地址：{if $memberinfo['lastip']}{$memberinfo['lastip']}{else}无{/if} ] 
+					</div>
+				</div>
+			</div>
+			<table width="100%" cellspacing="0" class="tablelist">
+					<tr>
+						<th width="120">{L('username')}</th>        
+						<td>{$memberinfo['username']}</td>
+					</tr>
+					<tr>
+						<th width="120">{L('in_model')}：</th>        
+						<td>{$member_model[$memberinfo['modelid']]['name']}</td>
+					</tr>
+					<tr>
+						<th width="120">{L('regtime')}：</th>        
+						<td>{format::date($memberinfo['regdate'] ,1)}</td>
+					</tr>
+					<tr>
+						<th width="120">{L('lastlogintime')}：</th>        
+						<td>{if $memberinfo['lastdate']}{format::date($memberinfo['lastdate'] ,1)}{else}无{/if}</td>
+					</tr>
+					<tr>
+						<th width="120">{L('regip')}：</th>        
+						<td>{$memberinfo['regip']}</td>
+					</tr>
+					<tr>
+						<th width="120">{L('lastip')}：</th>        
+						<td>{if $memberinfo['lastip']}{$memberinfo['lastip']}{else}无{/if}</td>
+					</tr>
+					<tr>
+						<th width="120">{L('mp')}：</th>        
+						<td style="color:#ff6600;"><strong>{if $memberinfo['mobile']}{substr($memberinfo['mobile'],0,3)}****{substr($memberinfo['mobile'],-4)}{/if}</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="更换手机" class="button" onclick="redirect('?m=member&c=index&a=account_change_mobile&t=1')"></td>
+					</tr>
+					{loop $member_modelinfo $k $v}
+					<tr>
+						<th width="120">{$k}：</th>        
+						<td>{$v}</td>
+					</tr>
+					{/loop}
+				</table>
+	</div>
+  </div>		  
+</div>
+{template 'member', 'footer'}

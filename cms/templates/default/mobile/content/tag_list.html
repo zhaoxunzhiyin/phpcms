@@ -1,0 +1,19 @@
+{template "content","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+<!--主要内容-->
+<div id="main">
+	<div class="news-list">
+		<ul>
+			{loop $datas $r}
+			<li>
+				<span class="date">[{date('m-d',$r['inputtime'])}]</span>
+				<a href="{show_url($r['url'], $r['catid'], $r['id'])}">
+					<span class="title_color"{title_style($r['style'])}>{dr_keyword_highlight($r['title'], $tag)}</span>
+				</a>
+			</li>
+			{/loop}
+		</ul>
+	</div>
+	<div id="page">{$pages}</div>
+</div>
+{template "content","footer"}

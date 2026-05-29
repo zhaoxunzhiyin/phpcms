@@ -1,0 +1,68 @@
+{template 'member', 'header'}
+<script language="javascript" type="text/javascript" src="{JS_PATH}admin_common.js"></script>
+<div class="member_container main">
+{template 'member', 'left'}
+<div class="main_right">
+        <div class="tit">
+            <h3>系统消息</h3>
+        </div>
+        <div class="main_cont">
+             <table width="100%" cellspacing="0"  class="table-list">
+        <thead>
+            <tr>
+             <th>标 题</th>
+             <th width="20%">发送时间</th>
+            </tr>
+        </thead>
+    <tbody>
+	{loop $infos $info} 
+	<tr>
+	<td><a href="?m=message&c=index&a=read_group&group_id={$info['id']}">{if $status[$info['id']]==0}<font color=red><b>{$info['subject']}</b></font>{else}{$info['subject']}{/if}</a></td>
+ 	<td width="20%" align="center">{date('Y-m-d H:i:s',$info['inputtime'])} </a>
+	</tr>
+	{/loop}
+	
+    </tbody>
+    </table>
+ <div id="pages">{$pages}</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function read(id, name) {
+	var diag = new Dialog({
+		id:'edit',
+		title:'查看详情'+name+' ',
+		url:'?m=message&c=index&a=read&messageid='+id,
+		width:700,
+		height:450,
+		modal:true
+	});
+	diag.onOk = function(){
+		var body = diag.innerFrame.contentWindow.document;
+		//$(body).find('#myform').serialize()
+		var form = $DW.$('#dosubmit');
+		form.click();
+		return false;
+	};
+	diag.onCancel=function() {
+		$DW.close();
+	};
+	diag.show();
+}
+function checkuid() {
+	var ids='';
+	$("input[name='messageid[]']:checked").each(function(i, n){
+		ids += $(n).val() + ',';
+	});
+	if(ids=='') {
+		Dialog.alert('请选择再执行操作');
+		return false;
+	} else {
+		myform.submit();
+	}
+}
+
+</script>
+{template 'member', 'footer'}
+

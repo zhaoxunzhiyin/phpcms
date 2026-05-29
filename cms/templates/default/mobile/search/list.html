@@ -1,0 +1,22 @@
+{template "search","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+<!--主要内容-->
+<div class="main">
+    {if $totalnums}<div class="search-title">
+        <h2>共<span>{$totalnums}</span>条搜索结果</h2>
+    </div>{/if}
+    <div class="news-list">
+        <ul>
+            {loop $datas $i $r}
+            <li>
+                <span class="date">[{date('m-d',$r['inputtime'])}]</span>
+                <a href="{show_url($r['url'], $r['catid'], $r['id'])}">
+                <span class="title_color"{title_style($r['style'])}>{dr_keyword_highlight($r['title'], $keyword)}</span></a>
+            </li>
+            {/loop}
+			{if empty($datas)}没有找到你搜索的内容哦，请换个词试试！{/if}
+        </ul>
+    </div>
+    <div id="page">{$pages}</div>
+</div>
+{template "search","footer"}

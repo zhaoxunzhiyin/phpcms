@@ -1,0 +1,28 @@
+{template 'member', 'header'}
+<script language="javascript" type="text/javascript" src="{JS_PATH}content_addtop.js"></script>
+<div class="member_container main">
+{template 'member', 'left'}
+  <div class="main_right">
+	<div class="tit"><h3>{L('favorite_list')}</h3></div>
+	<div class="main_cont">
+	<form method="post" action="" id="myform" name="myform">
+				<table width="100%" cellspacing="0" class="table_form">
+					<tr>
+						<td>{L('title')}</td>
+						<td>{L('adddate')}</td>
+						<td>{L('operation')}</td>
+					</tr>
+					{loop $favoritelist $k $v}
+					<tr>
+						<td><a href="{$v['url']}" target="_blank">{$v['title']}</a></td>
+						<td>{format::date($v['adddate'], 1)}</td>
+						<td><a href="index.php?m=member&c=index&a=favorite&id={$v['id']}">{L('delete')}</a></td>
+					</tr>
+					{/loop}
+				</table>
+			</form>
+		<div id="page">{$pages}</div>
+	</div>
+  </div>		  
+</div>
+{template 'member', 'footer'}

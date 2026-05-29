@@ -1,0 +1,38 @@
+{template "content","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+<!--主要内容-->
+<div class="main">
+    {if $total}<div class="search-title">
+        <h2>共<span>{$total}</span>条搜索结果</h2>
+    </div>{/if}
+    <div class="news-list">
+        <ul>
+            <input name="title" id="title" type="text" placeholder="输入关键字" required class="input">
+            <div class="btn"><input type="submit" value="搜索" class="button" onclick="dr_module_search('title')" /></div>
+            <script>
+                function dr_module_search(name) {
+                    var url = "{WEB_PATH}api.php?op=search&catid={$catid}&mobile=1&{php if (isset($params['keyword'])) unset($params['keyword']); echo $params ? http_build_query($params): '';}";
+                    var value = $("#" + name).val();
+                    if (value) {
+                        location.href = url+"&keyword="+value;
+                    } else {
+                        $("#" + name).focus();
+                        dr_tips(0, "输入关键字");
+                    }
+                    return false;
+                }
+            </script>
+        </ul>
+        <ul>
+            {loop $datas $r}
+            <li>
+                <span class="date">[{date('m-d',$r['inputtime'])}]</span>
+                <a href="{show_url($r['url'], $r['catid'], $r['id'])}">
+                <span class="title_color"{title_style($r['style'])}>{dr_keyword_highlight($r['title'], $keyword)}</span></a>
+            </li>
+            {/loop}
+        </ul>
+    </div>
+    <div id="page">{$pages}</div>
+</div>
+{template "content","footer"}

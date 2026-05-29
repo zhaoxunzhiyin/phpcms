@@ -1,0 +1,28 @@
+<div class="main_left">
+	<dl>
+		<dt> <span class="fa fa-list-alt"></span> {L('manage_center')}</dt>
+		<dd><a href="index.php?m=member&c=content&a=publish"{if ROUTE_A=="publish"} class="left_cur" {/if}>{L('online_publish')}</a></dd>
+		<dd><a href="index.php?m=member&c=content&a=published"{if ROUTE_A=="published"} class="left_cur" {/if}>{L('published_content')}</a></dd>
+	</dl>
+	{if module_exists('pay')}
+	<dl>
+		<dt> <span class="fa fa-rmb"></span> {L('financial_management')}</dt>
+		<dd><a href="index.php?m=pay&c=deposit&a=pay"{if ROUTE_A=="pay" && ROUTE_C=="deposit"} class="left_cur" {/if}>{L('online_charge')}</a></dd>
+		<dd><a href="index.php?m=pay&c=deposit&a=init"{if ROUTE_A!="pay" && ROUTE_C=="deposit"} class="left_cur" {/if}>{L('pay_log')}</a></dd>
+		<dd><a href="index.php?m=pay&c=spend_list&a=init"{if ROUTE_A!="pay" && ROUTE_C=="spend_list"} class="left_cur" {/if}>{L('cost_log')}</a></dd>
+		<dd><a href="index.php?m=member&c=index&a=change_credit"{if ROUTE_A=="change_credit"} class="left_cur" {/if}>{L('credit_change')}</a></dd>
+	</dl>
+	{/if}
+	{if module_exists('message')}
+	{pc:message action="check_new"}
+	{php $new_arr = $data;}
+	{/pc}
+	<dl>
+		<dt> <span class="fa fa-envelope"></span> {L('message')}</dt>
+		<dd><a href="index.php?m=message&c=index&a=send"{if ROUTE_A=="send"} class="left_cur" {/if}>{L('send_message')}</a></dd>
+		<dd><a href="index.php?m=message&c=index&a=inbox"{if ROUTE_A=="inbox"} class="left_cur" {/if}>{L('input_box')}{if $new_arr['new_count'] >0}<font color=red>({$new_arr['new_count']})</font>{/if}</a></dd>
+		<dd><a href="index.php?m=message&c=index&a=outbox"{if ROUTE_A=="outbox"} class="left_cur" {/if}>{L('output_box')}</a></dd>
+		<dd><a href="index.php?m=message&c=index&a=group"{if ROUTE_A=="group"} class="left_cur" {/if}>{L('system_message')}{if $new_arr['new_group_count'] >0}<font color=red>({$new_arr['new_group_count']})</font>{/if}</a></dd>
+	</dl>
+	{/if}
+</div>
