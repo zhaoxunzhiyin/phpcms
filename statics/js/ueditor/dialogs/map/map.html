@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script type="text/javascript" src="../internal.js"></script>
+    <script type="text/javascript">
+        function getParam(name) {
+            return location.href.match(new RegExp('[?#&]' + name + '=([^?#&]+)', 'i')) ? RegExp.$1 : '';
+        }
+        var ak = getParam('ak');
+        if (!ak) {
+            alert('需要前往后台设置界面，去设置百度地图AK值');
+        } else {
+            document.write("<script type=\"text/javascript\" src=\"https://api.map.baidu.com/api?v=1.0&type=webgl&ak="+ak+"\"><\/script>");
+        }
+    </script>
+    <style type="text/css">
+        .content{width:530px; height: 350px;margin: 10px auto;}
+        .content table{width: 100%}
+        .content table td{vertical-align: middle;}
+        #city,#address{height:21px;background: #FFF;border:1px solid #d7d7d7; line-height: 21px;}
+        #city{width:60px}
+        #address{width:130px}
+        #is_dynamic_label span{vertical-align:middle;}
+        #is_dynamic_label input{vertical-align:middle;margin: 3px 3px 3px 50px;}
+        .mt-checkbox,.mt-radio {display: inline-block;position: relative;height: 19px;padding-left: 30px;margin: 0px;cursor: pointer;font-size: 14px;webkit-transition: all .3s;-moz-transition: all .3s;-ms-transition: all .3s;-o-transition: all .3s;transition: all .3s}
+        .mt-checkbox.mt-checkbox-disabled,.mt-checkbox.mt-radio-disabled,.mt-radio.mt-checkbox-disabled,.mt-radio.mt-radio-disabled {opacity: .6;filter: alpha(opacity=60)}.mt-checkbox>input,.mt-radio>input {position: absolute;z-index: -1;opacity: 0;filter: alpha(opacity=0)}.mt-checkbox>span,.mt-radio>span {border: 1px solid transparent;position: absolute;top: 0;left: 0;height: 19px;width: 19px;background: #E6E6E6}
+        .mt-checkbox>span:after,.mt-radio>span:after {content: '';position: absolute;display: none}
+        .input-icon>i,.mt-checkbox-list .mt-checkbox,.mt-checkbox-list .mt-radio,.mt-checkbox>input:checked~span:after,.mt-radio-list .mt-checkbox,.mt-radio-list .mt-radio,.mt-radio>input:checked~span:after {display: block}.mt-checkbox:hover>input:not([disabled])~span,.mt-checkbox>input:focus~span,.mt-radio:hover>input:not([disabled])~span,.mt-radio>input:focus~span {background: #d9d9d9;webkit-transition: all .3s;-moz-transition: all .3s;-ms-transition: all .3s;-o-transition: all .3s;transition: all .3s}.mt-checkbox:hover>input:not([disabled]):checked~span,.mt-checkbox>input:checked~span,.mt-radio:hover>input:not([disabled]):checked~span,.mt-radio>input:checked~span {webkit-transition: all .3s;-moz-transition: all .3s;-ms-transition: all .3s;-o-transition: all .3s;transition: all .3s;background: #d9d9d9}.icon-btn,.icon-btn:hover {-webkit-transition: all .3s ease;-moz-transition: all .3s ease;-ms-transition: all .3s ease;-o-transition: all .3s ease}.mt-checkbox>input:disabled~span,.mt-radio>input:disabled~span {opacity: .6;filter: alpha(opacity=60);pointer-events: none}.icon-btn,.ie8 .icon-btn:hover {filter: none}.mt-checkbox.mt-checkbox-outline:hover>input:not([disabled]):checked~span,.mt-checkbox.mt-checkbox-outline:hover>input:not([disabled])~span,.mt-checkbox.mt-checkbox-outline>input:checked~span,.mt-checkbox.mt-checkbox-outline>input:focus~span,.mt-checkbox.mt-checkbox-outline>span,.mt-checkbox.mt-radio-outline:hover>input:not([disabled]):checked~span,.mt-checkbox.mt-radio-outline:hover>input:not([disabled])~span,.mt-checkbox.mt-radio-outline>input:checked~span,.mt-checkbox.mt-radio-outline>input:focus~span,.mt-checkbox.mt-radio-outline>span,.mt-radio.mt-checkbox-outline:hover>input:not([disabled]):checked~span,.mt-radio.mt-checkbox-outline:hover>input:not([disabled])~span,.mt-radio.mt-checkbox-outline>input:checked~span,.mt-radio.mt-checkbox-outline>input:focus~span,.mt-radio.mt-checkbox-outline>span,.mt-radio.mt-radio-outline:hover>input:not([disabled]):checked~span,.mt-radio.mt-radio-outline:hover>input:not([disabled])~span,.mt-radio.mt-radio-outline>input:checked~span,.mt-radio.mt-radio-outline>input:focus~span,.mt-radio.mt-radio-outline>span {border: 1px solid #d9d9d9;background: 0 0}
+        .mt-radio>span,.timeline .timeline-badge-userpic img {-webkit-border-radius: 50%!important;-moz-border-radius: 50%!important}
+        .mt-radio>span {-ms-border-radius: 50%!important;-o-border-radius: 50%!important;border-radius: 50%!important}
+        .mt-radio>span:after {left: 6px;top: 6px;height: 6px;width: 6px;border-radius: 50%;background: #666}
+        .mt-radio>input:disabled~span:after {background: #666}
+        .mt-checkbox>span:after {left: 6px;top: 3px;width: 5px;height: 10px;border: solid #666;border-width: 0 2px 2px 0;transform: rotate(45deg)}
+        .mt-checkbox>input:disabled~span:after {border-color: #666}
+        .form-inline .mt-checkbox {margin-left: 15px;margin-right: 15px}
+        .mt-checkbox-list,.mt-radio-list {padding: 10px 0}
+        .form-horizontal .form-group .mt-checkbox-list,.form-horizontal .form-group .mt-radio-list {padding-top: 0}
+        .mt-checkbox-inline,.mt-radio-inline {padding: 10px 0}
+        .form-horizontal .form-group .mt-checkbox-inline,.form-horizontal .form-group .mt-radio-inline {padding-top: 8px}
+        .mt-checkbox-inline .mt-checkbox,.mt-checkbox-inline .mt-radio,.mt-radio-inline .mt-checkbox,.mt-radio-inline .mt-radio {display: inline-block;margin-right: 15px}
+        .mt-checkbox-inline .mt-checkbox:last-child,.mt-checkbox-inline .mt-radio:last-child,.mt-radio-inline .mt-checkbox:last-child,.mt-radio-inline .mt-radio:last-child {margin-right: 0}
+    </style>
+</head>
+<body>
+<div class="content">
+    <table>
+        <tr>
+            <td><var id="lang_city"></var>:</td>
+            <td><input id="city" type="text" /></td>
+            <td><var id="lang_address"></var>:</td>
+            <td><input id="address" type="text" value="" /></td>
+            <td><a href="javascript:doSearch()" class="button"><var id="lang_search"></var></a></td>
+            <td><label id="is_dynamic_label" for="is_dynamic" class="mt-checkbox mt-checkbox-outline"><input id="is_dynamic" type="checkbox" name="is_dynamic" /><var id="lang_dynamicmap"></var><span></span></label></td>
+        </tr>
+    </table>
+    <div style="width:100%;height:340px;margin:5px auto;border:1px solid gray" id="container"></div>
+
+</div>
+<script type="text/javascript">
+    var param = new Array();
+    var BMap = BMapGL;
+    var map = new BMap.Map("container"),marker,point,styleStr;
+    map.enableScrollWheelZoom();
+    map.enableContinuousZoom();
+    function doSearch(){
+        if (!document.getElementById('city').value) {
+            alert(lang.cityMsg);
+            return;
+        }
+        var search = new BMap.LocalSearch(document.getElementById('city').value, {
+            onSearchComplete: function (results){
+                if (results && results.getNumPois()) {
+                    var points = [];
+                    for (var i=0; i<results.getCurrentNumPois(); i++) {
+                        points.push(results.getPoi(i).point);
+                    }
+                    if (points.length > 1) {
+                        map.setViewport(points);
+                    } else {
+                        map.centerAndZoom(points[0], 13);
+                    }
+                    point = map.getCenter();
+                    marker.setPosition(point);
+                } else {
+                    alert(lang.errorMsg);
+                }
+            }
+        });
+        search.search(document.getElementById('address').value || document.getElementById('city').value);
+    }
+    //获得参数
+    function getPars(str,par){
+
+        var reg = new RegExp(par+"=((\\d+|[.,])*)","g");
+        var arr = reg.exec(str);
+        if (!arr || arr == 'null') {
+            if (par == "mMarkerarkers") {
+                var reg = new RegExp("markers=((\\d+|[.,])*)","g");
+                var arr = reg.exec(str);
+                return arr[1];
+            }
+            return '';
+        }
+        return arr[1];
+    }
+    function init(){
+        var mapNode = editor.selection.getRange().getClosedNode(),
+            isMapImg = mapNode && /api[.]map[.]baidu[.]com/ig.test(mapNode.getAttribute("src")),
+            isMapIframe = mapNode && domUtils.hasClass(mapNode, 'ueditor_baidumap');
+        if(isMapImg || isMapIframe){
+            var url, centerPos, markerPos;
+            if(isMapIframe) {
+                url = decodeURIComponent(mapNode.getAttribute("src"));
+                $G('is_dynamic').checked = true;
+                styleStr = mapNode.style.cssText;
+            } else {
+                url = mapNode.getAttribute("src");
+                styleStr = mapNode.style.cssText;
+            }
+
+            centerPos = getPars(url,"center").split(",");
+            markerPos = getPars(url, "mMarkerarkers").split(",");
+            point = new BMap.Point(Number(centerPos[0]),Number(centerPos[1]));
+            marker = new BMap.Marker(new BMap.Point(Number(markerPos[0]), Number(markerPos[1])));
+            map.addControl(new BMap.NavigationControl());
+            map.centerAndZoom(point, Number(getPars(url,"zoom")));
+            marker.enableDragging();
+            map.addOverlay(marker);
+        }else{
+
+
+            var geolocation = new BMapGL.Geolocation();
+            geolocation.getCurrentPosition(function(r){
+                if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                    point = new BMap.Point(r.point.lng, r.point.lat);    // 创建点坐标
+                    marker = new BMap.Marker(point);
+                    map.addControl(new BMap.NavigationControl());
+                    map.centerAndZoom(point, 10);
+                    marker.enableDragging();
+                    map.addOverlay(marker);
+                }
+                else {
+                    point = new BMap.Point(116.404, 39.915);    // 创建点坐标
+                    marker = new BMap.Marker(point);
+                    map.addControl(new BMap.NavigationControl());
+                    map.centerAndZoom(point, 10);
+                    marker.enableDragging();
+                    map.addOverlay(marker);
+                }
+            });
+
+        }
+    }
+    init();
+    document.getElementById('address').onkeydown = function (evt){
+        evt = evt || event;
+        if (evt.keyCode == 13) {
+            doSearch();
+        }
+    };
+    dialog.onok = function (){
+        var center = map.getCenter();
+        var zoom = map.zoomLevel;
+        var size = map.getSize();
+        var mapWidth = size.width;
+        var mapHeight = size.height;
+        var point = marker.getPosition();
+
+        if($G('is_dynamic').checked) {
+            var URL = editor.options.UEDITOR_HOME_URL,
+                url = [URL + (/\/$/.test(URL) ? '':'/') + "dialogs/map/show.html" +
+                '#center=' + center.lng + ',' + center.lat,
+                    '&zoom=' + zoom,
+                    '&width=' + mapWidth,
+                    '&height=' + mapHeight,
+                    '&markers=' + point.lng + ',' + point.lat,
+                    '&ak=' + getParam('ak'),
+                    '&markerStyles=' + 'l,A'].join('');
+            editor.execCommand('inserthtml', '<iframe class="ueditor_baidumap" src="' + url + '"' + (styleStr ? ' style="' + styleStr + '"' :'') + ' frameborder="0" width="' + (mapWidth+4) + '" height="' + (mapHeight+4) + '"></iframe>');
+        } else {
+            var url = "https://api.map.baidu.com/staticimage?center=" + center.lng + ',' + center.lat +
+                "&zoom=" + zoom + "&width=" + size.width + '&height=' + size.height + "&markers=" + point.lng + ',' + point.lat;
+            editor.execCommand('inserthtml', '<img width="'+ size.width +'" height="'+ size.height +'" src="' + url + '"' + (styleStr ? ' style="' + styleStr + '"' :'') + '/>');
+        }
+    };
+    document.getElementById("address").focus();
+</script>
+
+
+</body>
+</html>
