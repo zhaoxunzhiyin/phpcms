@@ -1,0 +1,45 @@
+{template "content","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+<style>
+.search-content{text-align: center;}
+.form-control {padding: 6px 12px;background-color: #fff;border: 1px solid #d3cfcf;color: #3F4254;background-clip: padding-box;border-radius: 3.8px;}
+.form-control, output {font-size: 14px;line-height: 1.42857;color: #555;}
+.btn {display: inline-block;margin-bottom: 0;font-weight: 400;text-align: center;touch-action: manipulation;cursor: pointer;border: 1px solid transparent;white-space: nowrap;padding: 4px 12px;font-size: 14px;line-height: 1.42857;border-radius: 3.8px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none}
+.btn.blue:not(.btn-outline) {color: #FFF;background-color: #28b6ff;border-color: #28b6ff;}
+</style>
+<!--主要内容-->
+<div class="main">
+    {if $total}<div class="search-title">
+        <h2>共<span>{$total}</span>条搜索结果</h2>
+    </div>{/if}
+    <div class="news-list">
+        <ul>
+            <div class="search-content"><input name="title" id="title" type="text" placeholder="输入关键字" required class="input form-control" value='{$keyword}'>
+            <input type="submit" value="搜索" class="btn blue" onclick="dr_module_search('title')" /></div>
+            <script>
+                function dr_module_search(name) {
+                    var url = "{WEB_PATH}api.php?op=search&catid={$catid}&mobile=1&{php if (isset($params['keyword'])) unset($params['keyword']); echo $params ? http_build_query($params): '';}";
+                    var value = $("#" + name).val();
+                    if (value) {
+                        location.href = url+"&keyword="+value;
+                    } else {
+                        $("#" + name).focus();
+                        dr_tips(0, "输入关键字");
+                    }
+                    return false;
+                }
+            </script>
+        </ul>
+        <ul>
+            {loop $datas $r}
+            <li>
+                <span class="date">[{date('m-d',$r['inputtime'])}]</span>
+                <a href="{show_url($r['url'], $r['catid'], $r['id'])}">
+                <span class="title_color"{title_style($r['style'])}>{dr_keyword_highlight($r['title'], $keyword)}</span></a>
+            </li>
+            {/loop}
+        </ul>
+    </div>
+    <div class="search-pagination">{$pages}</div>
+</div>
+{template "content","footer"}

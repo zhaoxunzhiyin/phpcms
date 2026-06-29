@@ -1,0 +1,11 @@
+<div class="footer">
+<a href="{siteurl($siteid)}" target="_blank">首页</a>
+{pc:content action="category" catid="1" num="15" siteid="$siteid" order="listorder ASC"}
+{loop $data $r}
+| <a href="{$r['url']}" target="_blank">{$r['catname']}</a>
+{/loop}
+{/pc}
+<p>&copy; 2006-{date('Y', SYS_TIME)} kaixin100.cn All Rights Reserved.</p>
+</div>
+</body>
+</html>

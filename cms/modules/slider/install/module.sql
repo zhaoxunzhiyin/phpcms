@@ -1,0 +1,1 @@
+INSERT INTO `cms_module` VALUES ('slider', '幻灯片管理', '', '0', '1.0', '', '', '0', '0', CURDATE(), CURDATE());

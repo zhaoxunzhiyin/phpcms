@@ -1,0 +1,160 @@
+{template "content","header"}
+<!--网站容器-->
+<style>
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+p {
+    font-size: 1rem;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #222;
+    font-family: 'Lato',sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.25px;
+}
+.h5, h5 {
+    font-size: 1.25rem;
+}
+.error_pagenotfound {
+    padding: 40px 30px 58px 30px;
+    width: 60%;
+    border: 0 solid #e5e5e5;
+    box-shadow: 0 0 8px 0 #a29f9fe6;
+    border-radius: 3px;
+    background-color: #fff;
+    text-align: center;
+    margin: 150px auto;
+}
+.page {
+    overflow: hidden;
+    background-color: #fff;
+}
+.error-page {
+    padding: 50px 0;
+}
+.wide-20 {
+    padding-top: 100px;
+    padding-bottom: 20px;
+}
+.error_pagenotfound {
+    padding: 40px 30px 58px 30px;
+    width: 60%;
+    border: 0 solid #e5e5e5;
+    box-shadow: 0 0 8px 0 #a29f9fe6;
+    border-radius: 3px;
+    background-color: #fff;
+    text-align: center;
+    margin: 150px auto;
+}
+.margin-bottom-30 {
+    margin-bottom: 30px!important;
+}
+.btn.red:not(.btn-outline) {
+    color: #fff;
+    background-color: #e7505a;
+    border-color: #e7505a;
+}
+.btn.btn-sm {
+    font-size: .78125rem;
+    line-height: 1;
+    padding: 10px 20px;
+}
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.btn {
+    outline: none!important;
+    box-shadow: none!important;
+}
+.btn-sm, .btn-group-sm>.btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.btn-group-sm>.btn, .btn-sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+}
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+</style>
+<div class="page">
+<div class="error-page wide-20">
+    <div class="container">
+        <div class="error_pagenotfound" style="margin: 30px auto;padding-top:60px">
+            <div class="row">
+                <h5 class="col-md-12 text-center margin-bottom-30">请注意您的账号和财产安全</h5>
+            </div>
+            <div class="row">
+               
+                <div class="col-md-12 text-center">
+                  <p> 您即将离开{dr_site_info('name', $siteid)}官网，去往：{$host}</p>
+                  <p style="color:red"> 警惕要求的转账、汇款、验资及索要账号、密码、验证码等行为</p>
+                  <p><a class="btn btn-sm red" href="javascript:go_url();">我已知晓，继续访问</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</div>
+<script>
+    function go_url() {
+        layer.confirm('{dr_site_info('name', $siteid)}不能保障站外网站的安全性，确定要访问站外地址吗？', {
+            title: '安全提醒',
+            icon: 3,
+            btn: ['确定访问', '不访问']
+        }, function(index, layero){
+            window.location.href = "{$link}";
+        }, function(index){
+            //按钮【按钮二】的回调
+            window.close();
+        });
+    }
+</script>
+{template "content","footer"}

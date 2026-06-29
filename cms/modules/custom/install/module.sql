@@ -1,0 +1,1 @@
+INSERT INTO `cms_module` VALUES ('custom', '自定义资料管理', '', '0', '1.0', '', '', '0', '0', CURDATE(), CURDATE());
