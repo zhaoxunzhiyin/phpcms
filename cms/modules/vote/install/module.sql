@@ -1,0 +1,1 @@
+INSERT INTO `cms_module` (`module`, `name`, `url`, `iscore`, `version`, `description`, `setting`, `listorder`, `disabled`, `installdate`, `updatedate`) VALUES ('vote', '投票', '', '0', '1.0', '', '{"1":{"default_style":"default","vote_tp_template":"vote_tp","allowguest":"1","enabled":"1","interval":"1","credit":"1"}}', '0', '0', CURDATE(), CURDATE());

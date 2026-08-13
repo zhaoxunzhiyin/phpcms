@@ -1,0 +1,54 @@
+{template 'member', 'header'}
+<script language="javascript" type="text/javascript" src="{JS_PATH}content_addtop.js"></script>
+<div class="member_container main">
+    {template 'member', 'left'}
+    <div class="main_right">
+        <div class="tit">
+            <h3>{L('online_publish')}</h3>
+        </div>
+        <div class="main_cont">
+            <form method="post" action="" id="myform" name="myform">
+            {dr_form_hidden()}
+                <table>
+				{if ROUTE_A=='publish'}
+				<script language="JavaScript">
+				<!--
+					function c_c(catid) {
+						location.href='index.php?m=member&c=content&a=publish&siteid={$siteid}&catid='+catid;
+					}
+				//-->
+				</script>
+					<tr>
+                        <td width="100">{L('please_select_cat')}：</td>
+                        <td>{form::select_category('', $catid, 'name="info[catid]" onchange="javascript:c_c(this.value);"','','',0,1,$siteid,'1')} <span class="red">*</span></td>
+                    </tr>
+				{/if}
+                    {loop $forminfos $k $v}
+					<tr>
+						<td width="100">{if $v['star']} <font color="red">*</font>{/if} {$v['name']}：</td> 
+						<td>{$v['form']}{if $v['tips']}{$v['tips']}{/if}</td>
+					</tr>
+					{/loop}
+                    <tr>
+						<td></td>
+						<td>
+						<input name="forward" type="hidden" value="{HTTP_REFERER}">
+						<input name="id" type="hidden" value="{$id}">
+						<input name="dosubmit" type="submit" id="dosubmit" value="{L('submit')}" class="submit"></td>
+					</tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript"> 
+<!--
+//只能放到最下面
+$(function(){
+	$.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){Dialog.alert(msg,function(){$(obj).focus();
+	})}});
+	{$formValidator}
+})
+//-->
+</script>
+{template 'member', 'footer'}

@@ -1,0 +1,19 @@
+{pc:content action="lists" catid="$catid" num="10" order="id DESC" page="$page"}
+{loop $data $r}
+<li class="search-item">
+    <a title="{$r.title}" href="{show_url($r['url'], $r['catid'], $r['id'])}">
+        <img src="{thumb($r.thumb, 100, 90)}" width="100" height="90" style="margin-top: 15px;">
+    </a>
+    <div class="search-content text-left">
+        <h4 class="search-title">
+            <a title="{$r.title}" href="{show_url($r['url'], $r['catid'], $r['id'])}">{str_cut($r.title, 20)}</a>
+        </h4>
+        <p class="search-desc">{str_cut($r.description, 44)}</p>
+    </div>
+    <div class="search-post-foot">
+        <a href="{list_url(dr_cat_value($r.catid, 'url'),$r['catid'])}"><i class="fa fa-list"></i> {dr_cat_value($r.catid, 'catname')}</a>
+        <a href="{show_url($r['url'], $r['catid'], $r['id'])}"><i class="fa fa-calendar"></i> {dr_date($r.updatetime)}</a>
+    </div>
+</li>
+{/loop}
+{/pc}

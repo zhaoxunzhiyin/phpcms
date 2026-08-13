@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title></title>
+        <style type="text/css">
+            *{color: #838383;margin: 0;padding: 0}
+            html,body {font-size: 12px;overflow: hidden; }
+            .content{padding:15px 0 0 15px;}
+            input{width:210px;height:28px;line-height:28px;margin-left: 4px;border-radius: 5px;border: 1px solid #ccc;}
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <span><var id="lang_input_subtitleName"></var></span><input id="subtitleName"  value="" />
+        </div>
+        <script type="text/javascript" src="../internal.js"></script>
+        <script type="text/javascript">
+            var subtitleInput = $G('subtitleName'),
+                node = editor.selection.getRange().getClosedNode();
+            subtitleInput.onkeydown = function(evt){
+                evt = evt || window.event;
+                if(evt.keyCode == 13){
+                    if(!subtitleInput.value){
+			            alert(lang.enterSubtitle);
+			            return false;
+			        }
+                    editor.execCommand('subtitle', subtitleInput.value);
+                    dialog.close();
+                    domUtils.preventDefault(evt)
+                }
+            };
+            dialog.onok = function (){
+                if(!subtitleInput.value){
+		            alert(lang.enterSubtitle);
+		            return false;
+		        }
+                editor.execCommand('subtitle', subtitleInput.value);
+                dialog.close();
+            };
+            $focus(subtitleInput);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+{template 'member', 'header'}
+<div class="member_container main">
+{template 'member', 'left'}
+  <div class="main_right">
+	<div class="tit"><h3>支付确认</h3></div>
+	<div class="main_cont">
+	<table width="100%" cellspacing="0" class="tablelist nHover">
+<tr>
+<td  width="120">费用：</td> 
+<td>{$factory_info['money']}元</td>
+</tr>
+
+{if $logistics_fee}
+<tr>
+<td  width="120">配送费用：</td> 
+<td>{$logistics_fee} 元</td>
+</tr>
+{/if}
+{if $discount>0}
+<tr>
+<td  width="120">折扣/涨价：</td> 
+<td>{$discount} 元</td>
+</tr>
+{/if}
+
+{if $pay_fee}
+<tr>
+<td  width="120">手续费：</td> 
+<td>{$pay_fee}元</td>
+</tr>
+{/if}
+<tr>
+<td  width="120">合计：</td> 
+<td><font style="color:#F00; font-size:22px;font-family:Georgia,Arial; font-weight:700">{$factory_info['price']}</font>  元</td>
+</tr>
+
+<tr>
+<td  width="120">支付方式：</td> 
+<td>{$factory_info['payment']}</td>
+</tr>
+</table>
+<div class="bk10"></div>
+{$code}
+	</div>
+  </div>		  
+</div>
+{template 'member', 'footer'}

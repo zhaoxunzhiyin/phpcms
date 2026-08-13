@@ -1,0 +1,1 @@
+INSERT INTO `cms_module` VALUES ('message', '短消息', '', '0', '1.0', '', '', '0', '0', CURDATE(), CURDATE());

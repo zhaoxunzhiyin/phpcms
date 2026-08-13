@@ -1,0 +1,10 @@
+#
+# robots.txt
+#
+User-agent: * 
+Disallow: /api
+Disallow: /caches
+Disallow: /cms
+Disallow: /admin.php
+Disallow: /install.php
+Disallow: /test.php

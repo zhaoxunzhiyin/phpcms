@@ -1,0 +1,76 @@
+{template "content","header"}
+<link href="{MOBILE_CSS_PATH}default/css/mobile-category.css" rel="stylesheet" type="text/css" />
+<style>
+.margin-top-20 {margin-top: 20px !important;}
+.btn.default {color: #fff !important;background-color: #40aae2 !important;border-color: #40aae2 !important;}
+.btn-block,input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-block {width: 100%}
+.btn-block {display: block}
+.btn-block+.btn-block {margin-top: 5px}
+.btn {display: inline-block;margin-bottom: 0;font-weight: 400;text-align: center;touch-action: manipulation;cursor: pointer;border: 1px solid transparent;white-space: nowrap;padding: 6px 12px;font-size: 14px;line-height: 1.42857;border-radius: 3.8px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none}
+.news-list>ul .search-item {list-style: none;padding: 20px 0;border-bottom: 1px solid;border-color: #f4f6f8;}
+.news-list>ul .search-item>a>img {width: 100px;float: left;margin-right: 20px;}
+.news-list>ul .search-item>.search-content {padding-left: 120px;}
+.text-left {text-align: left;}
+.news-list>ul .search-item>.search-content>.search-title {font-size: 20px;margin: 15px 0 10px;font-weight: 600;}
+.news-list>ul .search-item>.search-content>.search-title>a {color: #4e5a64;font-size: 16px;font-weight: 400;}
+.news-list>ul .search-item>.search-content>.search-desc {color: #a0a9b4;font-size: 13px;margin: 0;}
+.search-post-foot {padding-top: 20px;text-align: right;}
+</style>
+<!--主要内容-->
+<div id="main">
+	<div class="news-list">
+		<ul id="content_list">
+			{template "content","list_data"}
+		</ul>
+        <div class="margin-top-20" id="is_ajax_btn">
+            <a href="javascript:dr_ajax_load_more();" class="btn default btn-block"> 加载更多 </a>
+        </div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="news-list">
+		<h3 class="title">【点击排行】</h3>
+		<ul>
+			{pc:content  action="hits" catid="$catid" num="10"}
+			{loop $data $r}
+			<li>
+				<span class="date">[{date('m-d',$r['inputtime'])}]</span>
+				<a href="{show_url($r['url'], $r['catid'], $r['id'])}"><span class="title_color"{title_style($r['style'])}>{$r['title']}</span></a>
+			</li>
+			{/loop}
+			{/pc}
+		</ul>
+	</div>
+</div>
+<script>
+var Mpage=1;
+//滚动显示更多
+var scroll_get = true;  //做个标志,不要反反复复的加载
+$(document).ready(function () {
+	$(window).scroll(function () {
+		if (scroll_get==true &&  (400 + $(window).scrollTop())>($(document).height() - $(window).height())) {
+			scroll_get = false;
+			layer.msg('内容加截中,请稍候',{time:1000});
+			dr_ajax_load_more();
+		}
+	});
+});
+
+function dr_ajax_load_more(){
+	Mpage++;
+	$.get('{APP_PATH}api.php?op=template&name=list_data&catid={$catid}&mobile=1&format=json&page='+Mpage+'&'+Math.random(),function(res){
+		$('.footer-cont').hide();
+		if(res.code==1){
+			if(res.msg==''){
+				$('#is_ajax_btn').hide();
+				layer.msg("已经显示完了",{time:500});
+			}else{
+				$('#content_list').append(res.msg);
+				scroll_get = true;
+			}
+		}else{
+			layer.msg(res.msg,{time:2500});
+		}
+	}, 'json');
+}
+</script>
+{template "content","footer"}

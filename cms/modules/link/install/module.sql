@@ -1,0 +1,1 @@
+INSERT INTO `cms_module` VALUES ('link', '友情链接', '', '0', '1.0', '', '{"1":{"is_post":"0","enablecheckcode":"0"}}', '0', '0', CURDATE(), CURDATE());

@@ -1,0 +1,101 @@
+{template "content","header"}
+<script type="text/javascript" src="{JS_PATH}formvalidator.js" charset="UTF-8"></script> 
+<script type="text/javascript" src="{JS_PATH}formvalidatorregex.js" charset="UTF-8"></script>
+<!--网站容器-->
+<div class="container">
+<div class="content-box form-box">
+         <div class="title">
+             <h2>在线留言</h2>
+             <span class="title-right">
+                 当前位置：<a href="{siteurl($siteid)}">首页</a>&gt; <a href="{APP_PATH}index.php?m={ROUTE_M}&siteid={$siteid}">留言板</a> &gt; 在线留言
+             </span>
+         </div>
+      <form action="{APP_PATH}index.php?m=guestbook&c=index&a=register&siteid={$siteid}" method="post" name="myform" id="myform">
+        <table class='table'>
+<tr> 
+<td class="table-title">姓　　名：</th>
+<td><input type="text" value="" id="name" name="name" class="input-text" onkeyup="value="/oblog/value.replace(/[^\u4E00-\u9FA5]/g,'')></td>
+</tr>
+<tr> 
+<td class="table-title">性　　别：</th>
+<td><input type="radio" value="男" name="sex" checked="checked"/> 男<input type="radio" value="女" name="sex"/> 女</td>
+</tr>
+<tr> 
+<td class="table-title">联 系QQ：</th>
+<td><input type="text" size="40" value="" name="lxqq" id="lxqq" class="input-text"></td>
+</tr>
+<td class="table-title">电子邮箱：</th>
+<td><input type="text" size="40" value="" name="email" id="email" class="input-text"></td>
+</tr>
+<tr>
+<td class="table-title">手　　机：</th>
+<td><input type="text" size="40" value="" name="shouji" id="shouji" class="input-text"></td>
+</tr>
+<tr> 
+  <td class="table-title">所属分类：</th>
+  <td width="300">
+  <select class="select" style="width: 36%;" id="typeid" name="typeid">
+  <option value="0">默认分类</option>
+{loop $types $type_arr}
+<option value="{$type_arr['typeid']}">{$type_arr['name']}</option>
+{/loop}
+</select>
+  </td>
+</tr>
+
+<tr>
+  <td class="table-title">填写留言：</th>
+  <td><textarea name="introduce" cols="40" rows="5" class="input-text" id="introduce" style='width:500px;height:70px;'></textarea></td>
+</tr>
+{if $setting['enablecheckcode']}
+<tr>
+       <td class="table-title">验证码：</th>
+       <td><input name="code" type="text" id="code" size="10"  class="input-text"/> {form::checkcode('code_img','4','14',110,30)}</td>
+</tr>
+{/if}
+<tr> 
+<td class="table-title"></th>
+<td><input type="submit" value=" 提 交 " name="dosubmit" class="submit">　　<input type="reset" value=" 取 消 " name="reset" class="submit"> </td>
+</tr> 
+</table>
+        </form> 
+     </div>
+</div>
+<script type="text/javascript">
+<!--
+$(function(){
+    $.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+    $("#name").formValidator({onshow:"请输入姓名",onfocus:"请输入姓名"}).inputValidator({min:4,max:10,onerror:"姓名应该为2-3个汉字"}).regexValidator({regexp:"ps_username",datatype:"enum",onerror:"姓名格式错误"});
+    
+    $("#email").formValidator({onshow:"请输入电子邮箱",onfocus:"请输入电子邮箱",oncorrect:"邮箱格式正确"}).inputValidator({min:6,max:32,onerror:"邮箱应该为6-32位之间！"}).regexValidator({regexp:"email",datatype:"enum",onerror:"请填写正确的邮箱地址"});
+    
+    $("#lxqq").formValidator({onshow:"请输入QQ号码",onfocus:"请输入QQ号码",oncorrect:"QQ格式正确"}).inputValidator({min:5,max:10,onerror:"QQ号码应该为5-10位之间！"}).regexValidator({regexp:"qq",datatype:"enum",onerror:"请填写正确的QQ号"});
+    
+    $("#shouji").formValidator({onshow:"请输入手机",onfocus:"请输入联系电话",oncorrect:"电话格式正确"}).inputValidator({min:11,max:11,onerror:"手机应该为11位数！"}).regexValidator({regexp:"mobile",datatype:"enum",onerror:"请填写正确的手机"});
+    $("#introduce").formValidator({onshow:"请输入留言内容",onfocus:"请输入留言内容"}).inputValidator({min:10,max:200,onerror:"10-100个字之间"});
+    {if $setting['enablecheckcode']}
+    $("#code").formValidator({onshow:"请输入验证码",onfocus:"验证码不能为空"}).inputValidator({min:1,max:999,onerror:"验证码不能为空"}).ajaxValidator({
+        type : "get",
+        url : "",
+        data :"m=pay&c=deposit&a=public_checkcode",
+        datatype : "html",
+        async:'false',
+        success : function(data){    
+            if(data == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        },
+        buttons: $("#dosubmit"),
+        onerror : "验证码错误",
+        onwait : "验证中"
+    });
+    {/if}
+ })
+//-->
+</script>
+{template "content","footer"}

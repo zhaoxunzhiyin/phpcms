@@ -1,0 +1,40 @@
+{template 'member', 'header'}
+<script language="javascript" type="text/javascript" src="{JS_PATH}content_addtop.js"></script>
+<div class="member_container main">
+    {template 'member', 'left'}
+    <div class="main_right">
+        <div class="tit">
+            <h3>{L('select_site')}</h3>
+        </div>
+        <div class="main_cont">
+            <form method="post" action="" id="myform" name="myform">
+            {dr_form_hidden()}
+				<table width="100%" cellspacing="0" class="tablelist">
+				<script language="JavaScript">
+				<!--
+					function c_c(siteid) {
+						location.href='index.php?m=member&c=content&a={ROUTE_A}&siteid='+siteid;
+					}
+				//-->
+				</script>
+				<thead>
+				<tr>
+				<th >{L('site_name')}</th>
+				<th>{L('site_info')}</th>
+				<th>{L('select')}</th>
+				</thead>
+				<tbody>
+					{loop $sitelist $k $v}
+					<tr>
+						<td width="200" align="right">{$v['name']}：</td> 
+						<td>{$v['description']}</td>
+						<td align="center"><input type="radio" value="{$v['siteid']}" onclick="c_c(this.value)"></td>
+					</tr>
+					{/loop}
+				</tbody>
+				</table>
+			</form>
+        </div>
+    </div>
+</div>
+{template 'member', 'footer'}

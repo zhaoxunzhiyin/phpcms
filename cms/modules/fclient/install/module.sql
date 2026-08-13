@@ -1,0 +1,1 @@
+INSERT INTO `cms_module` (`module`, `name`, `url`, `iscore`, `version`, `description`, `setting`, `listorder`, `disabled`, `installdate`, `updatedate`) VALUES ('fclient', '客户站群', 'fclient/', 0, '2.5', '客户站群', '', 0, 0, CURDATE(), CURDATE());
