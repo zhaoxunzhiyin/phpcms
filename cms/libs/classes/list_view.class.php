@@ -58,6 +58,15 @@ class list_view {
             $result[$field] = $this->mergeField($field, $item);
         }
 
+        uasort($result, function($a, $b) {
+            $ao = isset($a['order']) ? intval($a['order']) : 0;
+            $bo = isset($b['order']) ? intval($b['order']) : 0;
+            if ($ao == $bo) {
+                return 0;
+            }
+            return $ao < $bo ? -1 : 1;
+        });
+
         return $result;
     }
 
