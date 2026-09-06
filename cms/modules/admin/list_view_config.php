@@ -45,6 +45,7 @@ class list_view_config extends admin {
         }
 
         $candidates = list_view_provider::candidates($scene);
+		
         if ($candidates === false) {
             if (IS_POST) {
                 dr_json(0, L('列表场景不存在或未定义字段'));
@@ -52,7 +53,7 @@ class list_view_config extends admin {
             showmessage(L('列表场景不存在或未定义字段'));
         }
 
-        $username = (string)param::get_session('username');
+        $username = (string)param::get_cookie('admin_username');
         $list_view = new list_view($scene, $candidates, $userid, $username);
         $action = IS_POST ? trim((string)$this->input->post('action')) : 'config';
 
