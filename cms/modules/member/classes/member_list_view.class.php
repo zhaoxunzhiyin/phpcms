@@ -33,13 +33,13 @@ class member_list_view {
 
     private static function list_candidates() {
         return array(
-            'avatar' => array(
-                'name' => L('头像'),
+            'usercode' => array(
+                'name' => L('用户标识'),
                 'formtype' => 'text',
-                'field' => 'avatar',
+                'field' => 'usercode',
                 'setting' => array(),
-                'width' => '60',
-                'func' => 'avatar',
+                'width' => '100',
+                'func' => '',
                 'required' => true,
             ),
             'userid' => array(
@@ -64,25 +64,16 @@ class member_list_view {
                 'func' => 'author',
                 'required' => true,
             ),
-            'nickname' => array(
-                'name' => L('昵称'),
-                'formtype' => 'text',
-                'field' => 'nickname',
-                'setting' => array(),
-                'width' => '120',
-                'func' => '',
-                'required' => true,
-            ),
             'email' => array(
                 'name' => L('邮箱'),
                 'formtype' => 'text',
                 'field' => 'email',
                 'setting' => array(),
             ),
-            'mobile' => array(
-                'name' => L('手机'),
+            'phone' => array(
+                'name' => L('电话'),
                 'formtype' => 'text',
-                'field' => 'mobile',
+                'field' => 'phone',
                 'setting' => array(),
             ),
             'amount' => array(
@@ -92,16 +83,7 @@ class member_list_view {
                 'setting' => array(),
                 'width' => '120',
                 'func' => 'money',
-                'required' => true,
-            ),
-            'point' => array(
-                'name' => L('积分'),
-                'formtype' => 'text',
-                'field' => 'point',
-                'setting' => array(),
-                'width' => '120',
-                'func' => 'score',
-                'required' => true,
+                'required' => false,
             ),
             'regip' => array(
                 'name' => L('注册IP'),
@@ -110,7 +92,7 @@ class member_list_view {
                 'setting' => array(),
                 'width' => '140',
                 'func' => 'ip',
-                'required' => true,
+                'required' => false,
             ),
             'regdate' => array(
                 'name' => L('注册时间'),
@@ -119,7 +101,7 @@ class member_list_view {
                 'setting' => array(),
                 'width' => '160',
                 'func' => 'datetime',
-                'required' => true,
+                'required' => false,
             ),
         );
     }
