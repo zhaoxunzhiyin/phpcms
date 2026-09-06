@@ -27,10 +27,6 @@ class list_view {
         return $this->candidates;
     }
 
-    /**
-     * 获取最终配置。
-     * 有个人配置时使用个人配置，否则使用默认配置。
-     */
     public function getConfig() {
         $default = $this->load(0);
         $config = $default ? $default : $this->buildDefault();
@@ -45,26 +41,52 @@ class list_view {
         return $this->normalize($config);
     }
 
-    /**
-     * 获取当前实际显示字段。
-     */
-    public function getVisible() {
+    public function getAll() {
         $config = $this->getConfig();
         $result = array();
 
-        foreach ($config as $field => $item) {
-            if (!isset($this->candidates[$field]) || empty($item['use'])) {
-                continue;
-            }
+        foreach ($this->candidates as $field => $candidate) {
+            $item = isset($config[$field]) ? $config[$field] : array();
             $result[$field] = $this->mergeField($field, $item);
         }
 
         return $result;
     }
 
-    /**
-     * 保存当前用户配置。userid=0 时保存默认配置。
-     */
+    public function getVisible() {
+        $all = $this->getAll();
+        $result = array();
+
+        foreach ($all as $field => $item) {
+            if (empty($item['use'])) {
+                continue;
+            }
+            $result[$field] = $item;
+        }
+
+        return $result;
+    }
+
+    public function validate($config) {
+        if (!is_array($config)) {
+            return array('code' => 0, 'msg' => '列表字段配置格式错误');
+        }
+
+        foreach ($config as $field => $item) {
+            if (!isset($this->candidates[$field]) || !is_array($item)) {
+                continue;
+            }
+            if (!empty($item['func'])) {
+                $func = trim($item['func']);
+                if (!method_exists(pc_base::load_sys_class('function_list'), $func) && !function_exists($func)) {
+                    return array('code' => 0, 'msg' => L('列表回调函数['.$func.']未定义'));
+                }
+            }
+        }
+
+        return array('code' => 1, 'msg' => '');
+    }
+
     public function save($config, $userid = null, $username = null) {
         if ($userid === null) {
             $userid = $this->userid;
@@ -98,9 +120,6 @@ class list_view {
         return $this->model->insert($data, true);
     }
 
-    /**
-     * 删除个人配置，使用户恢复使用默认配置。
-     */
     public function reset($userid = null) {
         if ($userid === null) {
             $userid = $this->userid;
@@ -115,9 +134,6 @@ class list_view {
         ));
     }
 
-    /**
-     * 生成 required 字段的默认配置。
-     */
     private function buildDefault() {
         $config = array();
         $order = 0;
@@ -132,9 +148,6 @@ class list_view {
         return $config;
     }
 
-    /**
-     * 兼容旧配置并清理非法字段。
-     */
     public function normalize($config) {
         if (!is_array($config)) {
             $config = array();
@@ -164,7 +177,6 @@ class list_view {
             $order++;
         }
 
-        // 新增字段自动进入配置；required 字段强制显示。
         foreach ($this->candidates as $field => $item) {
             if (!isset($result[$field])) {
                 $result[$field] = array(
