@@ -22,8 +22,8 @@ class member_setting extends admin {
 		$this->cache_api = pc_base::load_app_class('cache_api', 'admin');
 	}
 
-	private function get_list_view() {
-		return new list_view(member_list_view::scene(), member_list_view::candidates(), 0, '0');
+	private function get_list_view($legacy_config = array()) {
+		return new list_view(member_list_view::scene(), member_list_view::candidates(), 0, '0', $legacy_config);
 	}
 
 	/**
@@ -41,7 +41,7 @@ class member_setting extends admin {
 			$member_setting['showapppoint'] = intval($member_setting['showapppoint']);
 			$member_setting['showregprotocol'] = intval($member_setting['showregprotocol']);
 
-			$list_view = $this->get_list_view();
+			$list_view = $this->get_list_view(isset($member_setting['list_field']) ? $member_setting['list_field'] : array());
 			$list_field = isset($setting['list_field']) && is_array($setting['list_field']) ? $setting['list_field'] : array();
 			$list_field = dr_list_field_order($list_field);
 			$validate = $list_view->validate($list_field);
@@ -88,7 +88,7 @@ class member_setting extends admin {
 				$sms_disabled = 1;
 			}
 
-			$list_view = $this->get_list_view();
+			$list_view = $this->get_list_view(isset($member_setting['list_field']) ? $member_setting['list_field'] : array());
 			$data['setting']['list_field'] = $list_view->getAll();
 			$page = intval($this->input->get('page'));
 			$field = $list_view->getAll();
