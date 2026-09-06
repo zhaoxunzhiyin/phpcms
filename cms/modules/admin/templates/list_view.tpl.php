@@ -1,14 +1,14 @@
 <?php defined('IS_ADMIN') && IS_ADMIN or exit('No permission resources.');?>
 <?php include $this->admin_tpl('header', 'admin');?>
+<link rel="stylesheet" href="<?php echo JS_PATH;?>bootstrap-switch/css/bootstrap-switch.min.css" media="all" />
+<script type="text/javascript" src="<?php echo JS_PATH;?>bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<link href="<?php echo JS_PATH;?>bootstrap-touchspin/bootstrap.touchspin.css" rel="stylesheet" type="text/css" />
+<script src="<?php echo JS_PATH;?>bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script>
 <link rel="stylesheet" href="<?php echo JS_PATH;?>jquery-ui/jquery-ui.min.css">
 <script type="text/javascript" src="<?php echo JS_PATH;?>jquery-ui/jquery-ui.min.js"></script>
 <div class="page-container" style="margin-bottom: 0px !important;">
     <div class="page-content-wrapper">
         <div class="page-content page-content3 mybody-nheader main-content">
-            <div class="right-card-box">
-                <div class="note note-info">
-                    <p>带“必选”标记的字段默认显示，且不能取消。</p>
-                </div>
                 <form action="?m=admin&c=list_view_config&a=public_list_view&scene=<?php echo rawurlencode($scene);?>" method="post" id="list-view-form">
                     <input type="hidden" name="action" value="save">
                     <div class="table-list">
@@ -18,7 +18,7 @@
                                 <th width="80">显示</th>
                                 <th width="180">字段</th>
                                 <th width="100">宽度</th>
-                                <th width="120">对齐</th>
+                                <th width="120">对齐方式</th>
                                 <th>状态</th>
                             </tr>
                             </thead>
@@ -37,7 +37,8 @@
                                     <input class="form-control" type="text" name="config[<?php echo htmlspecialchars($name, ENT_QUOTES, CHARSET); ?>][width]" value="<?php echo isset($item['width']) ? htmlspecialchars((string)$item['width'], ENT_QUOTES, CHARSET) : ''; ?>">
                                 </td>
                                 <td>
-                                    <input type="checkbox" name="config[<?php echo htmlspecialchars($name, ENT_QUOTES, CHARSET); ?>][center]" value="1" <?php if (!empty($item['center'])) { ?>checked<?php } ?>> 居中
+   									<input type="checkbox" name="config[<?php echo htmlspecialchars($name, ENT_QUOTES, CHARSET); ?>][center]" value="1" <?php if (!empty($item['center'])) { ?>checked<?php } ?>  data-on-text="<?php echo L('居中');?>" data-off-text="<?php echo L('默认');?>" data-on-color="success" data-off-color="danger" class="make-switch" data-size="small">
+									
                                 </td>
                                 <td>
                                     <?php if (!empty($item['required'])) { ?>
@@ -56,7 +57,6 @@
                         <button type="button" class="btn default" id="list-view-reset">恢复默认</button>
                     </div>
                 </form>
-            </div>
         </div>
     </div>
 </div>
