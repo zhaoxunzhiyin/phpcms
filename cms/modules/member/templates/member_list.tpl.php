@@ -60,8 +60,10 @@ jQuery(document).ready(function() {
                 </label>
                 </div>
                 <div class="col-md-12 col-sm-12">
-                <label><button type="submit" class="btn blue btn-sm onloading" name="submit"> <i class="fa fa-search"></i> <?php echo L('search')?></button></label>
-                <label><button type="button" class="btn default btn-sm list-view-setting" data-scene="member:list"> <i class="fa fa-cog"></i> 列表字段</button></label>
+					<label><button type="submit" class="btn blue btn-sm onloading" name="submit"> <i class="fa fa-search"></i> <?php echo L('search')?></button></label>
+				</div>
+                <div class="col-md-12 col-sm-12 col-right">
+					<label><a href="javascript:list_view_setting('member:list')"><i class="fa fa-th-large fa-lg"></i></a></label>
                 </div>
 </form>
 </div>
@@ -134,13 +136,9 @@ jQuery(document).ready(function() {
 </div>
 </div>
 <script type="text/javascript">
-<!--
-$(function() {
-    $('.list-view-setting').on('click', function() {
-        var scene = $(this).data('scene');
-        artdialog('list_view_' + scene.replace(/[^a-z0-9_]/ig, '_'), '?m=admin&c=list_view_config&a=public_list_view&scene=' + encodeURIComponent(scene), '列表字段设置', 820, 620);
-    });
-});
+function list_view_setting(scene) {
+     openwinx('list_view_' + scene.replace(/[^a-z0-9_]/ig, '_'), '?m=admin&c=list_view_config&a=public_list_view&scene=' + encodeURIComponent(scene), '列表字段设置', 820, 620);
+}
 function edit(id, name) {
     artdialog('edit','?m=member&c=member&a=edit&userid='+id,'<?php echo L('edit').L('member')?>《'+name+'》',700,500);
 }
@@ -179,7 +177,7 @@ function checkuid() {
         myform.submit();
     }
 }
-//-->
+
 </script>
 </body>
 </html>
