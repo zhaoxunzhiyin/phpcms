@@ -46,9 +46,6 @@ jQuery(document).ready(function() {
             <li<?php if ($page==3) {?> class="active"<?php }?>>
                 <a data-toggle="tab_3" onclick="$('#dr_page').val('3')"<?php if (is_mobile()) {echo ' onmouseover="layer.tips(\''.L('格式规范').'\',this,{tips: [1, \'#fff\']});" onmouseout="layer.closeAll();"';}?>> <i class="fa fa-user-md"></i> <?php if (is_pc()) {echo L('格式规范');}?> </a>
             </li>
-            <li<?php if ($page==4) {?> class="active"<?php }?>>
-                <a data-toggle="tab_4" onclick="$('#dr_page').val('4')"<?php if (is_mobile()) {echo ' onmouseover="layer.tips(\''.L('后台列表显示字段').'\',this,{tips: [1, \'#fff\']});" onmouseout="layer.closeAll();"';}?>> <i class="fa fa-table"></i> <?php if (is_pc()) {echo L('后台列表显示字段');}?> </a>
-            </li>
         </ul>
     </div>
     <div class="portlet-body form">
@@ -351,55 +348,6 @@ jQuery(document).ready(function() {
                             </div>
                             <span class="help-block"><?php echo L('针对前端注册时的账号格式验证，可以设置自定义正则表达式，例如数字正则表达式格式：/^[0-9]+$/')?></span>
                         </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="tab-pane<?php if ($page==4) {?> active<?php }?>" id="tab_4">
-                <div class="form-body">
-
-                    <div class="table-list">
-                        <table class="table table-striped table-bordered table-hover table-checkable dataTable">
-                            <thead>
-                            <tr class="heading">
-                                <th class="myselect">
-                                    <?php echo L('显示');?>
-                                </th>
-                                <th width="180"> <?php echo L('字段');?> </th>
-                                <th width="150"> <?php echo L('名称');?> </th>
-                                <th width="100"> <?php echo L('宽度');?> </th>
-                                <th width="140"> <?php echo L('对其方式');?> </th>
-                                <th> <?php echo L('回调方法');?> </th>
-                            </tr>
-                            </thead>
-                            <tbody class="field-sort-items">
-                            <?php 
-                            if(is_array($field)){
-                            foreach($field as $n=>$t){
-                            if ($t['field']) {
-                            ?>
-                            <tr class="odd gradeX">
-                                <td class="myselect">
-                                    <label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                        <input type="checkbox" class="checkboxes" name="setting[list_field][<?php echo $t['field'];?>][use]" value="1" <?php if ($data['setting']['list_field'][$t['field']]['use']){?> checked<?php }?> />
-                                        <span></span>
-                                    </label>
-                                </td>
-                                <td><?php echo L($t['name']);?> (<?php echo $t['field'];?>)</td>
-                                <td><input class="form-control" type="text" name="setting[list_field][<?php echo $t['field'];?>][name]" value="<?php echo $data['setting']['list_field'][$t['field']]['name'] ? htmlspecialchars($data['setting']['list_field'][$t['field']]['name']) : $t['name'];?>" /></td>
-                                <td> <input class="form-control" type="text" name="setting[list_field][<?php echo $t['field'];?>][width]" value="<?php echo htmlspecialchars((string)$data['setting']['list_field'][$t['field']]['width']);?>" /></td>
-                                <td><input type="checkbox" name="setting[list_field][<?php echo $t['field'];?>][center]" <?php if ($data['setting']['list_field'][$t['field']]['center']){?> checked<?php }?> value="1"  data-on-text="<?php echo L('居中');?>" data-off-text="<?php echo L('默认');?>" data-on-color="success" data-off-color="danger" class="make-switch" data-size="small">
-                                </td>
-                                <td> <div class="input-group" style="width:250px">
-                                        <span class="input-group-btn">
-                                            <a class="btn btn-success" href="javascript:help('?m=content&c=sitemodel&a=public_help&pc_hash='+pc_hash);"><?php echo L('回调');?></a>
-                                        </span>
-                                    <input class="form-control" type="text" name="setting[list_field][<?php echo $t['field'];?>][func]" value="<?php echo htmlspecialchars((string)$data['setting']['list_field'][$t['field']]['func']);?>" />
-                                </div></td>
-                            </tr>
-                            <?php }}}?>
-                            </tbody>
-                        </table>
                     </div>
 
                 </div>
