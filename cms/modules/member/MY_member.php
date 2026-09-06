@@ -2,8 +2,9 @@
 /**
  * 会员控制器扩展
  *
- * 仅负责将通用 ListView 的当前用户配置接入 legacy member.php。
- * ListView 设置 UI、保存、恢复默认均由 admin/list_view_config 统一处理。
+ * 会员列表字段已经完全切换到通用 ListView。
+ * 本扩展仅处理 legacy member.php 的 private $list_field 注入，
+ * 不再读取或兼容 member_setting.list_field。
  */
 
 defined('IN_CMS') or exit('No permission resources.');
@@ -15,27 +16,22 @@ class MY_member extends member {
     public function __construct() {
         parent::__construct();
 
-        $member_reflection = new ReflectionClass('member');
-        $cache_property = $member_reflection->getProperty('member_cache');
-        $cache_property->setAccessible(true);
-        $member_cache = $cache_property->getValue($this);
-
         $userid = intval(param::get_session('userid'));
         $username = (string)param::get_session('username');
-        $legacy_config = is_array($member_cache) && isset($member_cache['list_field']) ? $member_cache['list_field'] : array();
 
         $list_view = new list_view(
             member_list_view::scene('list'),
             member_list_view::candidates('list'),
             $userid,
-            $username,
-            $legacy_config
+            $username
         );
 
-        // legacy member.php 使用父类 private $list_field，这里仅做运行时兼容注入。
-        $field_property = $member_reflection->getProperty('list_field');
-        $field_property->setAccessible(true);
-        $field_property->setValue($this, $list_view->getVisible());
+        // legacy member.php 的 $list_field 是 private，MY_ 扩展无法直接赋值。
+        // 这里仅作为旧控制器运行时桥接，不读取旧 member_setting.list_field。
+        $reflection = new ReflectionClass('member');
+        $property = $reflection->getProperty('list_field');
+        $property->setAccessible(true);
+        $property->setValue($this, $list_view->getVisible());
     }
 }
 ?>
