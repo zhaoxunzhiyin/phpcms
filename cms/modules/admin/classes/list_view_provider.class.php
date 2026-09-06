@@ -26,20 +26,21 @@ class list_view_provider {
         if (!$parsed) {
             return false;
         }
-
         $module = $parsed['module'];
         $scope = $parsed['scope'];
         $class = $module . '_list_view';
-
-        if (!self::module_exists($module)) {
+		
+		//module_exists内置函数global.func.php
+        if (!module_exists($module)) {
             return false;
         }
-
+		
+		
         pc_base::load_app_class($class, $module, 0);
         if (!class_exists($class) || !method_exists($class, 'candidates')) {
             return false;
         }
-
+		
         $candidates = call_user_func(array($class, 'candidates'), $scope);
         return is_array($candidates) ? $candidates : false;
     }
@@ -57,13 +58,6 @@ class list_view_provider {
             'module' => strtolower($matches[1]),
             'scope' => strtolower($matches[2]),
         );
-    }
-
-    /**
-     * 只允许加载真实存在的模块目录，避免根据用户输入任意加载类。
-     */
-    private static function module_exists($module) {
-        return is_dir(PHPCMS_PATH . 'modules' . DIRECTORY_SEPARATOR . $module);
     }
 }
 ?>
