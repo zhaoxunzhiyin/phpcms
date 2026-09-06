@@ -89,7 +89,7 @@ class member_setting extends admin {
 			}
 
 			$list_view = $this->get_list_view();
-			$data['setting']['list_field'] = $list_view->getConfig();
+			$data['setting']['list_field'] = $list_view->getAll();
 			$page = intval($this->input->get('page'));
 			$field = $list_view->getAll();
 			include $this->admin_tpl('member_setting');
