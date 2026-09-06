@@ -80,7 +80,7 @@ class admin {
 			$result = array_merge($result2,$result);
 		}
 		//权限检查
-		if(cleck_admin(param::get_session('roleid'))) return $result;
+		if(check_admin(param::get_session('roleid'))) return $result;
 		$array = array();
 		$privdb = pc_base::load_model('admin_role_priv_model');
 		$siteid = param::get_cookie('siteid');
