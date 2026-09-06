@@ -6,8 +6,6 @@
 defined('IN_CMS') or exit('No permission resources.');
 pc_base::load_app_class('admin', 'admin', 0);
 pc_base::load_sys_class('format', '', 0);
-pc_base::load_app_class('member_list_view', 'member');
-pc_base::load_sys_class('list_view', '', 0);
 
 class member_setting extends admin {
 	
@@ -22,18 +20,13 @@ class member_setting extends admin {
 		$this->cache_api = pc_base::load_app_class('cache_api', 'admin');
 	}
 
-	private function get_list_view($legacy_config = array()) {
-		return new list_view(member_list_view::scene(), member_list_view::candidates(), 0, '0', $legacy_config);
-	}
-
 	/**
-	 * member list
+	 * member setting
 	 */
 	function manage() {
 		$show_header = $show_validator = true;
 		if(IS_AJAX_POST) {
 			$member_setting = $this->input->post('info');
-			$setting = $this->input->post('setting');
 			$member_setting['allowregister'] = intval($member_setting['allowregister']);
 			$member_setting['choosemodel'] = intval($member_setting['choosemodel']);
 			$member_setting['enablemailcheck'] = intval($member_setting['enablemailcheck']);
@@ -41,17 +34,8 @@ class member_setting extends admin {
 			$member_setting['showapppoint'] = intval($member_setting['showapppoint']);
 			$member_setting['showregprotocol'] = intval($member_setting['showregprotocol']);
 
-			$list_view = $this->get_list_view(isset($member_setting['list_field']) ? $member_setting['list_field'] : array());
-			$list_field = isset($setting['list_field']) && is_array($setting['list_field']) ? $setting['list_field'] : array();
-			$list_field = dr_list_field_order($list_field);
-			$validate = $list_view->validate($list_field);
-			if (!$validate['code']) {
-				dr_json(0, $validate['msg']);
-			}
-			$list_view->save($list_field, 0, '0');
-
-			// 保留旧 member_setting.list_field，兼容尚未切换到 ListView 的代码。
-			$member_setting['list_field'] = $list_view->getVisible();
+			// 列表字段已经由通用 ListView 管理，不再写入 member_setting.list_field。
+			unset($member_setting['list_field']);
 
 			if (!preg_match('/^\\d{1,8}$/i', $member_setting['rmb_point_rate'])) {
 				dr_json(0, L('rmb_point_rate').L('between_1_to_8_num'), array('field' => 'rmb_point_rate'));
@@ -88,10 +72,12 @@ class member_setting extends admin {
 				$sms_disabled = 1;
 			}
 
-			$list_view = $this->get_list_view(isset($member_setting['list_field']) ? $member_setting['list_field'] : array());
-			$data['setting']['list_field'] = $list_view->getAll();
+			// 列表字段不再从 member_setting 读取。
+			unset($data['setting']['list_field']);
 			$page = intval($this->input->get('page'));
-			$field = $list_view->getAll();
+			if ($page == 4) {
+				$page = 0;
+			}
 			include $this->admin_tpl('member_setting');
 		}
 
@@ -125,14 +111,6 @@ class member_setting extends admin {
 		);
 
 		include $this->admin_tpl('member_pattern');exit;
-	}
-
-	/**
-	 * 会员内置字段
-	 * 保留旧接口，字段定义统一由 member_list_view 提供。
-	 */
-	public function member_list_field() {
-		return member_list_view::candidates();
 	}
 }
 ?>
