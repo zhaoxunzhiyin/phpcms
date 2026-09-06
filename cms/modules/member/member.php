@@ -11,10 +11,12 @@ pc_base::load_app_class('admin', 'admin', 0);
 pc_base::load_sys_class('format', '', 0);
 pc_base::load_sys_class('form', '', 0);
 pc_base::load_app_func('util', 'content');
+pc_base::load_app_class('member_list_view', 'member', 0);
+pc_base::load_sys_class('list_view', '', 0);
 
 class member extends admin {
 	
-	private $input, $cache, $db, $member_login_db, $module_db, $member_cache, $list_field, $verify_db;
+	private $input, $cache, $db, $member_login_db, $verify_db;
 	
 	function __construct() {
 		parent::__construct();
@@ -22,9 +24,6 @@ class member extends admin {
 		$this->cache = pc_base::load_sys_class('cache');
 		$this->db = pc_base::load_model('member_model');
 		$this->member_login_db = pc_base::load_model('member_login_model');
-		$this->module_db = pc_base::load_model('module_model');
-		$this->member_cache = getcache('member_setting', 'member');
-		$this->list_field = $this->member_cache['list_field'];
 	}
 
 	/**
@@ -188,60 +187,17 @@ class member extends admin {
 		$page = $this->input->get('page') ? intval($this->input->get('page')) : 1;
 		$memberlist = $this->db->listinfo(($where ? implode(' AND ', $where) : ''), $this->input->get('order') ? $this->input->get('order') : 'userid DESC', $page, SYS_ADMIN_PAGESIZE);
 		$pages = $this->db->pages;
-		$list_field = $this->list_field;
-		if (!$list_field) {
-			$list_field = array (
-				'avatar' =>
-					array (
-						'use' => '1',
-						'name' => '头像',
-						'width' => '60',
-						'func' => 'avatar',
-					),
-				'username' =>
-					array (
-						'use' => '1',
-						'name' => '账号',
-						'width' => '110',
-						'func' => 'author',
-					),
-				'nickname' =>
-					array (
-						'use' => '1',
-						'name' => '昵称',
-						'width' => '120',
-						'func' => '',
-					),
-				'amount' =>
-					array (
-						'use' => '1',
-						'name' => '余额',
-						'width' => '120',
-						'func' => 'money',
-					),
-				'point' =>
-					array (
-						'use' => '1',
-						'name' => '积分',
-						'width' => '120',
-						'func' => 'score',
-					),
-				'regip' =>
-					array (
-						'use' => '1',
-						'name' => '注册IP',
-						'width' => '140',
-						'func' => 'ip',
-					),
-				'regdate' =>
-					array (
-						'use' => '1',
-						'name' => '注册时间',
-						'width' => '160',
-						'func' => 'datetime',
-					),
-			);
-		}
+		
+		$userid = intval(param::get_session('userid'));
+        $username = (string)param::get_cookie('admin_username');
+        $list_view = new list_view(
+            member_list_view::scene('list'),
+            member_list_view::candidates('list'),
+            $userid,
+            $username
+        );
+		$list_field = $list_view->getVisible();
+		
 		$clink = module_clink('member', 'member');
 		$foot_tpl = '';
 		$foot_tpl .= '<label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline"><input type="checkbox" class="group-checkable" data-set=".checkboxes" /><span></span></label>'.PHP_EOL;
