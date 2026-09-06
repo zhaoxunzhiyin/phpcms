@@ -34,9 +34,6 @@ class member_setting extends admin {
 			$member_setting['showapppoint'] = intval($member_setting['showapppoint']);
 			$member_setting['showregprotocol'] = intval($member_setting['showregprotocol']);
 
-			// 列表字段已经由通用 ListView 管理，不再写入 member_setting.list_field。
-			unset($member_setting['list_field']);
-
 			if (!preg_match('/^\\d{1,8}$/i', $member_setting['rmb_point_rate'])) {
 				dr_json(0, L('rmb_point_rate').L('between_1_to_8_num'), array('field' => 'rmb_point_rate'));
 			}
@@ -72,8 +69,6 @@ class member_setting extends admin {
 				$sms_disabled = 1;
 			}
 
-			// 列表字段不再从 member_setting 读取。
-			unset($data['setting']['list_field']);
 			$page = intval($this->input->get('page'));
 			if ($page == 4) {
 				$page = 0;
