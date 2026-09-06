@@ -14,12 +14,14 @@ class list_view {
     private $userid;
     private $username;
     private $model;
+    private $legacyConfig;
 
-    public function __construct($scene, $candidates, $userid = 0, $username = '') {
+    public function __construct($scene, $candidates, $userid = 0, $username = '', $legacyConfig = array()) {
         $this->scene = trim($scene);
         $this->candidates = is_array($candidates) ? $candidates : array();
         $this->userid = intval($userid);
         $this->username = (string)$username;
+        $this->legacyConfig = is_array($legacyConfig) ? $legacyConfig : array();
         $this->model = pc_base::load_model('list_view_config_model');
     }
 
@@ -29,7 +31,13 @@ class list_view {
 
     public function getConfig() {
         $default = $this->load(0);
-        $config = $default ? $default : $this->buildDefault();
+        if ($default) {
+            $config = $default;
+        } elseif ($this->legacyConfig) {
+            $config = $this->legacyConfig;
+        } else {
+            $config = $this->buildDefault();
+        }
 
         if ($this->userid > 0) {
             $user = $this->load($this->userid);
