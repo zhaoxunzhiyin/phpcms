@@ -7,6 +7,7 @@ defined('IN_CMS') or exit('No permission resources.');
 pc_base::load_app_class('admin', 'admin', 0);
 pc_base::load_sys_class('format', '', 0);
 pc_base::load_app_class('member_list_view', 'member');
+pc_base::load_sys_class('list_view', '', 0);
 
 class member_setting extends admin {
 	
@@ -21,12 +22,8 @@ class member_setting extends admin {
 		$this->cache_api = pc_base::load_app_class('cache_api', 'admin');
 	}
 
-	/**
-	 * 获取会员列表视图配置对象。
-	 */
 	private function get_list_view() {
-		$list_view = pc_base::load_sys_class('list_view');
-		return new $list_view(member_list_view::scene(), member_list_view::candidates(), 0, '0');
+		return new list_view(member_list_view::scene(), member_list_view::candidates(), 0, '0');
 	}
 
 	/**
