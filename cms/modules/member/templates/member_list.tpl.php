@@ -61,6 +61,7 @@ jQuery(document).ready(function() {
                 </div>
                 <div class="col-md-12 col-sm-12">
                 <label><button type="submit" class="btn blue btn-sm onloading" name="submit"> <i class="fa fa-search"></i> <?php echo L('search')?></button></label>
+                <label><button type="button" class="btn default btn-sm" onclick="list_view_config();"> <i class="fa fa-columns"></i> 列表字段</button></label>
                 </div>
 </form>
 </div>
@@ -134,6 +135,9 @@ jQuery(document).ready(function() {
 </div>
 <script type="text/javascript">
 <!--
+function list_view_config() {
+    artdialog('list_view','?m=member&c=member&a=list_view','列表字段设置',820,620);
+}
 function edit(id, name) {
     artdialog('edit','?m=member&c=member&a=edit&userid='+id,'<?php echo L('edit').L('member')?>《'+name+'》',700,500);
 }
