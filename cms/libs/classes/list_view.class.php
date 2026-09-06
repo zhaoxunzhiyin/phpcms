@@ -3,6 +3,7 @@
  * 通用列表视图配置
  *
  * 业务类负责 candidates 定义，本类负责默认配置、用户配置、校验、排序及保存。
+ * 用户配置只保存显示偏好，不保存业务字段元数据。
  */
 
 defined('IN_CMS') or exit('No permission resources.');
@@ -93,12 +94,6 @@ class list_view {
             if (!isset($this->candidates[$field]) || !is_array($item)) {
                 continue;
             }
-            if (!empty($item['func'])) {
-                $func = trim($item['func']);
-                if (!method_exists(pc_base::load_sys_class('function_list'), $func) && !function_exists($func)) {
-                    return array('code' => 0, 'msg' => L('列表回调函数['.$func.']未定义'));
-                }
-            }
         }
 
         return array('code' => 1, 'msg' => '');
@@ -145,10 +140,16 @@ class list_view {
         if ($userid <= 0) {
             return false;
         }
-        return $this->model->delete(array(
+
+        $row = $this->model->get_one(array(
             'scene' => $this->scene,
             'userid' => $userid,
         ));
+        if (!$row) {
+            return true;
+        }
+
+        return $this->model->delete(array('id' => $row['id'])) !== false;
     }
 
     private function buildDefault() {
@@ -186,7 +187,7 @@ class list_view {
                 'order' => isset($item['order']) ? intval($item['order']) : $order,
             );
 
-            foreach (array('width', 'center', 'func', 'name') as $key) {
+            foreach (array('width', 'center') as $key) {
                 if (array_key_exists($key, $item)) {
                     $result[$field][$key] = $item[$key];
                 }
@@ -239,7 +240,7 @@ class list_view {
         $candidate = $this->candidates[$field];
         $result = $candidate;
 
-        foreach (array('use', 'order', 'width', 'center', 'func', 'name') as $key) {
+        foreach (array('use', 'order', 'width', 'center') as $key) {
             if (array_key_exists($key, $item)) {
                 $result[$key] = $item[$key];
             }
