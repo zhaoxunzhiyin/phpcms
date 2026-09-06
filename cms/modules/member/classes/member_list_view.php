@@ -22,6 +22,8 @@ class member_list_view {
                 'formtype' => 'text',
                 'field' => 'avatar',
                 'setting' => array(),
+                'width' => '60',
+                'func' => 'avatar',
                 'required' => true,
             ),
             'userid' => array(
@@ -42,6 +44,8 @@ class member_list_view {
                 'formtype' => 'text',
                 'field' => 'username',
                 'setting' => array(),
+                'width' => '110',
+                'func' => 'author',
                 'required' => true,
             ),
             'nickname' => array(
@@ -49,6 +53,8 @@ class member_list_view {
                 'formtype' => 'text',
                 'field' => 'nickname',
                 'setting' => array(),
+                'width' => '120',
+                'func' => '',
                 'required' => true,
             ),
             'email' => array(
@@ -68,24 +74,36 @@ class member_list_view {
                 'formtype' => 'text',
                 'field' => 'amount',
                 'setting' => array(),
+                'width' => '120',
+                'func' => 'money',
+                'required' => true,
             ),
             'point' => array(
                 'name' => L('积分'),
                 'formtype' => 'text',
                 'field' => 'point',
                 'setting' => array(),
+                'width' => '120',
+                'func' => 'score',
+                'required' => true,
             ),
             'regip' => array(
                 'name' => L('注册IP'),
                 'formtype' => 'text',
                 'field' => 'regip',
                 'setting' => array(),
+                'width' => '140',
+                'func' => 'ip',
+                'required' => true,
             ),
             'regdate' => array(
                 'name' => L('注册时间'),
                 'formtype' => 'text',
                 'field' => 'regdate',
                 'setting' => array(),
+                'width' => '160',
+                'func' => 'datetime',
+                'required' => true,
             ),
         );
     }
